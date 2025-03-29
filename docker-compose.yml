@@ -1,0 +1,10 @@
+version: "3.8"
+
+services:
+  web:
+    container_name: ef-frontend
+    build:
+      context: .
+    ports:
+      - "33000:80"
+    restart: unless-stopped
