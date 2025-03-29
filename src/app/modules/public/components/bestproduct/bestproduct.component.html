@@ -1,15 +1,33 @@
-<section class="bg-gradient-to-t from-[#1F7EC2] to-[#FFFFFF] py-12">
-  <div class="container mx-auto px-4">
+<section class="animated-background py-12 relative">
+  <!-- Elementos de fondo animado -->
+  <ul class="circles">
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+  </ul>
+
+  <!-- Contenido de tu componente (se mantiene igual pero con clases adicionales) -->
+  <div class="container mx-auto px-4 relative z-10">
     <!-- Título -->
-    <h2 class="text-3xl text-center font-bold text-[#1F7EC2] mb-8">
+    <h2 class="text-3xl text-center font-bold text-[#1f7ec2] mb-8">
       Nuestro Producto Más Vendido
     </h2>
 
     <!-- Contenedor principal -->
     <div class="flex flex-col md:flex-row items-center justify-between px-4 md:px-8 lg:px-12">
-      <!-- Texto (izquierda en desktop, arriba en móvil) -->
-      <div class="md:w-1/2 text-center md:text-center mb-4 md:mb-0">
-        <h1 class="text-lg text-black md:text-gray-600 mb-4 md:mb-6">
+      <!-- Texto -->
+      <div class="md:w-1/2 text-center md:text-center mb-2 md:mb-0">
+        <h1 class="text-2xl text-gray-800 font-semibold mb-8 md:mb-6">
+          {{ bestProduct.name }}
+        </h1>
+        <h1 class="text-lg text-gray-800 mb-8 md:mb-6">
           {{ bestProduct.shortDesc }}
         </h1>
         <a class="bg-white text-[#1F7EC2] py-2 px-6 rounded-full font-semibold hover:bg-gray-100 transition duration-300">
@@ -17,7 +35,7 @@
         </a>
       </div>
 
-      <!-- Imagen (derecha en desktop, abajo en móvil) -->
+      <!-- Imagen -->
       <div class="md:w-1/2 w-full flex justify-center">
         <img [src]="bestProduct.imageUrl" [alt]="bestProduct.name" class="w-full h-auto max-w-md">
       </div>

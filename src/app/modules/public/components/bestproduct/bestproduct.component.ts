@@ -10,10 +10,10 @@ import {Product} from '../../../../core/models/product.model';
 })
 export class BestproductComponent {
   bestProduct = new Product(
-    'Producto Oncare',
+    'COMPLETT ONCARE',
     'Descripción del producto ejemplo',
     'https://example.com/nutricional',
-    'bestProduct.png',
+    'complettOncare.png',
     true,
     true,
     'Descripción corta del producto ejemplo',

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, ElementRef, HostListener, ViewChild} from '@angular/core';
 import {RouterModule} from '@angular/router';
 
 @Component({
@@ -10,6 +10,7 @@ import {RouterModule} from '@angular/router';
 
 export class NavbarComponent {
   isMenuOpen = false; // Estado del menú
+
 
   // Función para alternar el menú
   toggleMenu() {

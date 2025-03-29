@@ -1,1 +1,81 @@
-<p>about works!</p>
+<!-- Banner superior con efecto parallax -->
+<div class="relative h-[300px] lg:h-[400px] overflow-hidden">
+  <!-- Imagen de fondo fija -->
+  <div class="fixed inset-0 w-full h-full -z-10">
+    <img
+      src="nosotros.png"
+      alt="Imagen de fondo"
+      class="w-full h-full object-cover"
+    />
+    <!-- Capa oscura fija -->
+    <div class="absolute inset-0 bg-black opacity-50"></div>
+  </div>
+
+  <!-- Contenido superpuesto -->
+  <div class="relative z-10 flex items-center justify-center h-full w-full">
+    <h1 class="text-3xl lg:text-5xl font-bold text-white text-center px-4">
+      NOSOTROS
+    </h1>
+  </div>
+</div>
+
+<!-- Sección de contenido normal (se desplaza normalmente) -->
+<div class="bg-white py-12 px-4 sm:px-6 lg:px-8">
+  <div class="max-w-4xl mx-auto">
+    <!-- Sección Visión -->
+    <div class="mb-12">
+      <h2 class="text-xl md:text-3xl font-semibold text-[#1F7EC2] mb-4 border-b-2 border-[#1F7EC2] pb-2">
+        VISIÓN
+      </h2>
+      <p class="text-gray-600 text-lg leading-relaxed">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sed eros nulla. Duis magna nisi, interdum sit amet tincidunt in, dignissim eu odio. Donec vestibulum lacus et accumsan placerat. Ut auctor fringilla nibh, et consectetur sem ornare sit amet. Quisque dictum condimentum felis, eget tempus nisl blandit vel.
+      </p>
+    </div>
+
+    <!-- Sección Misión -->
+    <div class="mb-12">
+      <h2 class="text-xl md:text-3xl font-semibold text-[#1F7EC2] mb-4 border-b-2 border-[#1F7EC2] pb-2 text-right">
+        MISIÓN
+      </h2>
+      <p class="text-gray-600 text-lg leading-relaxed text-right">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sed eros nulla. Duis magna nisi, interdum sit amet tincidunt in, dignissim eu odio. Donec vestibulum lacus et accumsan placerat. Ut auctor fringilla nibh, et consectetur sem ornare sit amet. Quisque dictum condimentum felis, eget tempus nisl blandit vel.
+      </p>
+    </div>
+
+    <!-- Sección Nuestra Historia -->
+    <div class="flex flex-col lg:flex-row gap-8 items-center mt-16">
+      <!-- Texto a la izquierda -->
+      <div class="lg:w-1/2">
+        <h2 class="text-xl md:text-3xl font-semibold text-[#1F7EC2] mb-4 border-b-2 border-[#1F7EC2] pb-2 text-center">
+          NUESTRA HISTORIA
+        </h2>
+        <p class="text-gray-600 text-lg leading-relaxed text-justify">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sed eros nulla. Duis magna nisi, interdum sit amet tincidunt in, dignissim eu odio. Donec vestibulum lacus et accumsan placerat. Ut auctor fringilla nibh, et consectetur sem omare sit amet. Quisque dictum condimentum felis, eget tempus nisl blandit vel. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sed eros nulla. Duis magna nisi, interdum sit amet tincidunt in, dignissim eu odio.
+        </p>
+      </div>
+
+      <!-- Imagen a la derecha -->
+      <div class="lg:w-1/2">
+        <img
+          src="history.png"
+          alt="Nuestra historia"
+          class="w-full h-auto rounded-lg shadow-lg object-cover"
+        >
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Sección "¿Por qué Nosotros?" con diseño normal (sin parallax) -->
+<div class="relative h-[300px] lg:h-[400px] w-full bg-[#1F7EC2]">
+  <div class="absolute inset-0 flex flex-col items-center justify-center text-center px-4">
+    <h2 class="text-3xl lg:text-4xl font-bold text-white mb-6">
+      ¿Por qué Nosotros?
+    </h2>
+    <p class="text-gray-200 text-lg leading-relaxed max-w-2xl">
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sed eros nulla. Duis magna nisi, interdum sit amet tincidunt in, dignissim eu odio. Donec vestibulum lacus et accumsan placerat. Ut auctor fringilla nibh, et consectetur sem ornare sit amet. Quisque dictum condimentum felis, eget tempus nisl blandit vel.
+    </p>
+  </div>
+</div>
+
+<app-distributors></app-distributors>
