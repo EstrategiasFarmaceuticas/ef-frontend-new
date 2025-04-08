@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import {Category} from '../../../../core/models/category.model';
-import {Product} from '../../../../core/models/product.model';
+import {Category} from '../../../../core/models/categories/category.model';
+import {Product} from '../../../../core/models/products/product.model';
 
 @Component({
   selector: 'app-bestproduct',

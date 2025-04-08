@@ -2,11 +2,11 @@
 import { NgForOf } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import {AfterViewInit, Component} from '@angular/core';
-import {Category} from '../../../../core/models/category.model';
+import {Category} from '../../../../core/models/categories/category.model';
 
 
 @Component({
-  selector: 'app-categories',
+  selector: 'app-categoriesAdmin',
   standalone: true,
   imports: [NgForOf, RouterLink],
   templateUrl: './categories.component.html',

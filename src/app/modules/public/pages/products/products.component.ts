@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import {Product} from '../../../../core/models/product.model';
+import {Product} from '../../../../core/models/products/product.model';
 import {CommonModule, NgForOf} from '@angular/common';
 import {CategoriesComponent} from '../../components/categories/categories.component';
 import {DistributorsComponent} from '../../components/distributors/distributors.component';
 
 @Component({
-  selector: 'app-products',
+  selector: 'app-productsAdmin',
   imports: [
     NgForOf,
     CommonModule,
