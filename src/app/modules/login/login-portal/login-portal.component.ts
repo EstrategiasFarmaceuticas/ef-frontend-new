@@ -17,6 +17,6 @@ export class LoginPortalComponent {
   })
 
   onSubmit(): void {
-    
+
   }
 }
