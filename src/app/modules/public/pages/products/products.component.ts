@@ -5,11 +5,10 @@ import {CategoriesComponent} from '../../components/categories/categories.compon
 import {DistributorsComponent} from '../../components/distributors/distributors.component';
 
 @Component({
-  selector: 'app-productsAdmin',
+  selector: 'app-products',
   imports: [
     NgForOf,
     CommonModule,
-    CategoriesComponent,
     DistributorsComponent
   ],
   templateUrl: './products.component.html'

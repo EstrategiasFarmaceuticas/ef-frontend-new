@@ -6,7 +6,7 @@ import {Category} from '../../../../core/models/categories/category.model';
 
 
 @Component({
-  selector: 'app-categoriesAdmin',
+  selector: 'app-categories',
   standalone: true,
   imports: [NgForOf, RouterLink],
   templateUrl: './categories.component.html',
