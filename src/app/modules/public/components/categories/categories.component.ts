@@ -1,27 +1,49 @@
 
-import { NgForOf } from '@angular/common';
+import {NgForOf, NgIf} from '@angular/common';
 import { RouterLink } from '@angular/router';
-import {AfterViewInit, Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Category} from '../../../../core/models/categories/category.model';
-
+import {CategoriesService} from '../../../../core/services/categories/categories.service';
+import {HttpClientModule} from '@angular/common/http';
 
 @Component({
   selector: 'app-categories',
   standalone: true,
-  imports: [NgForOf, RouterLink],
+  imports: [NgForOf, RouterLink, NgIf,HttpClientModule],
   templateUrl: './categories.component.html',
   styleUrl: './categories.component.css',
 })
-export class CategoriesComponent implements AfterViewInit {
+export class CategoriesComponent implements OnInit {
 
-  categorias = [
-    new Category('Diabetes','/diabetes','categoriaKiks.jpg', true, new Date()),
-    new Category('Cancer', '/cancer','categoriaOncologic.jpg', true, new Date()),
+  categories: Category[] = [];
+  isLoading = true;
+  error: string | null = null;
 
-  ];
+  constructor(private categoriesService: CategoriesService) {}
 
-  ngAfterViewInit() {
-    // Elimina el código de animaciones si no lo necesitas
+  ngOnInit(): void {
+    this.loadCategories();
+  }
+
+  loadCategories(): void {
+    this.isLoading = true;
+    this.error = null;
+
+    this.categoriesService.getCategories().subscribe({
+      next: (page) => {
+        this.categories = page.content.map(category => ({
+          ...category,
+          // Aquí transformamos el path de la imagen en una URL completa
+          imageUrl: this.categoriesService.getCategoryImageUrl(category.imageUrl)
+        }));
+        this.isLoading = false;
+      },
+      error: (err) => {
+        this.error = 'Failed to load categories. Please try again later.';
+        this.isLoading = false;
+        console.error('Error loading categories:', err);
+      }
+    });
   }
 
 }

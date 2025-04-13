@@ -10,28 +10,41 @@
       All of our products are clinically supported and provide cost-effective solutions to address over 20 common conditions. Most importantly, the products deliver the outcomes you desire for your patients and improve both staff and patient dignity without the use of unnecessary medications.
     </p>
 
+    <!-- Loading State -->
+    <div *ngIf="isLoading" class="flex justify-center items-center h-48">
+      <div class="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
+    </div>
+
+    <!-- Error State -->
+    <div *ngIf="error && !isLoading" class="text-center text-red-500 p-4">
+      {{ error }}
+      <button (click)="loadCategories()" class="ml-2 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
+        Retry
+      </button>
+    </div>
+
     <!-- Grilla de Categorías -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+    <div *ngIf="!isLoading && !error" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
       <!-- Iterar sobre las categorías -->
       <a
-        *ngFor="let categoria of categorias"
-        [routerLink]="categoria.route"
+        *ngFor="let category of categories"
+        [routerLink]="['/products', category.name.toLowerCase()]"
         class="relative h-48 rounded-lg overflow-hidden shadow-md hover:shadow-lg transition duration-200 transform hover:scale-105"
       >
         <!-- Imagen de Fondo -->
         <img
-          [src]="categoria.imageUrl"
-          [alt]="categoria.name"
+          ngSrc="category.imageUrl"
+          [alt]="category.name"
           class="absolute inset-0 w-full h-full object-cover transition-transform duration-200 transform hover:scale-110"
         />
 
-        <!-- Capa Semi-Transparente (más ligera) -->
+        <!-- Capa Semi-Transparente -->
         <div class="absolute inset-0 bg-black opacity-50"></div>
 
         <!-- Nombre de la Categoría -->
         <div class="absolute inset-0 flex items-center justify-center">
           <span class="text-xl font-semibold text-white text-center px-4 py-2 rounded-lg">
-            {{ categoria.name }}
+            {{ category.name }}
           </span>
         </div>
       </a>

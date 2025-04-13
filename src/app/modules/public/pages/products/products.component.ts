@@ -9,7 +9,8 @@ import {DistributorsComponent} from '../../components/distributors/distributors.
   imports: [
     NgForOf,
     CommonModule,
-    DistributorsComponent
+    DistributorsComponent,
+    CategoriesComponent
   ],
   templateUrl: './products.component.html'
 })
