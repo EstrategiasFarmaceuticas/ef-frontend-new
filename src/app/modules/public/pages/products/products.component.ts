@@ -1,93 +1,56 @@
-import { Component } from '@angular/core';
-import {Product} from '../../../../core/models/products/product.model';
-import {CommonModule, NgForOf} from '@angular/common';
-import {CategoriesComponent} from '../../components/categories/categories.component';
-import {DistributorsComponent} from '../../components/distributors/distributors.component';
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { CategoriesComponent } from '../../components/categories/categories.component';
+import { DistributorsComponent } from '../../components/distributors/distributors.component';
+import { ProductsService } from '../../../../core/services/products/products.service';
+import { Product } from '../../../../core/models/products/product.model';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-products',
+  standalone: true,
   imports: [
-    NgForOf,
     CommonModule,
+    RouterModule,
     DistributorsComponent,
     CategoriesComponent
   ],
   templateUrl: './products.component.html'
 })
-export class ProductsComponent {
-  products: Product[] = [
-    new Product(
-      'Complett Mom',
-      'The Inner Period, for Location of Greece, Wounda',
-      'nutrition-facts-argilment.pdf',
-      'bestProduct.png',
-      true,
-      true,
-      'A Medical Food with 5.7% fresh milk supply system',
-      new Date()
-    ),
-    new Product(
-      'Complett Oncare',
-      'Controls diarrhea naturally',
-      'nutrition-facts-banatrol.pdf',
-      'complettOncare.png',
-      true,
-      true,
-      'A Medical Food with specific food supply system',
-      new Date()
-    ),
-    new Product(
-      'Complett Kids',
-      'Enhanced formula for diarrhea control',
-      'nutrition-facts-banatrol-plus.pdf',
-      'complettKids.png',
-      true,
-      true,
-      'Controls the length of time and severity of diarrhea naturally',
-      new Date()
-    ),
+export class ProductsComponent implements OnInit {
+  products: Product[] = [];
+  isLoading = true;
+  error: string | null = null;
 
-    new Product(
-      'Glutapro-Bio',
-      'Enhanced formula for diarrhea control',
-      'nutrition-facts-banatrol-plus.pdf',
-      'glutaproBio.png',
-      true,
-      true,
-      'Controls the length of time and severity of diarrhea naturally',
-      new Date()
-    ),
-    new Product(
-      'Complett Recover',
-      'Enhanced formula for diarrhea control',
-      'nutrition-facts-banatrol-plus.pdf',
-      'complettRecover.png',
-      true,
-      true,
-      'Controls the length of time and severity of diarrhea naturally',
-      new Date()
-    ),
-    new Product(
-      'Complett Espesannte',
-      'Enhanced formula for diarrhea control',
-      'nutrition-facts-banatrol-plus.pdf',
-      'complettEspesante.png',
-      true,
-      true,
-      'Controls the length of time and severity of diarrhea naturally',
-      new Date()
-    ),
-    new Product(
-      'Complett Protein',
-      'Enhanced formula for diarrhea control',
-      'nutrition-facts-banatrol-plus.pdf',
-      'complettProtein.png',
-      true,
-      true,
-      'Controls the length of time and severity of diarrhea naturally',
-      new Date()
-    ),
+  constructor(private productsService: ProductsService) {}
 
-  ];
+  ngOnInit(): void {
+    this.loadProducts();
+  }
 
+  loadProducts(): void {
+    this.isLoading = true;
+    this.error = null;
+
+    this.productsService.getProductsByName().subscribe({
+      next: (page) => {
+        this.products = page.content.map(product => ({
+          ...product,
+          imageUrl: this.productsService.getProductImageUrl(product.imageUrl),
+          slug: this.createSlug(product.name) // Añadimos esta propiedad
+        }));
+        this.isLoading = false;
+      },
+      error: (err) => {
+        this.error = 'Failed to load products. Please try again later.';
+        this.isLoading = false;
+        console.error('Error loading products:', err);
+      }
+    });
+  }
+
+  // Método para crear el slug del producto
+  createSlug(name: string): string {
+    return name.toLowerCase().replace(/\s+/g, '-');
+  }
 }

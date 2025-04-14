@@ -21,8 +21,24 @@
   </div>
 </div>
 
+<!-- Loading State -->
+<div *ngIf="isLoading" class="bg-white py-12 flex justify-center">
+  <div class="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
+</div>
+
+<!-- Error State -->
+<div *ngIf="error && !isLoading" class="bg-white py-12 text-center">
+  <p class="text-red-500 mb-4">{{ error }}</p>
+  <button
+    (click)="loadProducts()"
+    class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition"
+  >
+    Try Again
+  </button>
+</div>
+
 <!-- Contenido normal (se desplaza normalmente) -->
-<div class="bg-white">
+<div *ngIf="!isLoading && !error" class="bg-white">
   <div class="container mx-auto lg:px-12 py-8">
     <!-- Grid de productos - Centrado -->
     <div class="flex flex-wrap justify-center -mx-3">
@@ -39,7 +55,8 @@
             <div class="bg-white p-2 flex justify-center w-full" style="min-height: 180px;">
               <img [src]="product.imageUrl" [alt]="product.name"
                    class="h-full w-auto object-contain hover:scale-105 transition-transform duration-300
-                          max-h-[230px] sm:max-h-none">
+            max-h-[230px] sm:max-h-none"
+                   [routerLink]="['/product', product.name]">
             </div>
 
             <!-- Texto -->
@@ -57,5 +74,6 @@
     </div>
   </div>
 </div>
+
 <app-categories></app-categories>
 <app-distributors></app-distributors>
