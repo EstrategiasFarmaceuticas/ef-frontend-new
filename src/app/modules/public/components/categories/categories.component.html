@@ -11,43 +11,54 @@
     </p>
 
     <!-- Loading State -->
-    <div *ngIf="isLoading" class="flex justify-center items-center h-48">
-      <div class="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
-    </div>
+    @if (isLoading) {
+      <div class="text-center py-10">
+        <div class="inline-block animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-blue-500 mb-2"></div>
+        <p class="text-gray-600">Cargando categorías...</p>
+      </div>
+    }
 
-    <!-- Error State -->
-    <div *ngIf="error && !isLoading" class="text-center text-red-500 p-4">
-      {{ error }}
-      <button (click)="loadCategories()" class="ml-2 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
-        Retry
-      </button>
-    </div>
+    <!-- Empty State -->
+    @if (!isLoading && categories.length === 0) {
+      <div class="text-center py-10">
+        <p class="text-gray-600">No se encontraron categorías</p>
+      </div>
+    }
 
-    <!-- Grilla de Categorías -->
-    <div *ngIf="!isLoading && !error" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-      <!-- Iterar sobre las categorías -->
-      <a
-        *ngFor="let category of categories"
-        [routerLink]="['/products', category.name.toLowerCase()]"
-        class="relative h-48 rounded-lg overflow-hidden shadow-md hover:shadow-lg transition duration-200 transform hover:scale-105"
-      >
-        <!-- Imagen de Fondo -->
-        <img
-          ngSrc="category.imageUrl"
-          [alt]="category.name"
-          class="absolute inset-0 w-full h-full object-cover transition-transform duration-200 transform hover:scale-110"
-        />
+    <!-- Categories Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+      @for (category of categories; track category.name) {
+        <button
+          (click)="selectCategory(category)"
+          class="relative h-48 rounded-lg overflow-hidden shadow-md hover:shadow-lg transition duration-200 transform hover:scale-105 group focus:outline-none"
+          [attr.aria-label]="'Ver productos de ' + category.name"
+        >
+          <!-- Category Image -->
+          @if (category.imageUrl) {
+            <img
+              [src]="category.imageUrl"
+              [alt]="category.name"
+              class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+              (error)="handleImageError($event)"
+            />
+          } @else {
+            <div class="absolute inset-0 bg-gradient-to-br from-gray-200 to-gray-300 flex items-center justify-center">
+              <span class="text-gray-500 text-sm font-medium">Imagen no disponible</span>
+            </div>
+          }
 
-        <!-- Capa Semi-Transparente -->
-        <div class="absolute inset-0 bg-black opacity-50"></div>
+          <!-- Overlay -->
+          <div class="absolute inset-0 bg-black/40 group-hover:bg-black/30 transition-all duration-300"></div>
 
-        <!-- Nombre de la Categoría -->
-        <div class="absolute inset-0 flex items-center justify-center">
-          <span class="text-xl font-semibold text-white text-center px-4 py-2 rounded-lg">
-            {{ category.name }}
-          </span>
-        </div>
-      </a>
+          <!-- Category Info -->
+          <div class="absolute inset-0 flex flex-col items-center justify-center p-4 text-center">
+            <h3 class="text-xl font-semibold text-white mb-1 drop-shadow-md">{{ category.name }}</h3>
+            <span class="text-white/90 text-sm drop-shadow-md group-hover:text-white transition-colors">
+          Ver productos
+        </span>
+          </div>
+        </button>
+      }
     </div>
   </div>
 </div>

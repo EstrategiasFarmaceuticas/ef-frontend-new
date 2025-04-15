@@ -1,10 +1,8 @@
 import { Injectable } from '@angular/core';
 import {GeneralVariables} from '../../../modules/generalVariables';
 import {HttpClient, HttpParams} from '@angular/common/http';
-import {Category} from '../../models/categories/category.model';
+import {CategoryResponse} from '../../models/categories/category.model';
 import {Observable} from 'rxjs';
-import {Page} from '../../models/page';
-import {StorageService} from '../storageService/storage.service';
 
 @Injectable({
   providedIn: 'root'
@@ -16,23 +14,22 @@ export class CategoriesService {
 
   constructor(
     private http: HttpClient,
-    private storageService: StorageService
   ) { }
 
-  getCategories(
+  searchCategories(
     search: string = '',
+    status: boolean = true,
+    bothStatus: boolean = false,
     page: number = 0,
     size: number = 12
-  ): Observable<Page<Category>> {
+  ): Observable<CategoryResponse> {
     const params = new HttpParams()
       .set('search', search)
+      .set('status', String(status))
+      .set('bothStatus', String(bothStatus))
       .set('index', String(page))
       .set('size', String(size));
 
-    return this.http.get<Page<Category>>(`${this.apiUrl}/search`, { params });
-  }
-
-  getCategoryImageUrl(imagePath: string): string {
-    return this.storageService.getFileUrl(imagePath);
+    return this.http.get<CategoryResponse>(`${this.apiUrl}/search`, { params });
   }
 }

@@ -53,6 +53,6 @@ export class ProductsService {
   }
 
   getProductImageUrl(imagePath: string): string {
-    return this.storageService.getFileUrl(imagePath);
+    return this.storageService.getFile(imagePath);
   }
 }
