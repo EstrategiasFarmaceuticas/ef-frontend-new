@@ -1,7 +1,7 @@
 export interface Category {
   name: string;
-  route: string;
   imageUrl: string;
+  description: string;
   enableStatus: boolean;
   creationDate: Date;
 }

@@ -1,22 +1,19 @@
 import {Component, OnInit} from '@angular/core';
 import {Product} from '../../../../../core/models/products/product.model';
 import {ProductsService} from '../../../../../core/services/products/products.service';
-import {CategoriesComponent} from '../categories.component';
-import {DistributorsComponent} from '../../distributors/distributors.component';
-import {NgForOf, NgIf} from '@angular/common';
-import {StorageService} from '../../../../../core/services/storageService/storage.service';
 
 import {Category} from '../../../../../core/models/categories/category.model';
-import {ActivatedRoute, Router, RouterLink} from '@angular/router';
+import {Router, RouterLink} from '@angular/router';
+import {CategoriesComponent} from '../categories.component';
+import {DistributorsComponent} from '../../distributors/distributors.component';
 
 @Component({
   selector: 'app-call-to-categories',
   imports: [
     CategoriesComponent,
     DistributorsComponent,
-    NgForOf,
-    NgIf,
     RouterLink
+
   ],
   templateUrl: './call-to-categories.component.html'
 })
@@ -29,8 +26,6 @@ export class CallToCategoriesComponent implements OnInit {
   constructor(
     private productsService: ProductsService,
     private router: Router,
-    private route: ActivatedRoute,
-    private storageService: StorageService
   ) {
     const navigation = this.router.getCurrentNavigation();
     this.selectedCategory = navigation?.extras.state?.['category'] || null;

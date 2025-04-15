@@ -19,7 +19,6 @@ export class BestproductComponent implements OnInit {
 
   constructor(
     private productsService: ProductsService,
-    private storageService: StorageService
   ) {}
 
   ngOnInit(): void {
