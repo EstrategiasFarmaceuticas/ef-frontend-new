@@ -1,4 +1,4 @@
-FROM node:latest as build
+FROM node:22.14.0 as build
 
 WORKDIR /app
 
@@ -12,10 +12,6 @@ COPY . .
 
 RUN npm run build
 
-FROM nginx:latest
+EXPOSE 4000
 
-COPY ./nginx.conf /etc/nginx/conf.d/default.conf
-
-COPY --from=build /app/dist/ef-frontend-new/browser /usr/share/nginx/html
-
-EXPOSE 80
+CMD [ "npm", "run", "serve:ssr:ef-frontend-new" ]
