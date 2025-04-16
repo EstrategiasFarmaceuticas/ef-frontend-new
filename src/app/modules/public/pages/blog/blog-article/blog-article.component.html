@@ -1,0 +1,23 @@
+<article class="my-10 px-10 mx-auto max-w-3xl font-nunito flex flex-col gap-5">
+  <app-adm-bc-img [data]="article.headerImage"></app-adm-bc-img>
+  <app-adm-bc-title [data]="article.title" [centerText]="true"></app-adm-bc-title>
+  <app-adm-bc-description [data]="article.shortDesc" [centerText]="true "></app-adm-bc-description>
+  <section class="flex flex-col gap-5">
+    @for (section of article.content; track section) {
+      @switch (section.component) {
+        @case (BlogComponentInjectorType.Title) {
+          <app-adm-bc-title [data]="section.data"></app-adm-bc-title>
+        }
+        @case (BlogComponentInjectorType.Subtitle) {
+          <app-adm-bc-subtitle [data]="section.data"></app-adm-bc-subtitle>
+        }
+        @case (BlogComponentInjectorType.Text) {
+          <app-adm-bc-text [data]="section.data"></app-adm-bc-text>
+        }
+        @case (BlogComponentInjectorType.Image) {
+          <app-adm-bc-img [data]="section.data"></app-adm-bc-img>
+        }
+      }
+    }
+  </section>
+</article>

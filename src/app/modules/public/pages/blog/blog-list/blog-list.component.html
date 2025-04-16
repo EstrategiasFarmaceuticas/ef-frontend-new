@@ -1,0 +1,37 @@
+<div class="space-y-8 my-10 px-10">
+  <div class="relative mx-auto max-w-md">
+    <!-- Ícono de búsqueda -->
+    <svg
+      class="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      viewBox="0 0 24 24"
+    >
+      <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 1110.5 3a7.5 7.5 0 016.15 13.65z" />
+    </svg>
+
+    <!-- Campo de búsqueda -->
+    <input
+      type="search"
+      [(ngModel)]="searchQuery"
+      (ngModelChange)="onSearch($event)"
+      placeholder="Search articles..."
+      class="pl-10 w-full border rounded px-3 py-2"
+    />
+  </div>
+
+  @if (articles != null && articles.content.length === 0) {
+    <div class="mt-12 text-center text-slate-500 ">
+      No articles found matching your search.
+    </div>
+  }
+
+  @if (articles != null && articles.content.length > 0) {
+    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      @for (article of articles.content; track article.headerUrl) {
+        <app-article-card [article]="article"></app-article-card>
+      }
+    </div>
+  }
+</div>

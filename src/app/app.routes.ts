@@ -4,6 +4,8 @@ import {StartComponent} from './modules/public/pages/start/start.component';
 import {ProductsComponent} from './modules/public/pages/products/products.component';
 import {AboutComponent} from './modules/public/pages/about/about.component';
 import {BlogComponent} from './modules/public/pages/blog/blog.component';
+import {BlogListComponent} from './modules/public/pages/blog/blog-list/blog-list.component';
+import {BlogArticleComponent} from './modules/public/pages/blog/blog-article/blog-article.component';
 
 export const routes: Routes = [
   {
@@ -11,7 +13,10 @@ export const routes: Routes = [
       {path: '', component: StartComponent},
       {path: 'products', component: ProductsComponent},
       {path: 'about', component: AboutComponent},
-      {path: 'blog', component: BlogComponent},
+      {path: 'blog', component: BlogComponent, children: [
+          {path: '', component: BlogListComponent},
+          {path:':url', component: BlogArticleComponent}
+      ]},
     ]
   }
 ];
