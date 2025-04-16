@@ -4,5 +4,5 @@ services:
     build:
       context: .
     ports:
-      - "4200:4000"
+      - "33000:4000"
     restart: unless-stopped
