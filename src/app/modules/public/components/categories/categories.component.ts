@@ -1,11 +1,11 @@
 
 import {CommonModule} from '@angular/common';
 import {Component, OnInit} from '@angular/core';
-import {Category, CategoryResponse} from '../../../../core/models/categories/category.model';
-import {CategoriesService} from '../../../../core/services/categories/categories.service';
+import {Category, CategoryResponse} from '@model/categories/category.model';
+import {CategoriesService} from '@service/categories/categories.service';
 import {FormsModule} from '@angular/forms';
 import {finalize} from 'rxjs';
-import {StorageService} from '../../../../core/services/storageService/storage.service';
+import {StorageService} from '@service/storageService/storage.service';
 
 import {Router} from '@angular/router';
 

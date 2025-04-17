@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ProductsService } from '../../../../core/services/products/products.service';
-import { Product } from '../../../../core/models/products/product.model';
+import { ProductsService } from '@service/products/products.service';
+import { Product } from '@model/products/product.model';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import {StorageService} from '../../../../core/services/storageService/storage.service';
+
 
 @Component({
   selector: 'app-bestproduct',

@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CategoriesComponent } from '../../components/categories/categories.component';
-import { DistributorsComponent } from '../../components/distributors/distributors.component';
-import { ProductsService } from '../../../../core/services/products/products.service';
-import { Product } from '../../../../core/models/products/product.model';
+import { CategoriesComponent } from '@module/public/components/categories/categories.component';
+import { DistributorsComponent } from '@module/public/components/distributors/distributors.component';
+import { ProductsService } from '@service/products/products.service';
+import { Product } from '@model/products/product.model';
 import { RouterModule } from '@angular/router';
 
 @Component({
