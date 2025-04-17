@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { AdmBcTitleComponent } from './adm-bc-title.component';
+import {AdmBcTitleComponent} from './adm-bc-title.component';
 
 describe('AdmBcTitleComponent', () => {
   let component: AdmBcTitleComponent;

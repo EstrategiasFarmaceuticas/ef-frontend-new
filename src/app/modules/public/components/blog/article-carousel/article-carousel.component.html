@@ -1,0 +1,39 @@
+<div class="relative max-w-4xl mx-auto">
+  @if (articles.length > 0) {
+    <div class="overflow-hidden relative">
+      <div class="flex transition-transform duration-500 ease-in-out"
+           [style.transform]="'translateX(-' + (currentIndex * 100) + '%)'">
+        @for (article of articles; track article.headerUrl) {
+          <div class="w-full flex-shrink-0">
+            <app-article-card [article]="article"></app-article-card>
+          </div>
+        }
+      </div>
+
+      <!-- Navigation Buttons -->
+      <button (click)="prev()"
+              class="absolute left-0 top-1/2 -translate-y-1/2 bg-white/80 p-2 rounded-r shadow-md">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+        </svg>
+      </button>
+
+      <button (click)="next()"
+              class="absolute right-0 top-1/2 -translate-y-1/2 bg-white/80 p-2 rounded-l shadow-md">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+        </svg>
+      </button>
+
+      <!-- Dots Navigation -->
+      <div class="absolute bottom-4 left-1/2 -translate-x-1/2 flex space-x-2">
+        @for (article of articles; track idx; let idx = $index) {
+          <button (click)="goToSlide(idx)"
+                  class="w-2 h-2 rounded-full transition-colors"
+                  [ngClass]="currentIndex === idx ? 'bg-blue-600' : 'bg-gray-300'">
+          </button>
+        }
+      </div>
+    </div>
+  }
+</div>

@@ -1,0 +1,16 @@
+:host {
+  display: block;
+  margin: 2rem 0;
+}
+
+button {
+  transition: opacity 0.2s;
+}
+
+button:hover {
+  opacity: 0.8;
+}
+
+.transition-transform {
+  transition: transform 0.5s ease-in-out;
+}

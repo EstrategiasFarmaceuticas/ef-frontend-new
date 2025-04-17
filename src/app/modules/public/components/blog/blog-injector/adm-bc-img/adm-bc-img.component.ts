@@ -1,6 +1,6 @@
-import {Component, input, output} from '@angular/core';
+import {Component, input} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {StorageService} from '../../../../../../core/services/storageService/storage.service';
+import {StorageService} from '@service/storageService/storage.service';
 
 @Component({
   selector: 'app-adm-bc-img',

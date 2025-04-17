@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { AdmBcImgComponent } from './adm-bc-img.component';
+import {AdmBcImgComponent} from './adm-bc-img.component';
 
 describe('AdmBcImgComponent', () => {
   let component: AdmBcImgComponent;

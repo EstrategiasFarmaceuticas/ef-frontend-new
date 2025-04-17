@@ -28,10 +28,19 @@
   }
 
   @if (articles != null && articles.content.length > 0) {
-    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
+         infiniteScroll
+         [infiniteScrollDistance]="3    "
+         [infiniteScrollThrottle]="50"
+         (scrolled)="loadMore()"
+         [scrollWindow]="true">
       @for (article of articles.content; track article.headerUrl) {
         <app-article-card [article]="article"></app-article-card>
       }
     </div>
   }
+
+  <div
+
+  ></div>
 </div>

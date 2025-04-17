@@ -1,4 +1,4 @@
-import {Component, ElementRef, input, output, ViewChild} from '@angular/core';
+import {Component, input} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 @Component({
