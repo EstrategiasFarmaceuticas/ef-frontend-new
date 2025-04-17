@@ -5,19 +5,19 @@
   "compilerOptions": {
     "paths": {
       "@/*": [
-        "src/app/*"
+        "./src/app/*"
       ],
       "@core/*": [
-        "src/app/core/*"
+        "./src/app/core/*"
       ],
       "@model/*": [
-        "src/app/core/models/*"
+        "./src/app/core/models/*"
       ],
       "@service/*": [
-        "src/app/core/services/*"
+        "./src/app/core/services/*"
       ],
       "@module/*": [
-        "src/app/modules/*"
+        "./src/app/modules/*"
       ]
     },
     "outDir": "./dist/out-tsc",
