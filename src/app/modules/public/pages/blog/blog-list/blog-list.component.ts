@@ -1,39 +1,59 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
 import {FormsModule} from '@angular/forms';
 import {ArticleShortModel} from '../../../../../core/models/article/article.model';
 import {Page} from '../../../../../core/models/page';
 import {ArticleService} from '../../../../../core/services/article/article.service';
 import {ArticleCardComponent} from '../../../components/blog/article-card/article-card.component';
+import {InfiniteScrollDirective} from 'ngx-infinite-scroll';
 
 @Component({
   selector: 'app-blog-list',
   imports: [
     FormsModule,
-    ArticleCardComponent
+    ArticleCardComponent,
+    InfiniteScrollDirective,
   ],
   templateUrl: './blog-list.component.html',
   styleUrl: './blog-list.component.css'
 })
-export class BlogListComponent {
+export class BlogListComponent implements OnInit {
   searchQuery: string = "";
   articles: Page<ArticleShortModel> | null = null;
+  currentPage: number = 0;
+  size: number = 8;
 
-  constructor(private articleService: ArticleService) {
+  constructor(
+    private articleService: ArticleService,
+    private router: Router,
+  ) {
   }
 
-  ngOnInit(){
-    this.articleService.searchArticles().subscribe({
-      next: result => {
-        this.articles = result;
-      }
-    })
+  ngOnInit() {
+    this.loadArticles();
   }
 
   onSearch($event: any) {
-    this.articleService.searchArticles($event).subscribe({
+    this.searchQuery = $event;
+    this.currentPage = 0;
+    this.articles = null;
+    this.loadArticles();
+  }
+
+  loadArticles() {
+    this.articleService.searchArticles(this.searchQuery, true, false, this.currentPage, this.size).subscribe({
       next: result => {
-        this.articles = result;
+        if (this.articles) {
+          this.articles.content = [...this.articles.content, ...result.content];
+        } else {
+          this.articles = result;
+        }
       }
-    })
+    });
+  }
+
+  loadMore() {
+    this.currentPage++;
+    this.loadArticles();
   }
 }
