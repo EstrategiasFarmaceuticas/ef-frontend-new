@@ -1,8 +1,8 @@
 <div class="bg-white py-8 px-4 sm:px-6 lg:px-8">
   <div class="max-w-6xl mx-auto">
     <!-- Título -->
-    <h2 class="text-3xl font-bold text-gray-900 mb-8 text-center">
-      PRODUCT CATEGORIES
+    <h2 class="text-3xl font-bold text-[#1f7ec2] mb-8 text-center">
+      Categorías
     </h2>
 
     <!-- Descripción -->
@@ -10,31 +10,55 @@
       All of our products are clinically supported and provide cost-effective solutions to address over 20 common conditions. Most importantly, the products deliver the outcomes you desire for your patients and improve both staff and patient dignity without the use of unnecessary medications.
     </p>
 
-    <!-- Grilla de Categorías -->
+    <!-- Loading State -->
+    @if (isLoading) {
+      <div class="text-center py-10">
+        <div class="inline-block animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-blue-500 mb-2"></div>
+        <p class="text-gray-600">Cargando categorías...</p>
+      </div>
+    }
+
+    <!-- Empty State -->
+    @if (!isLoading && categories.length === 0) {
+      <div class="text-center py-10">
+        <p class="text-gray-600">No se encontraron categorías</p>
+      </div>
+    }
+
+    <!-- Categories Grid -->
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-      <!-- Iterar sobre las categorías -->
-      <a
-        *ngFor="let categoria of categorias"
-        [routerLink]="categoria.route"
-        class="relative h-48 rounded-lg overflow-hidden shadow-md hover:shadow-lg transition duration-200 transform hover:scale-105"
-      >
-        <!-- Imagen de Fondo -->
-        <img
-          [src]="categoria.imageUrl"
-          [alt]="categoria.name"
-          class="absolute inset-0 w-full h-full object-cover transition-transform duration-200 transform hover:scale-110"
-        />
+      @for (category of categories; track category.name) {
+        <button
+          (click)="selectCategory(category)"
+          class="relative h-48 rounded-lg overflow-hidden shadow-md hover:shadow-lg transition duration-200 transform hover:scale-105 group focus:outline-none"
+          [attr.aria-label]="'Ver productos de ' + category.name"
+        >
+          <!-- Category Image -->
+          @if (category.imageUrl) {
+            <img
+              [src]="category.imageUrl"
+              [alt]="category.name"
+              class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+              (error)="handleImageError($event)"
+            />
+          } @else {
+            <div class="absolute inset-0 bg-gradient-to-br from-gray-200 to-gray-300 flex items-center justify-center">
+              <span class="text-gray-500 text-sm font-medium">Imagen no disponible</span>
+            </div>
+          }
 
-        <!-- Capa Semi-Transparente (más ligera) -->
-        <div class="absolute inset-0 bg-black opacity-50"></div>
+          <!-- Overlay -->
+          <div class="absolute inset-0 bg-black/40 group-hover:bg-black/30 transition-all duration-300"></div>
 
-        <!-- Nombre de la Categoría -->
-        <div class="absolute inset-0 flex items-center justify-center">
-          <span class="text-xl font-semibold text-white text-center px-4 py-2 rounded-lg">
-            {{ categoria.name }}
-          </span>
-        </div>
-      </a>
+          <!-- Category Info -->
+          <div class="absolute inset-0 flex flex-col items-center justify-center p-4 text-center">
+            <h3 class="text-xl font-semibold text-white mb-1 drop-shadow-md">{{ category.name }}</h3>
+            <span class="text-white/90 text-sm drop-shadow-md group-hover:text-white transition-colors">
+          Ver productos
+        </span>
+          </div>
+        </button>
+      }
     </div>
   </div>
 </div>

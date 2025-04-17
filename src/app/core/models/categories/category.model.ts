@@ -1,18 +1,20 @@
-export class Category {
-
+export interface Category {
   name: string;
-  route: string;
   imageUrl: string;
+  description: string;
   enableStatus: boolean;
   creationDate: Date;
+}
 
-  constructor(name: string, route: string, imageUrl: string, enableStatus: boolean, creationDate: Date
-  ) {
-    this.name = name;
-    this.route = route;
-    this.imageUrl = imageUrl;
-    this.enableStatus = enableStatus;
-    this.creationDate = creationDate;
-  }
+export interface CategoryResponse {
+  content: Category[];
+  page: PageData;
+}
+
+export interface PageData {
+  size: number;
+  number: number;
+  totalElements: number;
+  totalPages: number;
 }
 

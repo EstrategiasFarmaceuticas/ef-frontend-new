@@ -13,8 +13,24 @@
     <li></li>
   </ul>
 
-  <!-- Contenido de tu componente (se mantiene igual pero con clases adicionales) -->
-  <div class="container mx-auto px-4 relative z-10">
+  <!-- Loading State -->
+  <div *ngIf="isLoading" class="container mx-auto px-4 relative z-10 flex justify-center items-center h-64">
+    <div class="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
+  </div>
+
+  <!-- Error State -->
+  <div *ngIf="error && !isLoading" class="container mx-auto px-4 relative z-10 text-center py-12">
+    <p class="text-red-500 mb-4">{{ error }}</p>
+    <button
+      (click)="loadBestProduct()"
+      class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition"
+    >
+      Try Again
+    </button>
+  </div>
+
+  <!-- Contenido principal -->
+  <div *ngIf="bestProduct && !isLoading" class="container mx-auto px-4 relative z-10">
     <!-- Título -->
     <h2 class="text-3xl text-center font-bold text-[#1f7ec2] mb-8">
       Nuestro Producto Más Vendido
@@ -23,21 +39,28 @@
     <!-- Contenedor principal -->
     <div class="flex flex-col md:flex-row items-center justify-between px-4 md:px-8 lg:px-12">
       <!-- Texto -->
-      <div class="md:w-1/2 text-center md:text-center mb-2 md:mb-0">
-        <h1 class="text-2xl text-gray-800 font-semibold mb-8 md:mb-6">
+      <div class="md:w-1/2 text-center md:text-center mb-8 md:mb-0">
+        <h1 class="text-2xl md:text-3xl text-gray-800 font-semibold mb-4">
           {{ bestProduct.name }}
         </h1>
-        <h1 class="text-lg text-gray-800 mb-8 md:mb-6">
+        <p class="text-lg text-gray-600 mb-6">
           {{ bestProduct.shortDesc }}
-        </h1>
-        <a class="bg-white text-[#1F7EC2] py-2 px-6 rounded-full font-semibold hover:bg-gray-100 transition duration-300">
+        </p>
+        <a
+          [routerLink]="['/product', bestProduct.name.toLowerCase()]"
+          class="inline-block bg-white text-[#1F7EC2] py-2 px-6 rounded-full font-semibold hover:bg-gray-100 transition duration-300"
+        >
           Ver Producto
         </a>
       </div>
 
       <!-- Imagen -->
       <div class="md:w-1/2 w-full flex justify-center">
-        <img [src]="bestProduct.imageUrl" [alt]="bestProduct.name" class="w-full h-auto max-w-md">
+        <img
+          [src]="bestProduct.imageUrl"
+          [alt]="bestProduct.name"
+          class="w-full h-auto max-w-md transition-shadow duration-300"
+        >
       </div>
     </div>
   </div>
