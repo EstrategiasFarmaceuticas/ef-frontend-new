@@ -105,7 +105,7 @@ export class CategoriesComponent implements OnInit {
 
   selectCategory(category: Category): void {
     // Navegamos al componente de productos con los datos de la categoría
-    this.router.navigate(['/products-by-categories'], {
+    this.router.navigate(['/category',category.name], {
       state: {
         category: {
           ...category,

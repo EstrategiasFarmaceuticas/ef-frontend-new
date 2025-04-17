@@ -7,7 +7,7 @@
       <div class="w-full lg:w-1/2 h-[250px] lg:h-[350px] overflow-hidden transition-all duration-500 hover:scale-105">
         @if (selectedCategory) {
           <img
-            [src]="selectedCategory.imageUrl"
+            [src]="isExternalImage ? selectedCategory.imageUrl : storageService.getFile(selectedCategory.imageUrl)"
             [alt]="selectedCategory.name"
             class="w-full h-full object-cover"
           />

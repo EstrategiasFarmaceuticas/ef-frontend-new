@@ -3,9 +3,12 @@ import {Product} from '../../../../../core/models/products/product.model';
 import {ProductsService} from '../../../../../core/services/products/products.service';
 
 import {Category} from '../../../../../core/models/categories/category.model';
-import {Router, RouterLink} from '@angular/router';
+import {ActivatedRoute, Router, RouterLink} from '@angular/router';
 import {CategoriesComponent} from '../categories.component';
 import {DistributorsComponent} from '../../distributors/distributors.component';
+import {CategoriesService} from '../../../../../core/services/categories/categories.service';
+import {StorageService} from '../../../../../core/services/storageService/storage.service';
+
 
 @Component({
   selector: 'app-call-to-categories',
@@ -22,22 +25,55 @@ export class CallToCategoriesComponent implements OnInit {
   isLoading = true;
   error: string | null = null;
   selectedCategory: Category | null = null;
+  isExternalImage: boolean = true;
 
   constructor(
+    private activatedRoute: ActivatedRoute,
     private productsService: ProductsService,
+    private categoryService: CategoriesService,
     private router: Router,
+    protected storageService: StorageService
   ) {
     const navigation = this.router.getCurrentNavigation();
     this.selectedCategory = navigation?.extras.state?.['category'] || null;
   }
 
   ngOnInit(): void {
-    if (this.selectedCategory) {
-      this.loadProductsByCategory();
-    } else {
-      // Si no hay categoría seleccionada, cargar todos los productos o manejar el caso
-      this.loadProducts();
-    }
+    this.activatedRoute.params.subscribe(params => {
+      const headerUrl = params['name'];
+      this.categoryService.searchCategories(headerUrl).subscribe(category => {
+        this.selectedCategory = category.content.pop() || null;
+        if (this.selectedCategory) {
+          if (this.selectedCategory.imageUrl.startsWith('http')) {
+            this.isExternalImage = true;
+          } else {
+            this.isExternalImage = false;
+          }
+          this.loadProductsByCategory();
+        } else {
+          this.loadProducts();
+        }
+      });
+    })
+  }
+
+  ngOnChanges(): void {
+    this.activatedRoute.params.subscribe(params => {
+      const headerUrl = params['name'];
+      this.categoryService.searchCategories(headerUrl).subscribe(category => {
+        this.selectedCategory = category.content.pop() || null;
+        if (this.selectedCategory) {
+          if (this.selectedCategory.imageUrl.startsWith('http')) {
+            this.isExternalImage = true;
+          } else {
+            this.isExternalImage = false;
+          }
+          this.loadProductsByCategory();
+        } else {
+          this.loadProducts();
+        }
+      });
+    })
   }
 
   loadProductsByCategory(): void {
