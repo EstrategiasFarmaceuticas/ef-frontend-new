@@ -1,0 +1,33 @@
+<div
+  [routerLink]="['/blog', article().headerUrl]"
+  class="cursor-pointer overflow-hidden rounded shadow-md transition-all group hover:shadow-lg">
+    <div class="relative aspect-video overflow-hidden">
+      <img
+        [src]="isExternalImage ? article().headerImage : storageService.getFile(article().headerImage)"
+        [alt]="article().title"
+        class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+      />
+    </div>
+
+    <header class="p-4 pb-2">
+      <h2
+        class="text-xl font-bold tracking-tight text-slate-900 transition-colors duration-300 line-clamp-2 group-hover:text-blue-600">
+        {{ article().title }}
+      </h2>
+      <time class="text-sm text-slate-500">
+        {{ article().creationDate | date: 'MMMM d, y' }}
+      </time>
+    </header>
+
+    <section class="p-4 pt-2">
+      <p class="text-slate-600 line-clamp-3">{{ article().shortDesc }}</p>
+    </section>
+
+    <footer class="p-4 pt-0">
+      <span
+        class="text-sm font-medium text-blue-600 transition-all duration-300 group-hover:text-blue-700 group-hover:underline"
+      >
+        Leer mas
+      </span>
+    </footer>
+  </div>

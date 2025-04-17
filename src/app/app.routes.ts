@@ -7,6 +7,8 @@ import {BlogComponent} from './modules/public/pages/blog/blog.component';
 import {
   CallToCategoriesComponent
 } from './modules/public/components/categories/call-to-categories/call-to-categories.component';
+import {BlogListComponent} from './modules/public/pages/blog/blog-list/blog-list.component';
+import {BlogArticleComponent} from './modules/public/pages/blog/blog-article/blog-article.component';
 
 export const routes: Routes = [
   {
@@ -14,8 +16,11 @@ export const routes: Routes = [
       {path: '', component: StartComponent},
       {path: 'products', component: ProductsComponent},
       {path: 'about', component: AboutComponent},
-      {path: 'blog', component: BlogComponent},
       {path: 'products-by-categories', component: CallToCategoriesComponent }
+      {path: 'blog', component: BlogComponent, children: [
+          {path: '', component: BlogListComponent},
+          {path:':url', component: BlogArticleComponent}
+      ]},
     ]
   }
 ];
