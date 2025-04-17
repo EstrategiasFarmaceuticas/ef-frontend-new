@@ -9,12 +9,14 @@ import {
 } from './modules/public/components/categories/call-to-categories/call-to-categories.component';
 import {BlogListComponent} from './modules/public/pages/blog/blog-list/blog-list.component';
 import {BlogArticleComponent} from './modules/public/pages/blog/blog-article/blog-article.component';
+import {CallProductsComponent} from '@module/public/pages/products/call-products/call-products.component';
 
 export const routes: Routes = [
   {
     path: '', component: PublicComponent, children: [
       {path: '', component: StartComponent},
       {path: 'products', component: ProductsComponent},
+      { path: 'product/:name', component: CallProductsComponent},
       {path: 'about', component: AboutComponent},
       {path: 'category/:name', component: CallToCategoriesComponent },
       {path: 'blog', component: BlogComponent, children: [
