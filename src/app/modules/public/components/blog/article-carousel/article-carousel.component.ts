@@ -1,9 +1,8 @@
-import { Component, OnInit, OnDestroy, PLATFORM_ID, Inject } from '@angular/core';
-import { ArticleCardComponent } from '../article-card/article-card.component';
-import { ArticleService } from '../../../../../core/services/article/article.service';
-import { ArticleShortModel } from '../../../../../core/models/article/article.model';
-import { NgClass } from '@angular/common';
-import { isPlatformBrowser } from '@angular/common';
+import {Component, Inject, OnDestroy, OnInit, PLATFORM_ID} from '@angular/core';
+import {ArticleCardComponent} from '@module/public/components/blog/article-card/article-card.component';
+import {ArticleService} from '@service/article/article.service';
+import {ArticleShortModel} from '@model/article/article.model';
+import {isPlatformBrowser, NgClass} from '@angular/common';
 
 @Component({
   selector: 'app-article-carousel',

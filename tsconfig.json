@@ -18,12 +18,6 @@
       ],
       "@module/*": [
         "src/app/modules/*"
-      ],
-      "@component/*": [
-        "src/app/modules/components/*"
-      ],
-      "@page/*": [
-        "src/app/modules/pages/*"
       ]
     },
     "outDir": "./dist/out-tsc",

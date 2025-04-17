@@ -1,4 +1,4 @@
-import {Component, ElementRef, input, output, ViewChild} from '@angular/core';
+import {Component, input} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 
 @Component({

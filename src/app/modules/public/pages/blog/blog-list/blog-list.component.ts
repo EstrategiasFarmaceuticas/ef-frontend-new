@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {FormsModule} from '@angular/forms';
-import {ArticleShortModel} from '../../../../../core/models/article/article.model';
-import {Page} from '../../../../../core/models/page';
-import {ArticleService} from '../../../../../core/services/article/article.service';
-import {ArticleCardComponent} from '../../../components/blog/article-card/article-card.component';
+import {ArticleShortModel} from '@model/article/article.model';
+import {Page} from '@model/page';
+import {ArticleService} from '@service/article/article.service';
+import {ArticleCardComponent} from '@module/public/components/blog/article-card/article-card.component';
 import {InfiniteScrollDirective} from 'ngx-infinite-scroll';
 
 @Component({

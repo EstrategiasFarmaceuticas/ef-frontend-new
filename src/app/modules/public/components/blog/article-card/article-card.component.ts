@@ -1,8 +1,8 @@
 import {Component, input} from '@angular/core';
-import {ArticleShortModel} from '../../../../../core/models/article/article.model';
+import {ArticleShortModel} from '@model/article/article.model';
 import {DatePipe} from '@angular/common';
 import {RouterLink} from '@angular/router';
-import {StorageService} from '../../../../../core/services/storageService/storage.service';
+import {StorageService} from '@service/storageService/storage.service';
 
 @Component({
   selector: 'app-article-card',

@@ -1,15 +1,13 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {ArticleService} from '../../../../../core/services/article/article.service';
-import {ArticleModel, toArticleModel} from '../../../../../core/models/article/article.model';
-import {BlogComponentInjectorType} from '../../../../../core/models/miscellanious/blog/blog-component-injector-type';
-import {AdmBcImgComponent} from '../../../components/blog/blog-injector/adm-bc-img/adm-bc-img.component';
-import {AdmBcTextComponent} from '../../../components/blog/blog-injector/adm-bc-text/adm-bc-text.component';
-import {AdmBcSubtitleComponent} from '../../../components/blog/blog-injector/adm-bc-subtitle/adm-bc-subtitle.component';
-import {AdmBcTitleComponent} from '../../../components/blog/blog-injector/adm-bc-title/adm-bc-title.component';
-import {
-  AdmBcDescriptionComponent
-} from '../../../components/blog/blog-injector/adm-bc-description/adm-bc-description.component';
+import {ArticleService} from '@service/article/article.service';
+import {ArticleModel, toArticleModel} from '@model/article/article.model';
+import {BlogComponentInjectorType} from '@model/miscellanious/blog/blog-component-injector-type';
+import {AdmBcImgComponent} from '@module/public/components/blog/blog-injector/adm-bc-img/adm-bc-img.component';
+import {AdmBcTextComponent} from '@module/public/components/blog/blog-injector/adm-bc-text/adm-bc-text.component';
+import {AdmBcSubtitleComponent} from '@module/public/components/blog/blog-injector/adm-bc-subtitle/adm-bc-subtitle.component';
+import {AdmBcTitleComponent} from '@module/public/components/blog/blog-injector/adm-bc-title/adm-bc-title.component';
+import {AdmBcDescriptionComponent} from '@module/public/components/blog/blog-injector/adm-bc-description/adm-bc-description.component';
 
 @Component({
   selector: 'app-blog-article',
