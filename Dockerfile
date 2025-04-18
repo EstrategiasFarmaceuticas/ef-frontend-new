@@ -12,6 +12,6 @@ COPY . .
 
 RUN npm run build
 
-EXPOSE 4000
+EXPOSE 4200
 
 CMD [ "npm", "run", "serve:ssr:ef-frontend-new" ]
