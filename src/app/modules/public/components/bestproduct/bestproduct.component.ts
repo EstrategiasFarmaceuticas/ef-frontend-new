@@ -1,23 +1,47 @@
-import { Component } from '@angular/core';
-import {Category} from '../../../../core/models/category.model';
-import {Product} from '../../../../core/models/product.model';
+import { Component, OnInit } from '@angular/core';
+import { ProductsService } from '@service/products/products.service';
+import { Product } from '@model/products/product.model';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+
 
 @Component({
   selector: 'app-bestproduct',
-  imports: [],
+  standalone: true,
+  imports: [CommonModule, RouterModule],
   templateUrl: './bestproduct.component.html',
-  styleUrl: './bestproduct.component.css'
+  styleUrls: ['./bestproduct.component.css']
 })
-export class BestproductComponent {
-  bestProduct = new Product(
-    'Producto Oncare',
-    'Descripción del producto ejemplo',
-    'https://example.com/nutricional',
-    'bestProduct.png',
-    true,
-    true,
-    'Descripción corta del producto ejemplo',
-    new Date()
-  );
-}
+export class BestproductComponent implements OnInit {
+  bestProduct: Product | null = null;
+  isLoading = true;
+  error: string | null = null;
 
+  constructor(
+    private productsService: ProductsService,
+  ) {}
+
+  ngOnInit(): void {
+    this.loadBestProduct();
+  }
+
+  loadBestProduct(): void {
+    this.isLoading = true;
+    this.error = null;
+
+    this.productsService.getMainProduct().subscribe({
+      next: (product) => {
+        this.bestProduct = {
+          ...product,
+          imageUrl: this.productsService.getProductImageUrl(product.imageUrl)
+        };
+        this.isLoading = false;
+      },
+      error: (err) => {
+        this.error = 'Failed to load featured product. Please try again later.';
+        this.isLoading = false;
+        console.error('Error loading featured product:', err);
+      }
+    });
+  }
+}

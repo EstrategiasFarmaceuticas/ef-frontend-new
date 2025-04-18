@@ -1,7 +1,9 @@
-<nav class="w-full bg- shadow-md">
+<nav class="fixed w-full z-50 bg-white shadow-md">
   <div class="container mx-auto flex items-center justify-between p-4">
     <!-- Logo -->
-    <img src="logo.webp" alt="Logo" class="h-10" />
+    <a href="" class="inline-block cursor-pointer">
+      <img src="logo.webp" alt="Logo" class="h-12 z-10 hover:opacity-80 transition-opacity duration-200" />
+    </a>
 
     <!-- Botón de menú (solo en móviles) -->
     <button
@@ -24,15 +26,26 @@
     </button>
 
     <!-- Enlaces de navegación (ocultos en móviles) -->
-    <div
-      class="lg:flex lg:space-x-6 hidden"
-      [class.hidden]="!isMenuOpen"
-      [class.block]="isMenuOpen"
-    >
-      <a routerLink="" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="block lg:inline-block text-gray-700 hover:text-blue-500 mt-4 lg:mt-0">Inicio</a>
-      <a routerLink="/products" routerLinkActive="active" class="block lg:inline-block text-gray-700 hover:text-blue-500 mt-4 lg:mt-0">Productos</a>
-      <a routerLink="/about" routerLinkActive="active" class="block lg:inline-block text-gray-700 hover:text-blue-500 mt-4 lg:mt-0">Nosotros</a>
-      <a routerLink="/blog" routerLinkActive="active" class="block lg:inline-block text-gray-700 hover:text-blue-500 mt-4 lg:mt-0">Blog</a>
+    <div class="lg:flex lg:space-x-6 hidden">
+      <a routerLink="" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"
+         class="block lg:inline-block text-gray-700 hover:text-blue-500 mt-4 lg:mt-0">Inicio</a>
+      <a routerLink="/products" routerLinkActive="active"
+         class="block lg:inline-block text-gray-700 hover:text-blue-500 mt-4 lg:mt-0">Productos</a>
+      <a routerLink="/about" routerLinkActive="active"
+         class="block lg:inline-block text-gray-700 hover:text-blue-500 mt-4 lg:mt-0">Nosotros</a>
+      <a routerLink="/blog" routerLinkActive="active"
+         class="block lg:inline-block text-gray-700 hover:text-blue-500 mt-4 lg:mt-0">Blog</a>
     </div>
   </div>
 </nav>
+
+<!-- Menú lateral móvil (ahora en el lado derecho) -->
+<app-mobile-menu [isOpen]="isMenuOpen" (closeMenu)="toggleMenu()"></app-mobile-menu>
+
+<!-- Fondo oscuro cuando el menú está abierto -->
+<div *ngIf="isMenuOpen" class="fixed inset-0  z-40 lg:hidden" (click)="toggleMenu()"></div>
+
+<!-- Margen superior para el contenido -->
+<div class="pt-16">
+  <!-- Tu contenido aquí -->
+</div>

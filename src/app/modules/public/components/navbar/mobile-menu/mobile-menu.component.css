@@ -1,0 +1,9 @@
+/* Transición suave para los enlaces */
+a {
+  transition: all 0.2s ease;
+}
+
+/* Efecto de profundidad para el menú */
+.shadow-xl {
+  box-shadow: 4px 0 15px rgba(0, 0, 0, 0.1);
+}

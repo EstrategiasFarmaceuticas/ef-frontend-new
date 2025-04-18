@@ -3,6 +3,23 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "paths": {
+      "@/*": [
+        "./src/app/*"
+      ],
+      "@core/*": [
+        "./src/app/core/*"
+      ],
+      "@model/*": [
+        "./src/app/core/models/*"
+      ],
+      "@service/*": [
+        "./src/app/core/services/*"
+      ],
+      "@module/*": [
+        "./src/app/modules/*"
+      ]
+    },
     "outDir": "./dist/out-tsc",
     "strict": true,
     "noImplicitOverride": true,

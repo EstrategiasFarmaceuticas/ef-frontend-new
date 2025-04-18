@@ -1,0 +1,49 @@
+<div
+  [class]="'fixed inset-y-0 right-0 w-64 bg-white shadow-xl z-50 transform transition-all duration-300 ease-in-out ' +
+           (isOpen ? 'translate-x-0' : 'translate-x-full')">
+
+  <div class="p-6 flex flex-col h-full">
+    <!-- Logo y botón de cerrar (ahora a la izquierda) -->
+    <div class="flex justify-between items-center mb-8">
+      <button (click)="closeMenu.emit()" class="text-gray-500 hover:text-gray-700">
+        <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+        </svg>
+      </button>
+      <img src="logo.webp" alt="Logo" class="h-10">
+    </div>
+
+    <!-- Enlaces de navegación -->
+    <nav class="flex-1 space-y-4">
+      <a
+        routerLink=""
+        routerLinkActive="text-blue-600 font-medium"
+        [routerLinkActiveOptions]="{exact: true}"
+        (click)="closeMenu.emit()"
+        class="block py-3 px-4 rounded-lg hover:bg-gray-100 transition-colors">
+        Inicio
+      </a>
+      <a
+        routerLink="/products"
+        routerLinkActive="text-blue-600 font-medium"
+        (click)="closeMenu.emit()"
+        class="block py-3 px-4 rounded-lg hover:bg-gray-100 transition-colors">
+        Productos
+      </a>
+      <a
+        routerLink="/about"
+        routerLinkActive="text-blue-600 font-medium"
+        (click)="closeMenu.emit()"
+        class="block py-3 px-4 rounded-lg hover:bg-gray-100 transition-colors">
+        Nosotros
+      </a>
+      <a
+        routerLink="/blog"
+        routerLinkActive="text-blue-600 font-medium"
+        (click)="closeMenu.emit()"
+        class="block py-3 px-4 rounded-lg hover:bg-gray-100 transition-colors">
+        Blog
+      </a>
+    </nav>
+  </div>
+</div>
