@@ -1,4 +1,4 @@
-<div class="bg-white py-8 px-4 sm:px-6 lg:px-8">
+<div class="py-8 px-4 sm:px-6 lg:px-8">
   <div class="max-w-7xl mx-auto">
     <!-- Loading State -->
     @if (isLoading) {
@@ -23,23 +23,26 @@
 
     <!-- Contenido del producto -->
     @if (product && !isLoading && !error) {
-      <!-- Primera sección (imagen + nombre + descripción) -->
-      <div class="bg-blue-50 rounded-xl overflow-hidden mb-12">
-        <div class="flex flex-col lg:flex-row">
+      <!-- Sección principal expandida (imagen + nombre + descripción) -->
+      <div class="min-h-screen flex flex-col">
+        <!-- Contenedor principal que ocupa toda la altura visible -->
+        <div class="flex-grow flex flex-col lg:flex-row mb-12 bg-blue-50">
           <!-- Imagen del producto -->
-          <div class="lg:w-1/2 h-[500px] lg:h-[500px] lg:w-[570px] overflow-hidden transition-all duration-500 hover:scale-105">
-            <img
-              [src]="product.imageUrl"
-              [alt]="product.name"
-              class="w-full h-full object-cover"
-              (error)="handleImageError($event)"
-            >
+          <div class="lg:w-1/2 flex items-center justify-center p-6">
+            <div class="w-full max-w-2xl h-[400px] lg:h-[500px]">
+              <img
+                [src]="product.imageUrl"
+                [alt]="product.name"
+                class="w-full h-full object-contain transition-transform duration-300 hover:scale-105"
+                (error)="handleImageError($event)"
+              >
+            </div>
           </div>
 
           <!-- Nombre y descripción -->
           <div class="lg:w-1/2 p-8 lg:p-12 flex flex-col justify-center">
             <div class="flex justify-between items-center mb-6">
-              <h1 class="text-3xl md:text-4xl font-bold text-[#1f7ec2] animate-fade-in" style="animation: fadeIn 0.8s ease-in-out;">
+              <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-[#1f7ec2] animate-fade-in" style="animation: fadeIn 0.8s ease-in-out;">
                 {{ product.name }}
               </h1>
               <a
@@ -52,155 +55,157 @@
                 </svg>
               </a>
             </div>
-            <p class="text-lg text-gray-700 mb-6 leading-relaxed whitespace-pre-line">
+            <p class="text-lg lg:text-xl text-gray-700 mb-6 leading-relaxed whitespace-pre-line">
               {{ product.description }}
             </p>
           </div>
         </div>
-      </div>
 
-      <!-- Segunda sección (información nutricional + beneficios/ingredientes) -->
-      <div class="flex flex-col lg:flex-row gap-8 mb-12">
-        <!-- Columna izquierda - Información nutricional -->
-        <div class="lg:w-1/2">
-          @if (product.nutritionalUrl) {
-            <div class="p-4 h-full">
-              <h3 class="text-2xl font-semibold text-center text-[#1f7ec2] mb-4">Información Nutricional</h3>
-              <img
-                [src]="product.nutritionalUrl"
-                alt="Tabla nutricional"
-                class="w-full h-auto max-h-[700px] object-contain mx-auto"
-                (error)="handleImageError($event)"
-              >
+        <!-- Resto del contenido (secciones adicionales) -->
+        <div class="container mx-auto">
+          <!-- Segunda sección (información nutricional + beneficios/ingredientes) -->
+          <div class="flex flex-col lg:flex-row gap-8 mb-12">
+            <!-- Columna izquierda - Información nutricional -->
+            <div class="lg:w-1/2">
+              @if (product.nutritionalUrl) {
+                <div class="p-4 h-full">
+                  <h3 class="text-2xl font-semibold text-center text-[#1f7ec2] mb-4">Información Nutricional</h3>
+                  <img
+                    [src]="product.nutritionalUrl"
+                    alt="Tabla nutricional"
+                    class="w-full h-auto max-h-[700px] object-contain mx-auto"
+                    (error)="handleImageError($event)"
+                  >
+                </div>
+              }
+            </div>
+
+            <!-- Línea vertical solo en pantallas grandes -->
+            <div class="hidden lg:block w-px bg-[#1f7ec2] opacity-40"></div>
+
+            <!-- Columna derecha - Beneficios e ingredientes -->
+            <div class="lg:w-2/3 space-y-4">
+              <!-- Beneficios -->
+              @if (hasContent(product.beneficts)) {
+                <div class="p-4">
+                  <h3 class="text-2xl font-semibold text-[#1f7ec2] mb-4">Beneficios</h3>
+                  <ul class="space-y-2">
+                    @for (benefit of product.beneficts; track benefit) {
+                      <li class="flex items-start">
+                        <svg class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                          <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                        </svg>
+                        <span class="text-gray-600">{{ benefit }}</span>
+                      </li>
+                    }
+                  </ul>
+                  <div class="h-px bg-[#1f7ec2] opacity-40 mt-8"></div>
+                </div>
+              }
+
+              <!-- Ingredientes -->
+              @if (hasContent(product.ingredients)) {
+                <div class="p-4">
+                  <h3 class="text-2xl font-semibold text-[#1f7ec2] mb-4">Ingredientes</h3>
+                  <ul class="space-y-1">
+                    @for (ingredient of product.ingredients; track ingredient) {
+                      <li class="text-gray-600">{{ ingredient }}</li>
+                    }
+                  </ul>
+                  <div class="h-px bg-[#1f7ec2] opacity-40 mt-8"></div>
+                </div>
+              }
+
+              <!-- Modo de uso -->
+              @if (hasContent(product.usageSugerences)) {
+                <div class="p-4">
+                  <h3 class="text-2xl font-semibold text-[#1f7ec2] mb-2">Modo de uso</h3>
+                  <ul class="list-disc pl-5 space-y-1 text-gray-600">
+                    @for (usage of product.usageSugerences; track usage) {
+                      <li>{{ usage }}</li>
+                    }
+                  </ul>
+                  <div class="h-px bg-[#1f7ec2] opacity-40 mt-8"></div>
+                </div>
+              }
+            </div>
+          </div>
+
+          <!-- Cuarta sección - Consumos -->
+          @if (hasContent(product.consumes)) {
+            <div class="mb-4">
+              <h3 class="text-2xl font-semibold text-center text-[#1f7ec2] mb-6">Recomendaciones de consumo</h3>
+              <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                @for (consume of product.consumes; track consume.step) {
+                  <div class="p-6">
+                    <div class="flex flex-col items-center">
+                      @if (consume.url) {
+                        <div class="w-full h-48 mb-4 flex items-center justify-center rounded-lg overflow-hidden">
+                          <img
+                            [src]="getConsumeImageUrl(consume)"
+                            alt="Paso {{consume.step}}"
+                            class="max-h-full max-w-full object-contain"
+                            (error)="handleImageError($event)"
+                          >
+                        </div>
+                      }
+                      <div class="bg-blue-500 text-white rounded-full w-8 h-8 flex items-center justify-center mb-2">
+                        {{ consume.step }}
+                      </div>
+                      <h4 class="font-medium text-gray-900 text-center mb-2">Paso {{ consume.step }}</h4>
+                      <p class="text-gray-600 text-center">{{ consume.description }}</p>
+                    </div>
+                  </div>
+                }
+              </div>
+            </div>
+          }
+
+          <!-- Productos relacionados -->
+          @if (relatedProducts.length > 0) {
+            <div class="bg-white mt-8">
+              <div class="container mx-auto lg:px-12 py-8">
+                <h2 class="text-2xl font-bold text-[#1f7ec2] mb-8 text-center">Productos relacionados</h2>
+                <div class="flex flex-wrap justify-center -mx-3">
+                  @for (related of relatedProducts; track related.name) {
+                    <div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 px-3 mb-12 relative pb-8 sm:pb-0 flex justify-center">
+                      <!-- Contenedor principal centrado -->
+                      <div class="max-w-xs w-full">
+                        <!-- Línea sutil solo para móvil -->
+                        <div class="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-3/4 h-px bg-blue-300 sm:hidden"></div>
+
+                        <div class="h-full flex flex-col items-center">
+                          <!-- Contenedor de imagen -->
+                          <div class="bg-white p-2 flex justify-center w-full" style="min-height: 180px;">
+                            <a [routerLink]="['/product', related.name]" class="block group w-full flex justify-center">
+                              <img
+                                [src]="related.imageUrl"
+                                [alt]="related.name"
+                                class="h-full w-auto object-contain hover:scale-105 transition-transform duration-300 max-h-[230px] sm:max-h-none"
+                                (error)="handleImageError($event)"
+                              >
+                            </a>
+                          </div>
+
+                          <!-- Texto -->
+                          <div class="text-center w-full px-2 mt-3 lg:mt-1">
+                            <h3 class="text-lg font-semibold text-[#1f7ec2] mb-1 lg:mb-0.5 group-hover:text-blue-600 transition-colors">
+                              {{ related.name }}
+                            </h3>
+                            <p class="text-sm text-gray-600 mt-1 lg:mt-0.5">
+                              {{ related.shortDesc }}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  }
+                </div>
+              </div>
             </div>
           }
         </div>
-
-        <!-- Línea vertical solo en pantallas grandes -->
-        <div class="hidden lg:block w-px bg-[#1f7ec2] opacity-40"></div>
-
-        <!-- Columna derecha - Beneficios e ingredientes -->
-      <div class="lg:w-2/3 space-y-4 "> <!-- antes: space-y-8 -->
-        <!-- Beneficios -->
-        @if (hasContent(product.beneficts)) {
-          <div class="p-4">
-            <h3 class="text-2xl font-semibold text-[#1f7ec2] mb-4">Beneficios</h3>
-            <ul class="space-y-2">
-              @for (benefit of product.beneficts; track benefit) {
-                <li class="flex items-start">
-                  <svg class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
-                  </svg>
-                  <span class="text-gray-600">{{ benefit }}</span>
-                </li>
-              }
-            </ul>
-            <div class="h-px bg-[#1f7ec2] opacity-40 mt-8"></div>
-          </div>
-        }
-
-        <!-- Ingredientes -->
-        @if (hasContent(product.ingredients)) {
-          <div class="p-4">
-            <h3 class="text-2xl font-semibold text-[#1f7ec2] mb-4">Ingredientes</h3>
-            <ul class="space-y-1">
-              @for (ingredient of product.ingredients; track ingredient) {
-                <li class="text-gray-600">{{ ingredient }}</li>
-              }
-            </ul>
-            <div class="h-px bg-[#1f7ec2] opacity-40 mt-8"></div>
-          </div>
-        }
-
-        <!-- Modo de uso -->
-        @if (hasContent(product.usageSugerences)) {
-          <div class="p-4">
-            <h3 class="text-2xl font-semibold text-[#1f7ec2] mb-2">Modo de uso</h3>
-            <ul class="list-disc pl-5 space-y-1 text-gray-600">
-              @for (usage of product.usageSugerences; track usage) {
-                <li>{{ usage }}</li>
-              }
-            </ul>
-            <div class="h-px bg-[#1f7ec2] opacity-40 mt-8"></div>
-          </div>
-        }
       </div>
-
-    </div>
-
-      <!-- Cuarta sección - Consumos -->
-      @if (hasContent(product.consumes)) {
-        <div class="mb-4">
-          <h3 class="text-2xl font-semibold text-center text-[#1f7ec2] mb-6">Recomendaciones de consumo</h3>
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            @for (consume of product.consumes; track consume.step) {
-              <div class="p-6">
-                <div class="flex flex-col items-center">
-                  @if (consume.url) {
-                    <div class="w-full h-48 mb-4 flex items-center justify-center rounded-lg overflow-hidden">
-                      <img
-                        [src]="getConsumeImageUrl(consume)"
-                        alt="Paso {{consume.step}}"
-                        class="max-h-full max-w-full object-contain"
-                        (error)="handleImageError($event)"
-                      >
-                    </div>
-                  }
-                  <div class="bg-blue-500 text-white rounded-full w-8 h-8 flex items-center justify-center mb-2">
-                    {{ consume.step }}
-                  </div>
-                  <h4 class="font-medium text-gray-900 text-center mb-2">Paso {{ consume.step }}</h4>
-                  <p class="text-gray-600 text-center">{{ consume.description }}</p>
-                </div>
-              </div>
-            }
-          </div>
-        </div>
-      }
-
-      <!-- Productos relacionados -->
-      @if (relatedProducts.length > 0) {
-        <div class="bg-white mt-8">
-          <div class="container mx-auto lg:px-12 py-8">
-            <h2 class="text-2xl font-bold text-[#1f7ec2] mb-8 text-center">Productos relacionados</h2>
-            <div class="flex flex-wrap justify-center -mx-3">
-              @for (related of relatedProducts; track related.name) {
-                <div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 px-3 mb-12 relative pb-8 sm:pb-0 flex justify-center">
-
-                  <!-- Contenedor principal centrado -->
-                  <div class="max-w-xs w-full">
-                    <!-- Línea sutil solo para móvil -->
-                    <div class="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-3/4 h-px bg-blue-300 sm:hidden"></div>
-
-                    <div class="h-full flex flex-col items-center">
-                      <!-- Contenedor de imagen -->
-                      <div class="bg-white p-2 flex justify-center w-full" style="min-height: 180px;">
-                        <a [routerLink]="['/product', related.name]" class="block group w-full flex justify-center">
-                          <img
-                            [src]="related.imageUrl"
-                            [alt]="related.name"
-                            class="h-full w-auto object-contain hover:scale-105 transition-transform duration-300 max-h-[230px] sm:max-h-none"
-                            (error)="handleImageError($event)">
-                        </a>
-                      </div>
-
-                      <!-- Texto -->
-                      <div class="text-center w-full px-2 mt-3 lg:mt-1">
-                        <h3 class="text-lg font-semibold text-[#1f7ec2] mb-1 lg:mb-0.5 group-hover:text-blue-600 transition-colors">
-                          {{ related.name }}
-                        </h3>
-                        <p class="text-sm text-gray-600 mt-1 lg:mt-0.5">
-                          {{ related.shortDesc }}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              }
-            </div>
-          </div>
-        </div>
-      }
     }
   </div>
 </div>
