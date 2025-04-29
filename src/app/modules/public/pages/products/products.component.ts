@@ -37,7 +37,7 @@ export class ProductsComponent implements OnInit {
         this.products = page.content.map(product => ({
           ...product,
           imageUrl: this.productsService.getProductImageUrl(product.imageUrl),
-          slug: this.createSlug(product.name) // Añadimos esta propiedad
+          slug: this.createSlug(product.name)
         }));
         this.isLoading = false;
       },

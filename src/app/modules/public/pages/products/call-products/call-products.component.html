@@ -106,7 +106,7 @@
               <!-- Ingredientes -->
               @if (hasContent(product.ingredients)) {
                 <div class="p-4">
-                  <h3 class="text-2xl font-semibold text-[#1f7ec2] mb-4">Ingredientes</h3>
+                  <h3 class="text-2xl font-semibold text-[#1f7ec2] mb-4">Características</h3>
                   <ul class="space-y-1">
                     @for (ingredient of product.ingredients; track ingredient) {
                       <li class="text-gray-600">{{ ingredient }}</li>
@@ -133,14 +133,14 @@
 
           <!-- Cuarta sección - Consumos -->
           @if (hasContent(product.consumes)) {
-            <div class="mb-4">
+            <div class="mb-4 px-4"> <!-- Añadido padding horizontal general -->
               <h3 class="text-2xl font-semibold text-center text-[#1f7ec2] mb-6">Recomendaciones de consumo</h3>
-              <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div class="flex flex-col md:flex-row flex-wrap justify-center gap-4 px-4"> <!-- Flexbox en lugar de grid -->
                 @for (consume of product.consumes; track consume.step) {
-                  <div class="p-6">
-                    <div class="flex flex-col items-center">
+                  <div class="w-full md:w-[calc(50%-1rem)] lg:w-[calc(33.333%-1rem)] max-w-md p-4"> <!-- Anchos flexibles con padding controlado -->
+                    <div class="flex flex-col items-center h-full p-4"> <!-- Contenedor interno con sombra y fondo -->
                       @if (consume.url) {
-                        <div class="w-full h-48 mb-4 flex items-center justify-center rounded-lg overflow-hidden">
+                        <div class="w-full h-40 mb-3 flex items-center justify-center rounded-lg overflow-hidden">
                           <img
                             [src]="getConsumeImageUrl(consume)"
                             alt="Paso {{consume.step}}"
@@ -149,11 +149,8 @@
                           >
                         </div>
                       }
-                      <div class="bg-blue-500 text-white rounded-full w-8 h-8 flex items-center justify-center mb-2">
-                        {{ consume.step }}
-                      </div>
                       <h4 class="font-medium text-gray-900 text-center mb-2">Paso {{ consume.step }}</h4>
-                      <p class="text-gray-600 text-center">{{ consume.description }}</p>
+                      <p class="text-gray-600 text-center text-sm">{{ consume.description }}</p>
                     </div>
                   </div>
                 }
