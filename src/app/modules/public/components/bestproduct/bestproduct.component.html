@@ -55,11 +55,11 @@
       </div>
 
       <!-- Imagen -->
-      <div class="md:w-1/2 w-full flex justify-center">
+      <div class="md:w-1/2 w-full flex justify-center px-4"> <!-- px-4 para padding lateral en móviles -->
         <img
           [src]="bestProduct.imageUrl"
           [alt]="bestProduct.name"
-          class="w-full h-auto max-w-md transition-shadow duration-300"
+          class="w-full h-auto max-w-[280px] md:max-w-[360px] hover:scale-105 transition-all duration-300"
         >
       </div>
     </div>
