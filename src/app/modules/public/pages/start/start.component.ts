@@ -3,6 +3,7 @@ import {CategoriesComponent} from '@module/public/components/categories/categori
 import {BestproductComponent} from '@module/public/components/bestproduct/bestproduct.component';
 import {DistributorsComponent} from '@module/public/components/distributors/distributors.component';
 import {ArticleCarouselComponent} from '@module/public/components/blog/article-carousel/article-carousel.component';
+import {RouterLink} from '@angular/router';
 
 @Component({
   selector: 'app-start',
@@ -12,6 +13,7 @@ import {ArticleCarouselComponent} from '@module/public/components/blog/article-c
     BestproductComponent,
     DistributorsComponent,
     ArticleCarouselComponent,
+    RouterLink,
   ],
   templateUrl: './start.component.html',
   styleUrl: './start.component.css',
