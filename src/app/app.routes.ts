@@ -10,14 +10,36 @@ import {
 import {BlogListComponent} from './modules/public/pages/blog/blog-list/blog-list.component';
 import {BlogArticleComponent} from './modules/public/pages/blog/blog-article/blog-article.component';
 import {CallProductsComponent} from '@module/public/pages/products/call-products/call-products.component';
+import {UsesProductComponent} from '@module/public/components/usesproduct/usesproduct.component';
+import {
+  DetailGlutaprotUsesComponent
+} from '@module/public/components/usesproduct/detail-glutaprot-uses/detail-glutaprot-uses.component';
+import {
+  DetailRecoverUsesComponent
+} from '@module/public/components/usesproduct/detail-recover-uses/detail-recover-uses.component';
+import {
+  DetailKidzUsesComponent
+} from '@module/public/components/usesproduct/detail-kidz-uses/detail-kidz-uses.component';
+import {
+  DetailOncareUsesComponent
+} from '@module/public/components/usesproduct/detail-oncare-uses/detail-oncare-uses.component';
+import {
+  DetailProteinUsesComponent
+} from '@module/public/components/usesproduct/detail-protein-uses/detail-protein-uses.component';
 
 export const routes: Routes = [
   {
     path: '', component: PublicComponent, children: [
       {path: '', component: StartComponent},
       {path: 'products', component: ProductsComponent},
-      { path: 'product/:name', component: CallProductsComponent},
+      {path: 'product/:name', component: CallProductsComponent},
       {path: 'about', component: AboutComponent},
+      {path: 'uses', component: UsesProductComponent},
+      {path: 'uses/glutaprot', component: DetailGlutaprotUsesComponent},
+      {path: 'uses/recover', component: DetailRecoverUsesComponent},
+      {path: 'uses/kidz', component: DetailKidzUsesComponent},
+      {path: 'uses/oncare', component: DetailOncareUsesComponent},
+      {path: 'uses/protein', component: DetailProteinUsesComponent},
       {path: 'category/:name', component: CallToCategoriesComponent },
       {path: 'blog', component: BlogComponent, children: [
           {path: '', component: BlogListComponent},
