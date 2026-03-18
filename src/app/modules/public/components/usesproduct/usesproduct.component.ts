@@ -10,7 +10,7 @@ import {NgForOf} from '@angular/common';
   templateUrl: './usesproduct.component.html',
   styleUrl: './usesproduct.component.css'
 })
-export class UsesProductComponent {
+export class UsesproductComponent {
   constructor(private router: Router) {}
   products = [
     {

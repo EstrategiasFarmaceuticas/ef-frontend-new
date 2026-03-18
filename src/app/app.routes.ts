@@ -10,7 +10,7 @@ import {
 import {BlogListComponent} from './modules/public/pages/blog/blog-list/blog-list.component';
 import {BlogArticleComponent} from './modules/public/pages/blog/blog-article/blog-article.component';
 import {CallProductsComponent} from '@module/public/pages/products/call-products/call-products.component';
-import {UsesProductComponent} from '@module/public/components/usesproduct/usesproduct.component';
+import {UsesproductComponent} from '@module/public/components/usesproduct/usesproduct.component';
 import {
   DetailGlutaprotUsesComponent
 } from '@module/public/components/usesproduct/detail-glutaprot-uses/detail-glutaprot-uses.component';
@@ -34,7 +34,7 @@ export const routes: Routes = [
       {path: 'products', component: ProductsComponent},
       {path: 'product/:name', component: CallProductsComponent},
       {path: 'about', component: AboutComponent},
-      {path: 'uses', component: UsesProductComponent},
+      {path: 'uses', component: UsesproductComponent},
       {path: 'uses/glutaprot', component: DetailGlutaprotUsesComponent},
       {path: 'uses/recover', component: DetailRecoverUsesComponent},
       {path: 'uses/kidz', component: DetailKidzUsesComponent},
