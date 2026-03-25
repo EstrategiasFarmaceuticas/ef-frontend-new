@@ -86,7 +86,6 @@ export class DetailGlutaprotUsesComponent {
 
   posts = [
     {image: 'post1Gluataprot.png'},
-    {image: 'post6Glutaprot.png'},
     {image: 'post7Glutaprot.png'},
     {image: 'post8Glutaprot.png'},
     {image: 'post2Glutaprot.png'},
