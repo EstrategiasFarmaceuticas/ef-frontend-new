@@ -13,9 +13,9 @@ import {Location, NgForOf, NgIf} from '@angular/common';
 export class DetailGlutaprotUsesComponent {
 
   colors = {
-    primary: '#7B6BA3',      // soft medical purple
-    secondary: '#F5F0E9',     // warm beige
-    accent: '#9B8BBF',        // lighter purple
+    primary: '#7B6BA3',
+    secondary: '#F5F0E9',
+    accent: '#9B8BBF',
     textDark: '#2A2A3A',
     backgroundSoft: '#FAF8F5'
   };

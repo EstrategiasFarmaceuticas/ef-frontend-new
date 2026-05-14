@@ -11,7 +11,6 @@ import {Location, NgForOf, NgIf} from "@angular/common";
   styleUrl: './detail-oncare-uses.component.css'
 })
 export class DetailOncareUsesComponent {
-  // Esquema de colores inspirado en el brochure (naranja/salmon)
   colors = {
     primary: '#74279e',
     secondary: '#9773b1',
