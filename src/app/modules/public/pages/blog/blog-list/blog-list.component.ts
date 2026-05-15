@@ -1,9 +1,11 @@
 import {Component, OnInit} from '@angular/core';
-import {Router} from '@angular/router';
+import {Router, RouterLink} from '@angular/router';
 import {FormsModule} from '@angular/forms';
+import {DatePipe} from '@angular/common';
 import {ArticleShortModel} from '@model/article/article.model';
 import {Page} from '@model/page';
 import {ArticleService} from '@service/article/article.service';
+import {StorageService} from '@service/storageService/storage.service';
 import {ArticleCardComponent} from '@module/public/components/blog/article-card/article-card.component';
 import {InfiniteScrollDirective} from 'ngx-infinite-scroll';
 
@@ -11,6 +13,8 @@ import {InfiniteScrollDirective} from 'ngx-infinite-scroll';
   selector: 'app-blog-list',
   imports: [
     FormsModule,
+    DatePipe,
+    RouterLink,
     ArticleCardComponent,
     InfiniteScrollDirective,
   ],
@@ -25,9 +29,9 @@ export class BlogListComponent implements OnInit {
 
   constructor(
     private articleService: ArticleService,
+    private storageService: StorageService,
     private router: Router,
-  ) {
-  }
+  ) {}
 
   ngOnInit() {
     this.loadArticles();
@@ -55,5 +59,13 @@ export class BlogListComponent implements OnInit {
   loadMore() {
     this.currentPage++;
     this.loadArticles();
+  }
+
+
+
+  getArticleImage(article: ArticleShortModel): string {
+    return article.headerImage.startsWith('http')
+      ? article.headerImage
+      : this.storageService.getFile(article.headerImage);
   }
 }
