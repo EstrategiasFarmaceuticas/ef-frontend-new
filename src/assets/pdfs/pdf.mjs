@@ -18098,7 +18098,7 @@ const AnnotationPrefix = "pdfjs_internal_id_";
 /******/ // Load entry module and return exports
 /******/ // This entry module used 'module' so it can't be inlined
 /******/ var __webpack_exports__ = __webpack_require__(907);
-/******/ __webpack_exports__ = globalThis.pdfjsLib = await (globalThis.pdfjsLibPromise = __webpack_exports__);
+/******/ globalThis.pdfjsLib = __webpack_exports__;
 /******/ var __webpack_exports__AbortException = __webpack_exports__.AbortException;
 /******/ var __webpack_exports__AnnotationEditorLayer = __webpack_exports__.AnnotationEditorLayer;
 /******/ var __webpack_exports__AnnotationEditorParamsType = __webpack_exports__.AnnotationEditorParamsType;

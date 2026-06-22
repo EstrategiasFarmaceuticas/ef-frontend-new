@@ -46,15 +46,14 @@ export class PortfolioComponent implements AfterViewInit {
         return;
       }
       const script = document.createElement('script');
-      script.src = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.0.379/pdf.min.mjs';
+      script.src = '/assets/pdfs/pdf.mjs';
       script.type = 'module';
-      script.crossOrigin = 'anonymous';
       script.onload = () => {
         const check = () => {
           if ((window as any).pdfjsLib) {
             resolve((window as any).pdfjsLib);
           } else {
-            setTimeout(check, 100);
+            setTimeout(check, 50);
           }
         };
         check();
@@ -79,7 +78,7 @@ export class PortfolioComponent implements AfterViewInit {
       const pdfjsLib = await this.loadPdfJs();
       const { PageFlip }: any = await import('page-flip');
 
-      pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.0.379/pdf.worker.min.mjs';
+      pdfjsLib.GlobalWorkerOptions.workerSrc = '/assets/pdfs/pdf.worker.min.mjs';
 
       const pdf = await pdfjsLib.getDocument({ data: buffer }).promise;
       this.totalPages = pdf.numPages;
@@ -110,7 +109,7 @@ export class PortfolioComponent implements AfterViewInit {
           const canvas = document.createElement('canvas');
           canvas.width = viewport.width;
           canvas.height = viewport.height;
-          const ctx = canvas.getContext('2d', { willReadFrequently: true })!;
+          const ctx = canvas.getContext('2d', { willReadFrequently: true, alpha: false })!;
           const renderTask = page.render({ canvasContext: ctx, viewport });
           await withTimeout(renderTask.promise, 20000, `render(${i})`);
           imageUrls.push(canvas.toDataURL('image/jpeg', 1.0));
