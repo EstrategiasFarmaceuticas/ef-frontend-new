@@ -11,6 +11,7 @@ import {BlogListComponent} from './modules/public/pages/blog/blog-list/blog-list
 import {BlogArticleComponent} from './modules/public/pages/blog/blog-article/blog-article.component';
 import {CallProductsComponent} from '@module/public/pages/products/call-products/call-products.component';
 import {UsesproductComponent} from '@module/public/components/usesproduct/usesproduct.component';
+import {PortfolioComponent} from './modules/public/pages/portfolio/portfolio.component';
 import {
   DetailGlutaprotUsesComponent
 } from '@module/public/components/usesproduct/detail-glutaprot-uses/detail-glutaprot-uses.component';
@@ -41,6 +42,7 @@ export const routes: Routes = [
       {path: 'uses/oncare', component: DetailOncareUsesComponent},
       {path: 'uses/protein', component: DetailProteinUsesComponent},
       {path: 'category/:name', component: CallToCategoriesComponent },
+      {path: 'portfolio', component: PortfolioComponent},
       {path: 'blog', component: BlogComponent, children: [
           {path: '', component: BlogListComponent},
           {path:':url', component: BlogArticleComponent}

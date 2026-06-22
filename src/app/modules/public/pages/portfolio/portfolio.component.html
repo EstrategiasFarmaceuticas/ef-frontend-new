@@ -1,0 +1,46 @@
+<div class="pdf-flipbook">
+  <!-- Header -->
+  <header class="fb-header">
+    <div class="fb-header-left">
+      <button (click)="prevPage()" class="nav-btn" [class.disabled]="!loaded || currentPage === 0">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+        </svg>
+      </button>
+      <span class="page-label" *ngIf="loaded">
+        Pág. <strong>{{ currentLabel }}</strong> de {{ totalPages }}
+      </span>
+      <button (click)="nextPage()" class="nav-btn" [class.disabled]="!loaded || currentPage >= totalPages - 1">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+        </svg>
+      </button>
+    </div>
+
+    <h1 class="fb-title">Portafolio</h1>
+  </header>
+
+  <!-- Progress -->
+  <div class="progress-bar" *ngIf="loaded">
+    <div class="progress-fill" [style.width.%]="progress"></div>
+  </div>
+
+  <!-- Body -->
+  <div class="fb-body">
+    <!-- Loading -->
+    <div class="loading-state" *ngIf="!loaded && !error">
+      <div class="spinner"></div>
+      <p class="loading-text">
+        {{ totalPages > 0 ? 'Renderizando página ' + currentPage + ' de ' + totalPages : 'Cargando PDF...' }}
+      </p>
+    </div>
+
+    <!-- Error -->
+    <div class="error-state" *ngIf="error">
+      <p class="error-text">{{ error }}</p>
+    </div>
+
+    <!-- Flipbook stage -->
+    <div class="flipbook-stage" [class.hidden]="!loaded" #flipStage></div>
+  </div>
+</div>

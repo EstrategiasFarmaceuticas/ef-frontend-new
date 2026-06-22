@@ -1,0 +1,177 @@
+.pdf-flipbook {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+  font-family: 'Nunito', sans-serif;
+  user-select: none;
+}
+
+/* ── Header ── */
+.fb-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.75rem 1.25rem;
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  flex-wrap: wrap;
+}
+
+.fb-header-left {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.nav-btn {
+  padding: 0.45rem;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.08);
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 1;
+}
+
+.nav-btn:hover {
+  background: rgba(255, 255, 255, 0.18);
+}
+
+.nav-btn.disabled {
+  opacity: 0.3;
+  cursor: default;
+  pointer-events: none;
+}
+
+.page-label {
+  color: rgba(255, 255, 255, 0.65);
+  font-size: 0.85rem;
+  font-family: 'Nunito', sans-serif;
+  white-space: nowrap;
+}
+
+.page-label strong {
+  color: white;
+}
+
+.fb-title {
+  color: white;
+  font-family: 'Nunito', sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+  letter-spacing: 0.05em;
+  display: none;
+}
+
+@media (min-width: 640px) {
+  .fb-title { display: block; }
+}
+
+/* ── Progress bar ── */
+.progress-bar {
+  height: 2px;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #34d399, #10b981);
+  transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ── Body ── */
+.fb-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  min-height: 0;
+}
+
+/* ── Loading ── */
+.loading-state {
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.spinner {
+  width: 36px;
+  height: 36px;
+  border: 3px solid rgba(255, 255, 255, 0.1);
+  border-top-color: #34d399;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.loading-text {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.85rem;
+  font-family: 'Nunito', sans-serif;
+}
+
+/* ── Error ── */
+.error-state {
+  margin: auto;
+  padding: 1.5rem;
+}
+
+.error-text {
+  color: #f87171;
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.9rem;
+}
+
+/* ── Flipbook stage ── */
+.flipbook-stage {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  box-sizing: border-box;
+  min-height: 0;
+}
+
+.flipbook-stage.hidden {
+  display: none;
+}
+
+/* Center book spine shadow — replaces the canvas renderer's drawBookShadow */
+.flipbook-stage::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
+  background:
+    linear-gradient(
+      to right,
+      transparent 0%,
+      rgba(0,0,0,0.12) 40%,
+      rgba(0,0,0,0.05) 48%,
+      rgba(0,0,0,0.35) 50%,
+      rgba(0,0,0,0.25) 52%,
+      transparent 100%
+    );
+  mask-image: radial-gradient(ellipse 60% 100% at 50% 50%, black 20%, transparent 70%);
+  -webkit-mask-image: radial-gradient(ellipse 60% 100% at 50% 50%, black 20%, transparent 70%);
+}
+
+.flipbook-inner {
+  width: 100%;
+  height: 100%;
+}
