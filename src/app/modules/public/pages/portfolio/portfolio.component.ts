@@ -46,8 +46,9 @@ export class PortfolioComponent implements AfterViewInit {
         return;
       }
       const script = document.createElement('script');
+      script.src = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.0.379/pdf.min.mjs';
       script.type = 'module';
-      script.src = '/assets/pdfs/pdf.mjs';
+      script.crossOrigin = 'anonymous';
       script.onload = () => {
         const check = () => {
           if ((window as any).pdfjsLib) {
@@ -78,7 +79,7 @@ export class PortfolioComponent implements AfterViewInit {
       const pdfjsLib = await this.loadPdfJs();
       const { PageFlip }: any = await import('page-flip');
 
-      pdfjsLib.GlobalWorkerOptions.workerSrc = '/assets/pdfs/pdf.worker.min.mjs';
+      pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.0.379/pdf.worker.min.mjs';
 
       const pdf = await pdfjsLib.getDocument({ data: buffer }).promise;
       this.totalPages = pdf.numPages;
