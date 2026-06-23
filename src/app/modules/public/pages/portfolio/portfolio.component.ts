@@ -1,15 +1,16 @@
-import { Component, Inject, PLATFORM_ID, ElementRef, ViewChild, AfterViewInit, ChangeDetectorRef } from '@angular/core';
-import { isPlatformBrowser, NgIf } from '@angular/common';
+import { Component, Inject, PLATFORM_ID, ElementRef, ViewChild, AfterViewInit, ChangeDetectorRef, HostListener } from '@angular/core';
+import { isPlatformBrowser, NgIf, NgFor } from '@angular/common';
 
 @Component({
   selector: 'app-portfolio',
   standalone: true,
-  imports: [NgIf],
+  imports: [NgIf, NgFor],
   templateUrl: './portfolio.component.html',
   styleUrl: './portfolio.component.css'
 })
 export class PortfolioComponent implements AfterViewInit {
   @ViewChild('flipStage', { static: true }) flipStage!: ElementRef<HTMLDivElement>;
+  @ViewChild('thumbnailContainer') thumbnailContainer!: ElementRef<HTMLDivElement>;
 
   isBrowser = false;
   loading = true;
@@ -17,6 +18,8 @@ export class PortfolioComponent implements AfterViewInit {
   error = '';
   totalPages = 0;
   currentPage = 0;
+  isFullscreen = false;
+  thumbnails: string[] = [];
   private flipBook: any = null;
 
   constructor(
@@ -26,9 +29,16 @@ export class PortfolioComponent implements AfterViewInit {
     this.isBrowser = isPlatformBrowser(platformId);
   }
 
+  @HostListener('window:keydown', ['$event'])
+  handleKeyboard(e: KeyboardEvent): void {
+    if (!this.loaded) return;
+    if (e.key === 'ArrowLeft') { this.prevPage(); e.preventDefault(); }
+    if (e.key === 'ArrowRight') { this.nextPage(); e.preventDefault(); }
+    if (e.key === 'Escape' && this.isFullscreen) { this.toggleFullscreen(); }
+  }
+
   async ngAfterViewInit(): Promise<void> {
     if (!this.isBrowser) return;
-    console.log('[Portfolio] v3.0 - Loading PDF...');
     try {
       const resp = await fetch('/assets/pdfs/portafolio.pdf');
       if (!resp.ok) throw new Error('No se pudo descargar el PDF');
@@ -62,6 +72,17 @@ export class PortfolioComponent implements AfterViewInit {
       script.onerror = () => reject(new Error('Failed to load PDF.js'));
       document.head.appendChild(script);
     });
+  }
+
+  private async renderPageToDataUrl(page: any, scale: number): Promise<string> {
+    const viewport = page.getViewport({ scale });
+    const canvas = document.createElement('canvas');
+    canvas.width = viewport.width;
+    canvas.height = viewport.height;
+    const ctx = canvas.getContext('2d', { willReadFrequently: true, alpha: false })!;
+    const renderTask = page.render({ canvasContext: ctx, viewport });
+    await renderTask.promise;
+    return canvas.toDataURL('image/jpeg', 1.0);
   }
 
   private async loadPdf(buffer: ArrayBuffer): Promise<void> {
@@ -98,7 +119,9 @@ export class PortfolioComponent implements AfterViewInit {
       stage.appendChild(flipEl);
 
       const scale = 4.0;
+      const thumbScale = 0.5;
       const imageUrls: string[] = [];
+      const thumbUrls: string[] = [];
       let renderedCount = 0;
 
       for (let i = 1; i <= pdf.numPages; i++) {
@@ -107,24 +130,23 @@ export class PortfolioComponent implements AfterViewInit {
         this.cdr.detectChanges();
         try {
           const page: any = await withTimeout(pdf.getPage(i), 10000, `getPage(${i})`);
-          const viewport = page.getViewport({ scale });
-          const canvas = document.createElement('canvas');
-          canvas.width = viewport.width;
-          canvas.height = viewport.height;
-          const ctx = canvas.getContext('2d', { willReadFrequently: true, alpha: false })!;
-          const renderTask = page.render({ canvasContext: ctx, viewport });
-          await withTimeout(renderTask.promise, 20000, `render(${i})`);
-          imageUrls.push(canvas.toDataURL('image/jpeg', 1.0));
+          const url = await this.renderPageToDataUrl(page, scale);
+          imageUrls.push(url);
+          const thumb = await this.renderPageToDataUrl(page, thumbScale);
+          thumbUrls.push(thumb);
           renderedCount++;
         } catch (e) {
           console.warn('Page', i, 'failed:', e);
           const blank = document.createElement('canvas');
           blank.width = 2;
           blank.height = 2;
-          imageUrls.push(blank.toDataURL('image/png'));
+          const url = blank.toDataURL('image/png');
+          imageUrls.push(url);
+          thumbUrls.push(url);
         }
       }
 
+      this.thumbnails = thumbUrls;
       this.totalPages = renderedCount;
       this.currentPage = 0;
 
@@ -141,7 +163,7 @@ export class PortfolioComponent implements AfterViewInit {
         height: 560,
         size: 'stretch',
         drawShadow: true,
-        flippingTime: 800,
+        flippingTime: 700,
         usePortrait: true,
         startZIndex: 0,
         autoSize: true,
@@ -167,8 +189,10 @@ export class PortfolioComponent implements AfterViewInit {
 
       this.flipBook.on('flip', (e: any) => {
         this.currentPage = e.data;
+        this.scrollThumbnailIntoView(e.data);
       });
 
+      this.cdr.detectChanges();
 
     } catch (err: any) {
       console.error('Error loading PDF:', err);
@@ -176,6 +200,25 @@ export class PortfolioComponent implements AfterViewInit {
     } finally {
       this.loading = false;
       this.cdr.detectChanges();
+    }
+  }
+
+  private scrollThumbnailIntoView(pageIndex: number): void {
+    if (!this.thumbnailContainer) return;
+    const el = this.thumbnailContainer.nativeElement.children[pageIndex] as HTMLElement;
+    el?.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+  }
+
+  toggleFullscreen(): void {
+    if (!this.isBrowser) return;
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen().then(() => {
+        this.isFullscreen = true;
+      }).catch(() => {});
+    } else {
+      document.exitFullscreen().then(() => {
+        this.isFullscreen = false;
+      }).catch(() => {});
     }
   }
 
