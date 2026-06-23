@@ -28,6 +28,7 @@ export class PortfolioComponent implements AfterViewInit {
 
   async ngAfterViewInit(): Promise<void> {
     if (!this.isBrowser) return;
+    console.log('[Portfolio] v2.0 - Loading PDF...');
     try {
       const resp = await fetch('/assets/pdfs/portafolio.pdf');
       if (!resp.ok) throw new Error('No se pudo descargar el PDF');
