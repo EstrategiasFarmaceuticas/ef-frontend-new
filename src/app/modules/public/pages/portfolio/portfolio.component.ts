@@ -28,7 +28,7 @@ export class PortfolioComponent implements AfterViewInit {
 
   async ngAfterViewInit(): Promise<void> {
     if (!this.isBrowser) return;
-    console.log('[Portfolio] v2.0 - Loading PDF...');
+    console.log('[Portfolio] v3.0 - Loading PDF...');
     try {
       const resp = await fetch('/assets/pdfs/portafolio.pdf');
       if (!resp.ok) throw new Error('No se pudo descargar el PDF');
@@ -77,7 +77,8 @@ export class PortfolioComponent implements AfterViewInit {
 
     try {
       const pdfjsLib = await this.loadPdfJs();
-      const { PageFlip }: any = await import('page-flip');
+      const m: any = await import('page-flip');
+      const PageFlip: any = m.default?.PageFlip || m.PageFlip;
 
       pdfjsLib.GlobalWorkerOptions.workerSrc = '/assets/pdfs/pdf.worker.min.mjs';
 
