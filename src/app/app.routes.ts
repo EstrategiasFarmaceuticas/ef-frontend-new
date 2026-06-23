@@ -42,7 +42,7 @@ export const routes: Routes = [
       {path: 'uses/oncare', component: DetailOncareUsesComponent},
       {path: 'uses/protein', component: DetailProteinUsesComponent},
       {path: 'category/:name', component: CallToCategoriesComponent },
-      {path: 'portfolio', component: PortfolioComponent},
+      {path: 'portafolio', component: PortfolioComponent},
       {path: 'blog', component: BlogComponent, children: [
           {path: '', component: BlogListComponent},
           {path:':url', component: BlogArticleComponent}
