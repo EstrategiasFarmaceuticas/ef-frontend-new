@@ -1,55 +1,63 @@
-<nav class="fixed w-full z-50 bg-white shadow-md">
-  <div class="container mx-auto flex items-center justify-between p-4">
-    <!-- Logo -->
-    <a href="" class="inline-block cursor-pointer">
-      <img src="logo.webp" alt="Logo" class="h-12 z-10 hover:opacity-80 transition-opacity duration-200" />
-    </a>
+<nav
+  class="fixed w-full z-50 transition-all duration-300"
+  [class.bg-white/90]="scrolled()"
+  [class.backdrop-blur-xl]="scrolled()"
+  [class.shadow-sm]="scrolled()"
+  [class.bg-transparent]="!scrolled()"
+>
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-16">
+      <a routerLink="/" class="flex-shrink-0">
+        <img
+          src="logo.webp"
+          alt="Estrategias Farmacéuticas"
+          class="h-11 w-auto transition-all duration-300"
+        />
+      </a>
 
-    <!-- Botón de menú (solo en móviles) -->
-    <button
-      class="lg:hidden text-gray-700 hover:text-blue-500 focus:outline-none"
-      (click)="toggleMenu()"
-    >
-      <svg
-        class="h-6 w-6"
-        fill="none"
-        stroke="currentColor"
-        viewBox="0 0 24 24"
+      <div class="hidden lg:flex items-center gap-1">
+        @for (link of navLinks; track link.path) {
+          <a
+            [routerLink]="link.path"
+            routerLinkActive="text-[#1f7ec2] bg-[#1f7ec2]/5 font-semibold"
+            [routerLinkActiveOptions]="{exact: link.exact}"
+            class="px-4 py-2 text-sm rounded-lg text-gray-700 hover:text-[#1f7ec2] hover:bg-[#1f7ec2]/5 transition-all duration-200"
+          >
+            {{ link.label }}
+          </a>
+        }
+      </div>
+
+      <button
+        class="lg:hidden relative w-8 h-8 flex items-center justify-center text-gray-700 hover:text-[#1f7ec2] transition-colors"
+        (click)="toggleMenu()"
+        aria-label="Menú de navegación"
       >
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          d="M4 6h16M4 12h16m-7 6h7"
-        ></path>
-      </svg>
-    </button>
-
-    <!-- Enlaces de navegación (ocultos en móviles) -->
-    <div class="lg:flex lg:space-x-6 hidden">
-      <a routerLink="" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"
-         class="block lg:inline-block text-gray-700 hover:text-blue-500 mt-4 lg:mt-0">Inicio</a>
-      <a routerLink="/products" routerLinkActive="active"
-         class="block lg:inline-block text-gray-700 hover:text-blue-500 mt-4 lg:mt-0">Productos</a>
-      <a routerLink="/about" routerLinkActive="active"
-         class="block lg:inline-block text-gray-700 hover:text-blue-500 mt-4 lg:mt-0">Nosotros</a>
-      <a routerLink="/uses" routerLinkActive="active"
-         class="block lg:inline-block text-gray-700 hover:text-blue-500 mt-4 lg:mt-0">Usos</a>
-      <a routerLink="/blog" routerLinkActive="active"
-         class="block lg:inline-block text-gray-700 hover:text-blue-500 mt-4 lg:mt-0">Blog</a>
-      <a routerLink="/portafolio" routerLinkActive="active"
-         class="block lg:inline-block text-gray-700 hover:text-blue-500 mt-4 lg:mt-0">Portafolio</a>
+        <div class="w-5 h-4 relative flex flex-col justify-between">
+          <span
+            class="block h-0.5 w-full bg-current rounded-full transition-all duration-300 origin-center"
+            [class.rotate-45]="isMenuOpen"
+            [class.translate-y-[7px]]="isMenuOpen"
+          ></span>
+          <span
+            class="block h-0.5 w-full bg-current rounded-full transition-all duration-300"
+            [class.opacity-0]="isMenuOpen"
+          ></span>
+          <span
+            class="block h-0.5 w-full bg-current rounded-full transition-all duration-300 origin-center"
+            [class.-rotate-45]="isMenuOpen"
+            [class.-translate-y-[7px]]="isMenuOpen"
+          ></span>
+        </div>
+      </button>
     </div>
   </div>
 </nav>
 
-<!-- Menú lateral móvil (ahora en el lado derecho) -->
 <app-mobile-menu [isOpen]="isMenuOpen" (closeMenu)="toggleMenu()"></app-mobile-menu>
 
-<!-- Fondo oscuro cuando el menú está abierto -->
-<div *ngIf="isMenuOpen" class="fixed inset-0  z-40 lg:hidden" (click)="toggleMenu()"></div>
+@if (isMenuOpen) {
+  <div class="fixed inset-0 bg-black/40 z-40 lg:hidden" (click)="toggleMenu()"></div>
+}
 
-<!-- Margen superior para el contenido -->
-<div class="pt-16">
-
-</div>
+<div class="h-16"></div>

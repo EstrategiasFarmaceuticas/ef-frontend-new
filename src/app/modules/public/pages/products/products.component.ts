@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { CategoriesComponent } from '@module/public/components/categories/categories.component';
@@ -7,6 +7,7 @@ import { ProductsService } from '@service/products/products.service';
 import { Product } from '@model/products/product.model';
 import { RouterModule } from '@angular/router';
 import {BestproductComponent} from '@module/public/components/bestproduct/bestproduct.component';
+import {ScrollRevealDirective} from '@core/directives/scroll-reveal.directive';
 
 @Component({
   selector: 'app-products',
@@ -17,7 +18,8 @@ import {BestproductComponent} from '@module/public/components/bestproduct/bestpr
     RouterModule,
     DistributorsComponent,
     CategoriesComponent,
-    BestproductComponent
+    BestproductComponent,
+    ScrollRevealDirective,
   ],
   templateUrl: './products.component.html'
 })
@@ -32,7 +34,10 @@ export class ProductsComponent implements OnInit {
 
   private searchTimeout: any;
 
-  constructor(private productsService: ProductsService) {}
+  constructor(
+    private productsService: ProductsService,
+    private cdr: ChangeDetectorRef
+  ) {}
 
   ngOnInit(): void {
     this.loadProducts();
@@ -50,17 +55,17 @@ export class ProductsComponent implements OnInit {
           slug: this.createSlug(product.name)
         }));
 
-        // Extraer categorías únicas de los productos para los filtros
         this.categories = this.extractUniqueCategories(this.products);
 
-        // Inicialmente mostrar todos
         this.applyFilters();
 
         this.isLoading = false;
+        this.cdr.detectChanges();
       },
       error: (err) => {
         this.error = 'Failed to load products. Please try again later.';
         this.isLoading = false;
+        this.cdr.detectChanges();
         console.error('Error loading products:', err);
       }
     });

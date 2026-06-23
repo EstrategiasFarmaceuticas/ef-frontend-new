@@ -4,6 +4,7 @@ import {BestproductComponent} from '@module/public/components/bestproduct/bestpr
 import {DistributorsComponent} from '@module/public/components/distributors/distributors.component';
 import {ArticleCarouselComponent} from '@module/public/components/blog/article-carousel/article-carousel.component';
 import {RouterLink} from '@angular/router';
+import {ScrollRevealDirective} from '@core/directives/scroll-reveal.directive';
 
 @Component({
   selector: 'app-start',
@@ -14,6 +15,7 @@ import {RouterLink} from '@angular/router';
     DistributorsComponent,
     ArticleCarouselComponent,
     RouterLink,
+    ScrollRevealDirective,
   ],
   templateUrl: './start.component.html',
   styleUrl: './start.component.css',

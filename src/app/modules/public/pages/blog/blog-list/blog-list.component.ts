@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ChangeDetectorRef} from '@angular/core';
 import {Router, RouterLink} from '@angular/router';
 import {FormsModule} from '@angular/forms';
 import {DatePipe} from '@angular/common';
@@ -31,6 +31,7 @@ export class BlogListComponent implements OnInit {
     private articleService: ArticleService,
     private storageService: StorageService,
     private router: Router,
+    private cdr: ChangeDetectorRef,
   ) {}
 
   ngOnInit() {
@@ -52,6 +53,7 @@ export class BlogListComponent implements OnInit {
         } else {
           this.articles = result;
         }
+        this.cdr.detectChanges();
       }
     });
   }

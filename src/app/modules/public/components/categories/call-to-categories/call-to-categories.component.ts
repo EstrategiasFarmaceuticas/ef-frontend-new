@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ChangeDetectorRef} from '@angular/core';
 import {Product} from '@model/products/product.model';
 import {ProductsService} from '@service/products/products.service';
 
@@ -32,6 +32,7 @@ export class CallToCategoriesComponent implements OnInit {
     private productsService: ProductsService,
     private categoryService: CategoriesService,
     private router: Router,
+    private cdr: ChangeDetectorRef,
     protected storageService: StorageService
   ) {
     const navigation = this.router.getCurrentNavigation();
@@ -92,10 +93,12 @@ export class CallToCategoriesComponent implements OnInit {
           slug: this.createSlug(product.name)
         }));
         this.isLoading = false;
+        this.cdr.detectChanges();
       },
       error: (err) => {
         this.error = 'Failed to load products. Please try again later.';
         this.isLoading = false;
+        this.cdr.detectChanges();
         console.error('Error loading products:', err);
       }
     });
@@ -113,10 +116,12 @@ export class CallToCategoriesComponent implements OnInit {
           slug: this.createSlug(product.name) // Añadimos esta propiedad
         }));
         this.isLoading = false;
+        this.cdr.detectChanges();
       },
       error: (err) => {
         this.error = 'Failed to load products. Please try again later.';
         this.isLoading = false;
+        this.cdr.detectChanges();
         console.error('Error loading products:', err);
       }
     });

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Product } from '@model/products/product.model';
 import { ProductsService } from '@service/products/products.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -23,7 +23,8 @@ export class CallProductsComponent implements OnInit {
     private route: ActivatedRoute,
     private productsService: ProductsService,
     private storageService: StorageService,
-    private router: Router
+    private router: Router,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
@@ -48,10 +49,12 @@ export class CallProductsComponent implements OnInit {
           this.router.navigate(['/404']);
         }
         this.isLoading = false;
+        this.cdr.detectChanges();
       },
       error: (err) => {
         this.error = 'Error al cargar el producto';
         this.isLoading = false;
+        this.cdr.detectChanges();
         console.error(err);
       }
     });

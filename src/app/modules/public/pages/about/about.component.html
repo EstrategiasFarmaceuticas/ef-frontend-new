@@ -1,41 +1,23 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Nosotros</title>
-  <link rel="stylesheet" href="about-style.css">
-  <!-- Tailwind CSS (si lo estás usando) -->
-  <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body>
-<!-- Banner superior con efecto parallax -->
-<div class="relative h-[300px] lg:h-[400px] overflow-hidden">
-  <!-- Imagen de fondo fija -->
-  <div class="fixed inset-0 w-full h-full -z-10">
-    <img
-      src="nosotros.png"
-      alt="Imagen de fondo"
-      class="w-full h-full object-cover"
-    />
-    <!-- Capa oscura fija -->
-    <div class="absolute inset-0 bg-black opacity-50"></div>
-  </div>
-
-  <!-- Contenido superpuesto -->
-  <div class="relative z-10 flex items-center justify-center h-full w-full">
-    <h1 class="text-3xl lg:text-5xl font-bold text-white text-center px-4">
+<section class="relative h-[300px] lg:h-[400px] overflow-hidden">
+  <img
+    src="nosotros.png"
+    alt="Estrategias Farmacéuticas"
+    class="absolute inset-0 w-full h-full object-cover"
+  />
+  <div class="absolute inset-0 bg-gradient-to-r from-[#0c447c]/90 via-[#0c447c]/70 to-[#0c447c]/40"></div>
+  <div class="absolute inset-0 bg-[#1f7ec2]/10"></div>
+  <div class="relative z-10 flex items-center justify-center h-full">
+    <h1 class="text-4xl lg:text-6xl font-bold text-white text-center px-4 tracking-tight" appScrollReveal>
       NOSOTROS
     </h1>
   </div>
-</div>
+</section>
 
-<!-- Sección de contenido -->
-<div class="bg-white py-12 px-4 sm:px-6 lg:px-8">
-  <div class="max-w-4xl mx-auto">
-    <!-- Sección Visión -->
-    <div class="vision-container mb-12">
-      <h2 class="text-xl md:text-3xl font-semibold text-[#1F7EC2] mb-4 border-b-2 border-[#1F7EC2] pb-2">
+<div class="bg-white py-16 px-4 sm:px-6 lg:px-8">
+  <div class="max-w-4xl mx-auto space-y-16">
+
+    <div appScrollReveal>
+      <h2 class="text-2xl md:text-4xl font-bold text-[#1f7ec2] mb-4 pb-2 border-b-2 border-[#1f7ec2]/30">
         VISIÓN
       </h2>
       <p class="text-gray-600 text-lg leading-relaxed">
@@ -44,9 +26,8 @@
       </p>
     </div>
 
-    <!-- Sección Misión -->
-    <div class="mision-container mb-12">
-      <h2 class="text-xl md:text-3xl font-semibold text-[#1F7EC2] mb-4 border-b-2 border-[#1F7EC2] pb-2 text-right">
+    <div appScrollReveal>
+      <h2 class="text-2xl md:text-4xl font-bold text-[#1f7ec2] mb-4 pb-2 border-b-2 border-[#1f7ec2]/30 text-right">
         MISIÓN
       </h2>
       <p class="text-gray-600 text-lg leading-relaxed text-right">
@@ -55,16 +36,17 @@
       </p>
     </div>
 
-    <h2 class="text-xl md:text-3xl font-semibold text-[#1F7EC2] mb-4  text-center">
-      NUESTRA HISTORIA
-    </h2>
-    <!-- Sección Nuestra Historia -->
-    <div class="flex flex-col lg:flex-row gap-8 items-center">
-      <!-- Texto a la izquierda -->
-      <div class="lg:w-1/2">
-        <h2 class="text-xl md:text-3xl font-semibold text-[#1F7EC2] mb-4 border-b-2 border-[#1F7EC2] pb-2 text-center">
+    <div class="text-center" appScrollReveal>
+      <h2 class="text-2xl md:text-4xl font-bold text-[#1f7ec2] mb-8 pb-2 border-b-2 border-[#1f7ec2]/30 inline-block">
+        NUESTRA HISTORIA
+      </h2>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center" appScrollReveal>
+      <div>
+        <h3 class="text-2xl md:text-3xl font-bold text-[#1f7ec2] mb-4 pb-2 border-b-2 border-[#1f7ec2]/30 text-center lg:text-left">
           HONDURAS
-        </h2>
+        </h3>
         <p class="text-gray-600 text-lg leading-relaxed text-justify">
           Nos establecimos en Honduras por su posición estratégica como hub de Centroamérica. Desde aquí, impulsamos
           el desarrollo del mercado, fomentamos la educación médica continua e incentivamos la integración
@@ -72,23 +54,27 @@
           con 6 años de presencia activa en la región.
         </p>
       </div>
-
-      <!-- Imagen a la derecha -->
-      <div class="lg:w-1/2">
+      <div class="order-first lg:order-last">
         <img
           src="honduras.webp"
-          alt="Nuestra historia"
-          class="w-full h-auto object-cover"
-        >
+          alt="Honduras"
+          class="w-full h-auto rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300"
+        />
       </div>
     </div>
 
-    <div class="flex flex-col lg:flex-row gap-8 items-center">
-
-      <div class="lg:w-1/2">
-        <h2 class="text-xl md:text-3xl font-semibold text-[#1F7EC2] mb-4 border-b-2 border-[#1F7EC2] pb-2 text-center">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center" appScrollReveal>
+      <div>
+        <img
+          src="colombia.webp"
+          alt="Colombia"
+          class="w-full h-auto rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300"
+        />
+      </div>
+      <div>
+        <h3 class="text-2xl md:text-3xl font-bold text-[#1f7ec2] mb-4 pb-2 border-b-2 border-[#1f7ec2]/30 text-center lg:text-left">
           COLOMBIA
-        </h2>
+        </h3>
         <p class="text-gray-600 text-lg leading-relaxed text-justify">
           Con más de 12 años de experiencia en farmaconutrición clínica, Colombia representa un pilar fundamental
           para nuestra compañía. Conocemos a fondo el sistema de salud y hemos contribuido significativamente
@@ -96,48 +82,35 @@
           un referente para toda Latinoamérica.
         </p>
       </div>
-
-      <!-- Imagen a la IZQUIERDA -->
-      <div class="lg:w-1/2">
-        <img
-          src="colombia.webp"
-          alt="Nuestra historia"
-          class="w-full h-auto object-cover"
-        >
-      </div>
-
-
     </div>
 
-    <div class="flex flex-col lg:flex-row gap-8 items-center">
-      <!-- Texto a la izquierda -->
-      <div class="lg:w-1/2">
-        <h2 class="text-xl md:text-3xl font-semibold text-[#1F7EC2] mb-4 border-b-2 border-[#1F7EC2] pb-2 text-center">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center" appScrollReveal>
+      <div>
+        <h3 class="text-2xl md:text-3xl font-bold text-[#1f7ec2] mb-4 pb-2 border-b-2 border-[#1f7ec2]/30 text-center lg:text-left">
           ESTADOS UNIDOS
-        </h2>
+        </h3>
         <p class="text-gray-600 text-lg leading-relaxed text-justify">
           Nuestra casa matriz está ubicada en Estados Unidos, donde desarrollamos productos de alta tecnología bajo
           los más exigentes estándares de calidad. Cumplimos con regulaciones FDA y objetivos clínicos concretos,
           asegurando eficacia, seguridad y respaldo científico en cada fórmula.
         </p>
       </div>
-
-      <!-- Imagen a la derecha -->
-      <div class="lg:w-1/2">
+      <div class="order-first lg:order-last">
         <img
           src="eeuu.webp"
-          alt="Nuestra historia"
-          class="w-full h-auto object-cover"
-        >
+          alt="Estados Unidos"
+          class="w-full h-auto rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300"
+        />
       </div>
     </div>
   </div>
 </div>
 
-<!-- Sección "¿Por qué Nosotros?" -->
-<div class="relative h-auto bg-gradient-to-br from-[#1F7EC2] to-[#0D4C88] py-16 px-4">
-  <div class="max-w-4xl mx-auto text-center text-white fade-up">
-    <h2 class="text-4xl font-extrabold mb-6 tracking-wide">¿Por qué Nosotros?</h2>
+<div class="relative bg-gradient-to-br from-[#1f7ec2] to-[#0c447c] py-20 px-4 overflow-hidden">
+  <div class="absolute -top-32 -right-32 w-96 h-96 rounded-full bg-white/5 pointer-events-none"></div>
+  <div class="absolute -bottom-40 -left-20 w-80 h-80 rounded-full bg-white/5 pointer-events-none"></div>
+  <div class="max-w-4xl mx-auto text-center text-white" appScrollReveal>
+    <h2 class="text-4xl font-bold mb-6 tracking-tight">¿Por qué Nosotros?</h2>
     <p class="text-lg leading-relaxed sm:text-xl font-light max-w-3xl mx-auto">
       Porque no solo creamos productos, creamos soluciones reales.
       Nuestro equipo trabaja día a día en el desarrollo de herramientas personalizadas para el soporte nutricional,
@@ -148,5 +121,3 @@
 </div>
 
 <app-distributors></app-distributors>
-</body>
-</html>

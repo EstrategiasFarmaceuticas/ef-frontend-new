@@ -1,16 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { ProductsService } from '@service/products/products.service';
 import { Product } from '@model/products/product.model';
-import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-
+import {ScrollRevealDirective} from '@core/directives/scroll-reveal.directive';
 
 @Component({
   selector: 'app-bestproduct',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [RouterModule, ScrollRevealDirective],
   templateUrl: './bestproduct.component.html',
-  styleUrls: ['./bestproduct.component.css']
 })
 export class BestproductComponent implements OnInit {
   bestProduct: Product | null = null;
@@ -19,6 +17,7 @@ export class BestproductComponent implements OnInit {
 
   constructor(
     private productsService: ProductsService,
+    private cdr: ChangeDetectorRef,
   ) {}
 
   ngOnInit(): void {
@@ -36,10 +35,12 @@ export class BestproductComponent implements OnInit {
           imageUrl: this.productsService.getProductImageUrl(product.imageUrl)
         };
         this.isLoading = false;
+        this.cdr.detectChanges();
       },
       error: (err) => {
         this.error = 'Failed to load featured product. Please try again later.';
         this.isLoading = false;
+        this.cdr.detectChanges();
         console.error('Error loading featured product:', err);
       }
     });

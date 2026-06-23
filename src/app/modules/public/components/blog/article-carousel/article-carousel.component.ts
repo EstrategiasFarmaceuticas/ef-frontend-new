@@ -1,4 +1,4 @@
-import {Component, Inject, OnDestroy, OnInit, PLATFORM_ID} from '@angular/core';
+import {Component, Inject, OnDestroy, OnInit, PLATFORM_ID, ChangeDetectorRef} from '@angular/core';
 import {ArticleCardComponent} from '@module/public/components/blog/article-card/article-card.component';
 import {ArticleService} from '@service/article/article.service';
 import {ArticleShortModel} from '@model/article/article.model';
@@ -22,7 +22,8 @@ export class ArticleCarouselComponent implements OnInit, OnDestroy {
 
   constructor(
     private articleService: ArticleService,
-    @Inject(PLATFORM_ID) private platformId: Object
+    @Inject(PLATFORM_ID) private platformId: Object,
+    private cdr: ChangeDetectorRef,
   ) {
     this.isBrowser = isPlatformBrowser(this.platformId);
   }
@@ -44,6 +45,7 @@ export class ArticleCarouselComponent implements OnInit, OnDestroy {
     this.articleService.searchArticles('', true, false, 0, 5).subscribe({
       next: (result) => {
         this.articles = result.content;
+        this.cdr.detectChanges();
       }
     });
   }

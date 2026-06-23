@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, ChangeDetectorRef} from '@angular/core';
 import {ActivatedRoute, RouterLink} from '@angular/router';
 import {CommonModule, registerLocaleData} from '@angular/common';
 import localeEs from '@angular/common/locales/es';
@@ -33,6 +33,7 @@ export class BlogArticleComponent {
     private activatedRoute: ActivatedRoute,
     private articleService: ArticleService,
     private storageService: StorageService,
+    private cdr: ChangeDetectorRef,
   ) {}
 
   article: ArticleModel = new ArticleModel();
@@ -42,6 +43,7 @@ export class BlogArticleComponent {
       const headerUrl = params['url'];
       this.articleService.getArticle(headerUrl).subscribe(article => {
         this.article = toArticleModel(article);
+        this.cdr.detectChanges();
       });
     });
   }

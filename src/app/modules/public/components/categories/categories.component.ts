@@ -1,6 +1,6 @@
 
   import {CommonModule} from '@angular/common';
-  import {Component, OnInit} from '@angular/core';
+  import {Component, OnInit, ChangeDetectorRef} from '@angular/core';
   import {Category, CategoryResponse} from '@model/categories/category.model';
   import {CategoriesService} from '@service/categories/categories.service';
   import {FormsModule} from '@angular/forms';
@@ -33,7 +33,8 @@
     constructor(
       private categoriesService: CategoriesService,
       private storageService: StorageService,
-      private router: Router
+      private router: Router,
+      private cdr: ChangeDetectorRef,
       ) {}
 
     ngOnInit(): void {
@@ -54,7 +55,10 @@
         this.currentPage,
         this.pageSize
       ).pipe(
-        finalize(() => this.isLoading = false)
+        finalize(() => {
+          this.isLoading = false;
+          this.cdr.detectChanges();
+        })
       ).subscribe({
         next: (response) => this.handleResponse(response),
         error: (error) => this.handleError(error)

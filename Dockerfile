@@ -1,4 +1,4 @@
-from node:18-alpine as build
+from node:22-alpine as build
 
 workdir /app
 
@@ -15,7 +15,7 @@ copy . .
 
 run bun run build
 
-from node:18-alpine
+from node:22-alpine
 
 workdir /app
 
