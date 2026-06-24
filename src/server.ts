@@ -11,7 +11,7 @@ const indexHtml = join(serverDistFolder, 'index.server.html');
 
 const app = express();
 const commonEngine = new CommonEngine({
-  allowedHosts: ['localhost', '127.0.0.1', '0.0.0.0', '.estrategiasfarmaceuticas.com', 'ef.srv5.xyz'],
+  allowedHosts: ['localhost', '127.0.0.1', '0.0.0.0', 'estrategiasfarmaceuticas.com', 'www.estrategiasfarmaceuticas.com', 'ef.srv5.xyz'],
 });
 
 /**
