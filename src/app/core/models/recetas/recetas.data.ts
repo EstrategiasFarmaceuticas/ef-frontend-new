@@ -38,7 +38,7 @@ export const RECETAS: Receta[] = [
       'Licúa a velocidad alta por 30 segundos hasta obtener una mezcla homogénea.',
       'Sirve inmediatamente y consume preferiblemente en ayunas o entre comidas.',
     ],
-    productos: ['Glutaprot-Bio'],
+    productos: ['Glutaprot - Bio'],
   },
   {
     slug: 'yogur-enriquecido-glutaprot',
@@ -64,7 +64,7 @@ export const RECETAS: Receta[] = [
       'Agrega la miel y la granola por encima.',
       'Sirve frío. Ideal como desayuno o merienda durante el proceso de recuperación.',
     ],
-    productos: ['Glutaprot-Bio'],
+    productos: ['Glutaprot - Bio'],
   },
   {
     slug: 'avena-reconstituyente-glutaprot',
@@ -90,7 +90,7 @@ export const RECETAS: Receta[] = [
       'Añade el sobre de Glutaprot-Bio y mezcla bien.',
       'Sirve con canela y miel por encima. Consume tibio.',
     ],
-    productos: ['Glutaprot-Bio'],
+    productos: ['Glutaprot - Bio'],
   },
 
   // ── Qomplett Kidz ─────────────────────────────────────────────────────────
