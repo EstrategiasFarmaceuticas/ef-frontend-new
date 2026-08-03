@@ -1,4 +1,4 @@
-export interface Receta {
+﻿export interface Receta {
   slug: string;
   titulo: string;
   descripcionCorta: string;
@@ -526,7 +526,7 @@ export const RECETAS: Receta[] = [
       'Mezcla 10 segundos más a velocidad baja.',
       'Sirve inmediatamente.',
     ],
-    productos: ['Fibra'],
+    productos: ['Livenpro Fibra'],
   },
   {
     slug: 'avena-nocturna-fibra',
@@ -553,7 +553,7 @@ export const RECETAS: Receta[] = [
       'Cierra el frasco y refrigera toda la noche (mínimo 6 horas).',
       'Al servir, añade canela y consume frío o a temperatura ambiente.',
     ],
-    productos: ['Fibra'],
+    productos: ['Livenpro Fibra'],
   },
   {
     slug: 'yogur-fibra-fruta',
@@ -580,7 +580,7 @@ export const RECETAS: Receta[] = [
       'Añade la granola y la miel como toque final.',
       'Consumir de inmediato.',
     ],
-    productos: ['Fibra'],
+    productos: ['Livenpro Fibra'],
   },
 
   // ── Colágeno ──────────────────────────────────────────────────────────────
@@ -609,7 +609,7 @@ export const RECETAS: Receta[] = [
       'Agrega la medida de Colágeno y los cubos de hielo.',
       'Mezcla 10 segundos más y sirve de inmediato.',
     ],
-    productos: ['Colágeno'],
+    productos: ['Livenpro Colágeno'],
   },
   {
     slug: 'infusion-dorada-colageno',
@@ -636,7 +636,7 @@ export const RECETAS: Receta[] = [
       'Añade la medida de Colágeno y la miel; remueve hasta disolver.',
       'Sirve caliente.',
     ],
-    productos: ['Colágeno'],
+    productos: ['Livenpro Colágeno'],
   },
   {
     slug: 'bowl-frutas-colageno',
@@ -664,6 +664,6 @@ export const RECETAS: Receta[] = [
       'Termina con un hilo de miel por encima.',
       'Consumir de inmediato.',
     ],
-    productos: ['Colágeno'],
+    productos: ['Livenpro Colágeno'],
   },
 ];

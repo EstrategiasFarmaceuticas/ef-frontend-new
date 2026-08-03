@@ -1,4 +1,4 @@
-﻿import { Component, input, computed, signal, HostListener, Inject, PLATFORM_ID, OnDestroy } from '@angular/core';
+import { Component, input, computed, signal, HostListener, Inject, PLATFORM_ID, OnDestroy } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { RECETAS, Receta } from '@model/recetas/recetas.data';
 import { RecetaCardComponent } from '../receta-card/receta-card.component';
@@ -20,11 +20,8 @@ export class RecetasProductoComponent implements OnDestroy {
   recetas = computed<Receta[]>(() => {
     const strip = (s: string) =>
       s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
-    const words = (s: string) => strip(s).split(/[\s\-_&+,]+/).filter(Boolean);
-    const nameWords = words(this.productoNombre());
-    return RECETAS.filter(r =>
-      r.productos.some(p => words(p).every(w => nameWords.includes(w)))
-    );
+    const nombre = strip(this.productoNombre());
+    return RECETAS.filter(r => r.productos.some(p => strip(p) === nombre));
   });
 
   abrirModal(receta: Receta) {
