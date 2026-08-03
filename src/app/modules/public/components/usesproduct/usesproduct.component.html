@@ -1,0 +1,81 @@
+<section class="uses-page">
+  <!-- Hero Section con imagen de fondo y overlay -->
+  <div class="hero-section">
+    <div class="hero-overlay"></div>
+    <div class="hero-content container">
+      <h1 class="hero-title">Nutrición Clínica Especializada</h1>
+      <p class="hero-subtitle">
+        Soluciones nutricionales diseñadas para apoyar la recuperación y el bienestar en condiciones complejas.
+      </p>
+    </div>
+  </div>
+
+  <!-- Grid de productos -->
+  <div class="products-section">
+    <div class="container">
+      <h2 class="section-title">Nuestros productos</h2>
+      <p class="section-subtitle">
+        Cada producto está formulado para brindar soporte específico en diferentes escenarios clínicos.
+      </p>
+
+      <div class="product-grid">
+        <div class="product-card" *ngFor="let product of products" (click)="viewProductDetails(product.route)">
+          <div class="card-image">
+            <img [src]="product.image" [alt]="product.name">
+          </div>
+          <div class="card-content">
+            <h3>{{ product.name }}</h3>
+            <p>{{ product.description }}</p>
+            <span class="btn-view-more">
+              Ver usos <i class="fas fa-arrow-right"></i>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sección de contenido informativo (SEO y valor educativo) -->
+  <div class="info-section">
+    <div class="container">
+      <h2 class="section-title">¿Por qué es clave la nutrición especializada?</h2>
+      <div class="info-grid">
+        <div class="info-card">
+          <div class="info-icon">
+            <i class="fas fa-shield-alt"></i>
+          </div>
+          <h3>Refuerzo del sistema inmune</h3>
+          <p>
+            Una nutrición adecuada puede modular la respuesta inflamatoria y fortalecer las defensas naturales,
+            especialmente en pacientes con tratamientos agresivos o enfermedades crónicas.
+          </p>
+        </div>
+        <div class="info-card">
+          <div class="info-icon">
+            <i class="fas fa-bolt"></i>
+          </div>
+          <h3>Recuperación acelerada</h3>
+          <p>
+            Los nutrientes específicos como la L-glutamina, proteínas de alto valor y zinc favorecen la regeneración
+            de tejidos y acortan los tiempos de hospitalización.
+          </p>
+        </div>
+        <div class="info-card">
+          <div class="info-icon">
+            <i class="fas fa-heartbeat"></i>
+          </div>
+          <h3>Apoyo metabólico integral</h3>
+          <p>
+            En situaciones de estrés metabólico (cirugías, quemaduras, sepsis), una fórmula completa ayuda a mantener
+            la masa magra y estabilizar el equilibrio nutricional.
+          </p>
+        </div>
+      </div>
+      <p class="info-footer">
+        En <strong>Estrategias Farmacéuticas</strong> desarrollamos soluciones basadas en evidencia para acompañar
+        a profesionales de la salud y pacientes en cada etapa del proceso.
+      </p>
+    </div>
+  </div>
+</section>
+

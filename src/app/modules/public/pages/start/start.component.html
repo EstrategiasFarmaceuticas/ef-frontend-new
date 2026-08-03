@@ -1,109 +1,239 @@
-<div class="relative h-100 lg:h-96 lg:[clip-path:polygon(100%_0%,_0%_0%_,_0.00%_54.79%,_1.00%_54.47%,_2.00%_54.19%,_3.00%_53.96%,_4.00%_53.76%,_5.00%_53.61%,_6.00%_53.51%,_7.00%_53.44%,_8.00%_53.42%,_9.00%_53.45%,_10.00%_53.52%,_11.00%_53.63%,_12.00%_53.78%,_13.00%_53.98%,_14.00%_54.22%,_15.00%_54.51%,_16.00%_54.83%,_17.00%_55.20%,_18.00%_55.60%,_19.00%_56.05%,_20.00%_56.53%,_21.00%_57.05%,_22.00%_57.61%,_23.00%_58.21%,_24.00%_58.84%,_25.00%_59.50%,_26.00%_60.19%,_27.00%_60.91%,_28.00%_61.67%,_29.00%_62.45%,_30.00%_63.26%,_31.00%_64.09%,_32.00%_64.95%,_33.00%_65.82%,_34.00%_66.72%,_35.00%_67.63%,_36.00%_68.56%,_37.00%_69.51%,_38.00%_70.47%,_39.00%_71.44%,_40.00%_72.41%,_41.00%_73.40%,_42.00%_74.39%,_43.00%_75.38%,_44.00%_76.37%,_45.00%_77.37%,_46.00%_78.36%,_47.00%_79.34%,_48.00%_80.32%,_49.00%_81.30%,_50.00%_82.26%,_51.00%_83.21%,_52.00%_84.14%,_53.00%_85.06%,_54.00%_85.96%,_55.00%_86.85%,_56.00%_87.71%,_57.00%_88.55%,_58.00%_89.36%,_59.00%_90.15%,_60.00%_90.92%,_61.00%_91.65%,_62.00%_92.35%,_63.00%_93.02%,_64.00%_93.66%,_65.00%_94.27%,_66.00%_94.84%,_67.00%_95.37%,_68.00%_95.86%,_69.00%_96.32%,_70.00%_96.74%,_71.00%_97.12%,_72.00%_97.45%,_73.00%_97.75%,_74.00%_98.00%,_75.00%_98.21%,_76.00%_98.38%,_77.00%_98.51%,_78.00%_98.59%,_79.00%_98.63%,_80.00%_98.62%,_81.00%_98.57%,_82.00%_98.48%,_83.00%_98.34%,_84.00%_98.16%,_85.00%_97.94%,_86.00%_97.67%,_87.00%_97.37%,_88.00%_97.02%,_89.00%_96.63%,_90.00%_96.20%,_91.00%_95.73%,_92.00%_95.23%,_93.00%_94.69%,_94.00%_94.11%,_95.00%_93.49%,_96.00%_92.85%,_97.00%_92.17%,_98.00%_91.45%,_99.00%_90.71%,_100.00%_89.94%)]">
-  <!-- Imagen de fondo -->
+<section class="relative overflow-hidden bg-[#0c447c]">
   <img
-    src="principal.webp"
-    alt="Imagen de fondo"
+    src="images/start.webp"
+    alt="Estrategias Farmacéuticas"
     class="absolute inset-0 w-full h-full object-cover"
   />
 
-  <!-- Capa oscura -->
-  <div class="absolute inset-0 bg-black opacity-50"></div>
+  <div class="absolute inset-0 bg-gradient-to-r from-[#0c447c]/95 via-[#0c447c]/70 to-transparent"></div>
+  <div class="absolute inset-0 bg-[#1f7ec2]/15"></div>
 
-  <!-- Contenido superpuesto -->
-  <div class="relative z-10 flex flex-col items-center sm:items-end justify-center h-full text-white text-center
-  sm:text-right px-4 sm:pr-16 lg:pr-24">
-    <!-- Título principal -->
-    <h1 class="text-2xl sm:text-4xl font-bold mb-2 sm:mb-4"> <!-- Texto más pequeño en móvil -->
-      ESTRATEGIAS<br />
-      FARMACÉUTICAS
-    </h1>
+  <div class="absolute -top-32 -right-32 w-96 h-96 rounded-full bg-white/5 pointer-events-none"></div>
+  <div class="absolute -bottom-40 right-40 w-80 h-80 rounded-full bg-white/5 pointer-events-none"></div>
 
-    <!-- Subtítulo -->
-    <p class="text-lg sm:text-xl mb-4 sm:mb-8"> <!-- Texto más pequeño en móvil -->
-      Salud y Bienestar a<br />
-      tu Alcance.
-    </p>
+  <div class="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28">
+    <div class="max-w-2xl text-white">
+      <div class="inline-flex items-center gap-2 bg-white/15 backdrop-blur-sm border border-white/20 rounded-full px-4 py-1.5 mb-6 fade-in">
+        <span class="w-2 h-2 rounded-full bg-sky-300 animate-pulse"></span>
+        <span class="text-xs sm:text-sm font-medium">Avalado por FDA · Respaldo clínico</span>
+      </div>
 
-    <!-- Botón de acción (opcional) -->
-    <a
-      href="#"
-      class="inline-block bg-white text-blue-600 font-semibold py-2 px-6 rounded-full hover:bg-blue-50 transition duration-200"
-    >
-      Conoce Más
-    </a>
-  </div>
-</div>
+      <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight mb-5 fade-in">
+        Salud y bienestar
+        <span class="block text-sky-200">a tu alcance.</span>
+      </h1>
 
-<!-- _________________________________________________________________________________________________________________ -->
-<!-- Sección de "¿Quiénes Somos?" -->
-<div class="bg-white py-12 px-4 sm:px-6 lg:px-8">
-  <div class="max-w-6xl mx-auto flex flex-col lg:flex-row items-center gap-8 lg:gap-12">
-    <div class="w-full lg:w-1/2 order-1 lg:order-none">
-      <img
-        src="quienesSomos.png"
-        alt="Imagen descriptiva"
-        class="w-full h-auto rounded-xl "
-      />
-    </div>
-
-    <div class="w-full lg:w-1/2 px-0 lg:pl-8">
-      <h2 class="text-2xl sm:text-3xl font-bold text-[#1f7ec2] mb-4 sm:mb-6 text-center">
-        ¿Quiénes Somos?
-      </h2>
-
-      <p class="text-base sm:text-lg text-gray-600 mb-6 sm:mb-8 text-center">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sed
-        eros nulla. Duis magna nisi, interdum sit amet tincidunt in,
-        dignissim eu odio. Donec vestibulum lacus et accumsan placerat.
-        Ut auctor fringilla nibh, et consectetur sem omare sit amet.
+      <p class="text-base sm:text-lg lg:text-xl text-white/85 mb-8 max-w-xl leading-relaxed fade-in">
+        Soluciones de farmaconutrición clínica para acompañar a profesionales de la salud
+        y pacientes en cada etapa del tratamiento.
       </p>
 
-      <div class="flex flex-col lg:flex-row gap-4 lg:gap-6 justify-center lg:justify-start items-center lg:items-start">
-        <img
-          src="logo.webp"
-          alt="Logo 1"
-          class="h-16 sm:h-16 w-60"
-        />
-        <img
-          src="emsa.webp"
-          alt="Logo 2"
-          class="h-16 sm:h-16 w-60"
-        />
+      <div class="flex flex-col sm:flex-row gap-3 fade-in">
+        <a
+          routerLink="/products"
+          class="inline-flex items-center justify-center gap-2 bg-white text-[#0c447c] font-semibold py-3 px-7 rounded-lg hover:bg-sky-50 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200"
+        >
+          Ver productos
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+          </svg>
+        </a>
+        <a
+          routerLink="/about"
+          class="inline-flex items-center justify-center gap-2 bg-transparent text-white font-semibold py-3 px-7 rounded-lg border border-white/40 hover:bg-white/10 transition-all duration-200"
+        >
+          Conoce más
+        </a>
       </div>
     </div>
   </div>
-</div>
-<!-- _________________________________________________________________________________________________________________ -->
 
-<div class="py-12 px-4 sm:px-6 lg:px-8 bg-blue-50">
-  <div class="max-w-6xl mx-auto flex flex-col lg:flex-row items-center gap-8 lg:gap-12">
-
-
-    <div class="w-full lg:w-1/2 px-0 lg:pl-8">
-      <h2 class="text-2xl sm:text-3xl font-bold text-[#1f7ec2] mb-4 sm:mb-6 text-center">
-        ¿Por Qué Nosotros?
-      </h2>
-
-      <p class="text-base sm:text-lg text-gray-600 mb-6 sm:mb-8 text-center">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sed
-        eros nulla. Duis magna nisi, interdum sit amet tincidunt in,
-        dignissim eu odio. Donec vestibulum lacus et accumsan placerat.
-        Ut auctor fringilla nibh, et consectetur sem omare sit amet.
-      </p>
-
-    </div>
-    <div class="w-full lg:w-1/2 order-1 lg:order-none">
-      <img
-        src="porqueNosotros.webp"
-        alt="Imagen descriptiva"
-        class="w-full h-auto rounded-xl "
-      />
+  <div class="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
+    <div class="grid grid-cols-2 sm:grid-cols-4 gap-6 pt-8 border-t border-white/20" appScrollReveal>
+      <div class="text-white">
+        <div class="text-3xl sm:text-4xl font-bold">12<span class="text-sky-200">+</span></div>
+        <div class="text-xs sm:text-sm text-white/75 mt-1">Años en LATAM</div>
+      </div>
+      <div class="text-white">
+        <div class="text-3xl sm:text-4xl font-bold">3</div>
+        <div class="text-xs sm:text-sm text-white/75 mt-1">Países</div>
+      </div>
+      <div class="text-white">
+        <div class="text-3xl sm:text-4xl font-bold">8<span class="text-sky-200">+</span></div>
+        <div class="text-xs sm:text-sm text-white/75 mt-1">Productos clínicos</div>
+      </div>
+      <div class="text-white">
+        <div class="text-3xl sm:text-4xl font-bold">FDA</div>
+        <div class="text-xs sm:text-sm text-white/75 mt-1">Certificado</div>
+      </div>
     </div>
   </div>
-</div>
+</section>
 
+<section class="bg-white py-16 sm:py-20 px-4 sm:px-6 lg:px-8" appScrollReveal>
+  <div class="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+    <div class="order-2 lg:order-1">
+      <div class="relative">
+        <div class="absolute -inset-4 bg-gradient-to-br from-sky-100 to-blue-100 rounded-3xl -z-10"></div>
+        <img
+          src="quienesSomos.png"
+          alt="Equipo Estrategias Farmacéuticas"
+          class="w-full h-auto rounded-2xl shadow-md"
+        />
+      </div>
+    </div>
+
+    <div class="order-1 lg:order-2">
+      <span class="inline-block text-xs font-semibold tracking-widest text-[#1f7ec2] uppercase mb-3">
+        Quiénes somos
+      </span>
+      <h2 class="text-3xl sm:text-4xl font-bold text-[#0c447c] mb-5 leading-tight">
+        Creamos productos con propósito.
+      </h2>
+      <p class="text-base sm:text-lg text-gray-600 leading-relaxed mb-6">
+        Desarrollamos soluciones de farmaconutrición clínica con respaldo científico,
+        identidad propia y un enfoque claro: mejorar la calidad de vida de cada paciente.
+        Con presencia en Estados Unidos, Colombia y Honduras, acompañamos a profesionales
+        de la salud en toda Latinoamérica.
+      </p>
+
+      <div class="flex flex-wrap items-center gap-6 pt-6 border-t border-gray-100">
+        <img src="logo.webp" alt="Estrategias Farmacéuticas" class="h-12 w-auto" />
+        <img src="emsa.webp" alt="EMSA Inc." class="h-12 w-auto" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="bg-gradient-to-b from-sky-50 to-white py-16 sm:py-20 px-4 sm:px-6 lg:px-8" appScrollReveal>
+  <div class="max-w-6xl mx-auto">
+    <div class="text-center max-w-2xl mx-auto mb-12">
+      <span class="inline-block text-xs font-semibold tracking-widest text-[#1f7ec2] uppercase mb-3">
+        Por qué nosotros
+      </span>
+      <h2 class="text-3xl sm:text-4xl font-bold text-[#0c447c] mb-4 leading-tight">
+        Soluciones reales, no solo productos.
+      </h2>
+      <p class="text-base sm:text-lg text-gray-600 leading-relaxed">
+        Tres pilares que sostienen cada formulación que desarrollamos.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <article class="bg-white rounded-2xl p-7 border border-gray-100 hover:border-[#1f7ec2]/30 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group">
+        <div class="w-14 h-14 rounded-xl bg-sky-100 flex items-center justify-center mb-5 group-hover:bg-[#1f7ec2] transition-colors duration-300">
+          <svg class="w-7 h-7 text-[#1f7ec2] group-hover:text-white transition-colors duration-300"
+               fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/>
+          </svg>
+        </div>
+        <h3 class="text-xl font-bold text-[#0c447c] mb-3">Respaldo científico</h3>
+        <p class="text-gray-600 leading-relaxed">
+          Cada fórmula desarrollada bajo estándares FDA, con evidencia clínica que
+          sustenta su eficacia y seguridad.
+        </p>
+      </article>
+
+      <article class="bg-white rounded-2xl p-7 border border-gray-100 hover:border-[#1f7ec2]/30 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group">
+        <div class="w-14 h-14 rounded-xl bg-sky-100 flex items-center justify-center mb-5 group-hover:bg-[#1f7ec2] transition-colors duration-300">
+          <svg class="w-7 h-7 text-[#1f7ec2] group-hover:text-white transition-colors duration-300"
+               fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+          </svg>
+        </div>
+        <h3 class="text-xl font-bold text-[#0c447c] mb-3">Equipo multidisciplinario</h3>
+        <p class="text-gray-600 leading-relaxed">
+          Médicos, nutricionistas y químicos especializados trabajando en cada
+          formulación con un objetivo común.
+        </p>
+      </article>
+
+      <article class="bg-white rounded-2xl p-7 border border-gray-100 hover:border-[#1f7ec2]/30 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group">
+        <div class="w-14 h-14 rounded-xl bg-sky-100 flex items-center justify-center mb-5 group-hover:bg-[#1f7ec2] transition-colors duration-300">
+          <svg class="w-7 h-7 text-[#1f7ec2] group-hover:text-white transition-colors duration-300"
+               fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
+          </svg>
+        </div>
+        <h3 class="text-xl font-bold text-[#0c447c] mb-3">Soluciones específicas</h3>
+        <p class="text-gray-600 leading-relaxed">
+          Líneas dedicadas para oncología, pediatría, heridas, disfagia, gestación
+          y más necesidades clínicas particulares.
+        </p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<app-bestproduct></app-bestproduct>
+
+<section class="bg-white py-16 sm:py-20 px-4 sm:px-6 lg:px-8" appScrollReveal>
+  <div class="max-w-6xl mx-auto">
+    <div class="text-center max-w-2xl mx-auto mb-12">
+      <span class="inline-block text-xs font-semibold tracking-widest text-[#1f7ec2] uppercase mb-3">
+        Presencia regional
+      </span>
+      <h2 class="text-3xl sm:text-4xl font-bold text-[#0c447c] mb-4 leading-tight">
+        Tres países, una sola misión.
+      </h2>
+      <p class="text-base sm:text-lg text-gray-600 leading-relaxed">
+        Operaciones estratégicas que conectan ciencia, fabricación y atención clínica.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="relative bg-gradient-to-br from-[#185fa5] to-[#0c447c] rounded-2xl p-8 text-white overflow-hidden hover:shadow-2xl transition-shadow duration-300">
+        <div class="absolute -right-8 -top-8 w-32 h-32 rounded-full bg-white/10"></div>
+        <div class="relative">
+          <div class="inline-flex items-center gap-2 bg-white/15 px-3 py-1 rounded-full mb-5">
+            <span class="text-xs font-semibold">CASA MATRIZ</span>
+          </div>
+          <h3 class="text-2xl font-bold mb-2">Estados Unidos</h3>
+          <p class="text-sky-100/90 text-sm mb-4 font-medium">FDA · Miami, Florida</p>
+          <p class="text-white/85 leading-relaxed">
+            Desarrollamos productos de alta tecnología bajo los más exigentes estándares
+            de calidad y regulaciones FDA.
+          </p>
+        </div>
+      </div>
+
+      <div class="relative bg-white border-2 border-[#1f7ec2]/20 rounded-2xl p-8 hover:border-[#1f7ec2]/50 hover:shadow-xl transition-all duration-300">
+        <div class="absolute top-6 right-6 text-5xl font-bold text-[#1f7ec2]/10">12+</div>
+        <div class="relative">
+          <div class="inline-flex items-center gap-2 bg-sky-100 text-[#0c447c] px-3 py-1 rounded-full mb-5">
+            <span class="text-xs font-semibold">PILAR EN LATAM</span>
+          </div>
+          <h3 class="text-2xl font-bold text-[#0c447c] mb-2">Colombia</h3>
+          <p class="text-[#1f7ec2] text-sm mb-4 font-medium">12+ años de experiencia</p>
+          <p class="text-gray-600 leading-relaxed">
+            Conocemos a fondo el sistema de salud y somos un referente clínico para
+            toda Latinoamérica.
+          </p>
+        </div>
+      </div>
+
+      <div class="relative bg-white border-2 border-[#1f7ec2]/20 rounded-2xl p-8 hover:border-[#1f7ec2]/50 hover:shadow-xl transition-all duration-300">
+        <div class="absolute top-6 right-6 text-5xl font-bold text-[#1f7ec2]/10">6+</div>
+        <div class="relative">
+          <div class="inline-flex items-center gap-2 bg-sky-100 text-[#0c447c] px-3 py-1 rounded-full mb-5">
+            <span class="text-xs font-semibold">HUB CENTROAMÉRICA</span>
+          </div>
+          <h3 class="text-2xl font-bold text-[#0c447c] mb-2">Honduras</h3>
+          <p class="text-[#1f7ec2] text-sm mb-4 font-medium">6+ años de presencia</p>
+          <p class="text-gray-600 leading-relaxed">
+            Impulsamos educación médica continua y la integración de la farmaconutrición
+            en sociedades clínicas.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
 <app-categories></app-categories>
-<app-bestproduct></app-bestproduct>
 <app-article-carousel></app-article-carousel>
+<app-actividades-recientes></app-actividades-recientes>
 <app-distributors></app-distributors>

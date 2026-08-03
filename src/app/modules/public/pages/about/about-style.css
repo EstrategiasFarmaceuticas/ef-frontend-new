@@ -1,42 +1,11 @@
-/* styles.css */
-/* Animaciones */
-@keyframes slideInLeft {
-  from {
-    transform: translateX(-100px);
-    opacity: 0;
-  }
-  to {
-    transform: translateX(0);
+@media (prefers-reduced-motion: reduce) {
+  .vision-container h2,
+  .vision-container p,
+  .mision-container h2,
+  .mision-container p,
+  .fade-up,
+  .zoom-in {
+    animation: none;
     opacity: 1;
   }
-}
-
-@keyframes slideInRight {
-  from {
-    transform: translateX(100px);
-    opacity: 0;
-  }
-  to {
-    transform: translateX(0);
-    opacity: 1;
-  }
-}
-
-.vision-container h2,
-.vision-container p {
-  animation: slideInLeft 1s ease-out forwards;
-}
-
-.mision-container h2,
-.mision-container p {
-  animation: slideInRight 1s ease-out forwards;
-}
-
-/* Retraso para el párrafo */
-.vision-container p {
-  animation-delay: 0.3s;
-}
-
-.mision-container p {
-  animation-delay: 0.3s;
 }

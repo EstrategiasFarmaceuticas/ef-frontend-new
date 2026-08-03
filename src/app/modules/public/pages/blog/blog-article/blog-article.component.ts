@@ -1,6 +1,9 @@
-import {Component} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import {Component, ChangeDetectorRef} from '@angular/core';
+import {ActivatedRoute, RouterLink} from '@angular/router';
+import {CommonModule, registerLocaleData} from '@angular/common';
+import localeEs from '@angular/common/locales/es';
 import {ArticleService} from '@service/article/article.service';
+import {StorageService} from '@service/storageService/storage.service';
 import {ArticleModel, toArticleModel} from '@model/article/article.model';
 import {BlogComponentInjectorType} from '@model/miscellanious/blog/blog-component-injector-type';
 import {AdmBcImgComponent} from '@module/public/components/blog/blog-injector/adm-bc-img/adm-bc-img.component';
@@ -9,9 +12,13 @@ import {AdmBcSubtitleComponent} from '@module/public/components/blog/blog-inject
 import {AdmBcTitleComponent} from '@module/public/components/blog/blog-injector/adm-bc-title/adm-bc-title.component';
 import {AdmBcDescriptionComponent} from '@module/public/components/blog/blog-injector/adm-bc-description/adm-bc-description.component';
 
+registerLocaleData(localeEs);
+
 @Component({
   selector: 'app-blog-article',
   imports: [
+    CommonModule,
+    RouterLink,
     AdmBcImgComponent,
     AdmBcTextComponent,
     AdmBcSubtitleComponent,
@@ -22,18 +29,43 @@ import {AdmBcDescriptionComponent} from '@module/public/components/blog/blog-inj
   styleUrl: './blog-article.component.css'
 })
 export class BlogArticleComponent {
-  constructor(private activatedRoute: ActivatedRoute, private articleService: ArticleService) {
-  }
+  constructor(
+    private activatedRoute: ActivatedRoute,
+    private articleService: ArticleService,
+    private storageService: StorageService,
+    private cdr: ChangeDetectorRef,
+  ) {}
 
-  article : ArticleModel = new ArticleModel();
+  article: ArticleModel = new ArticleModel();
 
   ngOnInit() {
     this.activatedRoute.params.subscribe(params => {
       const headerUrl = params['url'];
       this.articleService.getArticle(headerUrl).subscribe(article => {
-        this.article = toArticleModel(article)
+        this.article = toArticleModel(article);
+        this.cdr.detectChanges();
       });
-    })
+    });
+  }
+
+
+  getHeaderImage(): string {
+    if (!this.article.headerImage) return '';
+    return this.article.headerImage.startsWith('http')
+      ? this.article.headerImage
+      : this.storageService.getFile(this.article.headerImage);
+  }
+
+
+  getReadingTime(): number {
+    const wordsPerMinute = 200;
+    let totalWords = (this.article.shortDesc || '').split(/\s+/).length;
+    (this.article.content || []).forEach(section => {
+      if (typeof section.data === 'string') {
+        totalWords += section.data.split(/\s+/).length;
+      }
+    });
+    return Math.max(1, Math.ceil(totalWords / wordsPerMinute));
   }
 
   protected readonly BlogComponentInjectorType = BlogComponentInjectorType;

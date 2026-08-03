@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Capa_1" data-name="Capa 1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 595.28 269.29">
+  <defs>
+    <style>
+      .cls-1 {
+        opacity: .61;
+      }
+    </style>
+    <image id="image" width="1080" height="386" xlink:href="../pngegg.png"/>
+  </defs>
+  <use class="cls-1" transform="translate(14.39 184.79) scale(.15 .11)" xlink:href="#image"/>
+  <use class="cls-1" transform="translate(112.78 203.54) scale(.15 .11)" xlink:href="#image"/>
+  <use class="cls-1" transform="translate(424.94 183) scale(.15 .11)" xlink:href="#image"/>
+  <use class="cls-1" transform="translate(322.76 201.08) scale(.15 .11)" xlink:href="#image"/>
+  <use class="cls-1" transform="translate(218.95 219.54) scale(.15 .11)" xlink:href="#image"/>
+  <image width="3500" height="3500" transform="translate(-42.49 -22.53) scale(.08)" xlink:href="../tarro-qomplett-protein-1-min.png"/>
+  <image width="3500" height="3500" transform="translate(53.37 -7.75) scale(.08)" xlink:href="../tarro-FRESA.png"/>
+  <image width="3500" height="3500" transform="translate(373.53 -25.92) scale(.08)" xlink:href="../qomplett-thickener-copia-min (1).png"/>
+  <image width="3500" height="3500" transform="translate(266.65 -8.35) scale(.08)" xlink:href="../tarro-mom-min.png"/>
+  <image width="3500" height="3500" transform="translate(165.6 11.86) scale(.08)" xlink:href="../tarro-oncare-fresa-min.png"/>
+</svg>

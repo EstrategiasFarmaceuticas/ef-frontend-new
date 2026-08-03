@@ -1,0 +1,79 @@
+<div class="pdf-flipbook">
+  <!-- Header -->
+  <header class="fb-header" [class.fb-header--hidden]="isFullscreen">
+    <div class="fb-header-left">
+      <button (click)="prevPage()" class="nav-btn" [class.disabled]="!loaded || currentPage === 0"
+        aria-label="Página anterior">
+        <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+        </svg>
+      </button>
+      <span class="page-label" *ngIf="loaded">
+        <span class="page-label-icon">📄</span>
+        Pág. <strong>{{ currentLabel }}</strong> de {{ totalPages }}
+      </span>
+      <button (click)="nextPage()" class="nav-btn" [class.disabled]="!loaded || currentPage >= totalPages - 1"
+        aria-label="Página siguiente">
+        <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+        </svg>
+      </button>
+    </div>
+
+    <h1 class="fb-title">Portafolio</h1>
+
+    <div class="fb-header-right">
+      <button (click)="toggleFullscreen()" class="nav-btn" aria-label="Pantalla completa">
+        <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            [attr.d]="isFullscreen ? 'M8 3v3a2 2 0 0 1-2 2H3m18 0h-3a2 2 0 0 1-2-2V3m0 18v-3a2 2 0 0 1 2-2h3M3 16h3a2 2 0 0 1 2 2v3' : 'M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3'"/>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- Progress -->
+  <div class="progress-bar" *ngIf="loaded">
+    <div class="progress-fill" [style.width.%]="progress"></div>
+  </div>
+
+  <!-- Body -->
+  <div class="fb-body">
+    <!-- Loading -->
+    <div class="loading-state" *ngIf="!loaded && !error">
+      <div class="loader">
+        <div class="loader-dot"></div>
+        <div class="loader-dot"></div>
+        <div class="loader-dot"></div>
+      </div>
+      <p class="loading-text">
+        {{ totalPages > 0 ? 'Renderizando página ' + currentPage + ' de ' + totalPages : 'Cargando PDF...' }}
+      </p>
+    </div>
+
+    <!-- Error -->
+    <div class="error-state" *ngIf="error">
+      <div class="error-icon">⚠️</div>
+      <p class="error-text">{{ error }}</p>
+      <button class="retry-btn" (click)="ngAfterViewInit()">Reintentar</button>
+    </div>
+
+    <!-- Flipbook stage -->
+    <div class="flipbook-stage" [class.hidden]="!loaded" #flipStage></div>
+  </div>
+
+  <!-- Thumbnail strip -->
+  <div class="thumbnail-strip" *ngIf="loaded && thumbnails.length > 0" [class.thumbnail-strip--hidden]="isFullscreen">
+    <div class="thumbnail-track" #thumbnailContainer>
+      <button
+        *ngFor="let thumb of thumbnails; let i = index"
+        class="thumbnail-item"
+        [class.thumbnail-item--active]="i === currentPage"
+        (click)="goToPage(i)"
+        [attr.aria-label]="'Ir a página ' + (i + 1)">
+        <img [src]="thumb" [alt]="'Página ' + (i + 1)" loading="lazy" />
+        <span class="thumbnail-label">{{ i + 1 }}</span>
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,16 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Product } from '@model/products/product.model';
 import { ProductsService } from '@service/products/products.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { CategoriesComponent } from '@module/public/components/categories/categories.component';
+import { RecetasProductoComponent } from '@module/public/components/recetas/recetas-producto/recetas-producto.component';
 import { StorageService } from '@service/storageService/storage.service';
 
 @Component({
   selector: 'app-call-products',
   standalone: true,
-  imports: [CommonModule, RouterModule, CategoriesComponent],
+  imports: [CommonModule, RouterModule, CategoriesComponent, RecetasProductoComponent],
   templateUrl: './call-products.component.html',
 })
 export class CallProductsComponent implements OnInit {
@@ -23,7 +24,8 @@ export class CallProductsComponent implements OnInit {
     private route: ActivatedRoute,
     private productsService: ProductsService,
     private storageService: StorageService,
-    private router: Router
+    private router: Router,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
@@ -48,10 +50,12 @@ export class CallProductsComponent implements OnInit {
           this.router.navigate(['/404']);
         }
         this.isLoading = false;
+        this.cdr.detectChanges();
       },
       error: (err) => {
         this.error = 'Error al cargar el producto';
         this.isLoading = false;
+        this.cdr.detectChanges();
         console.error(err);
       }
     });
@@ -69,6 +73,7 @@ export class CallProductsComponent implements OnInit {
             ...p,
             imageUrl: this.getImageUrl(p.imageUrl)
           }));
+        this.cdr.detectChanges();
       });
   }
 

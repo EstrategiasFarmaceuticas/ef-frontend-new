@@ -1,209 +1,371 @@
-<div class="bg-white py-8 px-4 sm:px-6 lg:px-8">
-  <div class="max-w-7xl mx-auto">
-    <!-- Loading State -->
-    @if (isLoading) {
-      <div class="text-center py-10">
-        <div class="inline-block animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-blue-500 mb-2"></div>
-        <p class="text-gray-600">Cargando producto...</p>
-      </div>
-    }
+<!-- ================================================================== -->
+<!-- LOADING STATE                                                       -->
+<!-- ================================================================== -->
+@if (isLoading) {
+  <div class="bg-white py-32 flex flex-col items-center justify-center">
+    <div class="animate-spin rounded-full h-10 w-10 border-2 border-gray-200 border-t-[#1f7ec2] mb-4"></div>
+    <p class="text-gray-500 text-sm">Cargando producto...</p>
+  </div>
+}
 
-    <!-- Error State -->
-    @if (error && !isLoading) {
-      <div class="text-center py-10">
-        <p class="text-red-500 mb-4">{{ error }}</p>
-        <button
-          (click)="loadProduct(product?.name || '')"
-          class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors duration-200"
-        >
-          Intentar de nuevo
-        </button>
+<!-- ================================================================== -->
+<!-- ERROR STATE                                                         -->
+<!-- ================================================================== -->
+@if (error && !isLoading) {
+  <div class="bg-white py-24 px-4">
+    <div class="max-w-md mx-auto text-center">
+      <div class="w-14 h-14 mx-auto mb-4 rounded-full bg-red-50 flex items-center justify-center">
+        <svg class="w-7 h-7 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+        </svg>
       </div>
-    }
+      <p class="text-gray-700 font-semibold mb-2">No pudimos cargar el producto</p>
+      <p class="text-gray-500 text-sm mb-6">{{ error }}</p>
+      <button
+        (click)="loadProduct(product?.name || '')"
+        class="inline-flex items-center gap-2 px-5 py-2.5 bg-[#1f7ec2] text-white rounded-lg font-medium hover:bg-[#185fa5] transition-colors"
+      >
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+        </svg>
+        Intentar de nuevo
+      </button>
+    </div>
+  </div>
+}
 
-    <!-- Contenido del producto -->
-    @if (product && !isLoading && !error) {
-      <!-- Primera sección (imagen + nombre + descripción) -->
-      <div class="bg-blue-50 rounded-xl overflow-hidden mb-12">
-        <div class="flex flex-col lg:flex-row">
-          <!-- Imagen del producto -->
-          <div class="lg:w-1/2 h-[500px] lg:h-[500px] lg:w-[570px] overflow-hidden transition-all duration-500 hover:scale-105">
+<!-- ================================================================== -->
+<!-- CONTENIDO DEL PRODUCTO                                              -->
+<!-- ================================================================== -->
+@if (product && !isLoading && !error) {
+
+  <!-- Breadcrumbs -->
+  <nav class="bg-white border-b border-gray-100">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
+      <ol class="flex items-center gap-2 text-sm text-gray-500">
+        <li>
+          <a routerLink="/" class="hover:text-[#1f7ec2] transition-colors">Inicio</a>
+        </li>
+        <li>
+          <svg class="w-3 h-3 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+          </svg>
+        </li>
+        <li>
+          <a routerLink="/products" class="hover:text-[#1f7ec2] transition-colors">Productos</a>
+        </li>
+        <li>
+          <svg class="w-3 h-3 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+          </svg>
+        </li>
+        <li class="text-[#0c447c] font-medium truncate">{{ product.name }}</li>
+      </ol>
+    </div>
+  </nav>
+
+  <!-- ================================================================== -->
+    <!-- HERO DEL PRODUCTO                                                   -->
+    <!-- ================================================================== -->
+  <section class="bg-gradient-to-br from-sky-50 via-white to-sky-50/50 py-10 lg:py-16">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+
+        <!-- Imagen -->
+        <div class="relative">
+          <div class="absolute -inset-4 bg-gradient-to-br from-[#1f7ec2]/10 to-sky-200/30 rounded-3xl blur-2xl"></div>
+          <div class="relative bg-white rounded-3xl border border-gray-100 p-6 lg:p-10 shadow-xl shadow-[#1f7ec2]/5 overflow-hidden">
             <img
               [src]="product.imageUrl"
               [alt]="product.name"
-              class="w-full h-full object-cover"
+              class="w-full h-auto max-h-[420px] object-contain mx-auto hover:scale-105 transition-transform duration-500"
               (error)="handleImageError($event)"
             >
           </div>
+        </div>
 
-          <!-- Nombre y descripción -->
-          <div class="lg:w-1/2 p-8 lg:p-12 flex flex-col justify-center">
-            <div class="flex justify-between items-center mb-6">
-              <h1 class="text-3xl md:text-4xl font-bold text-[#1f7ec2] animate-fade-in" style="animation: fadeIn 0.8s ease-in-out;">
-                {{ product.name }}
-              </h1>
-              <a
-                href="https://wa.me/+573114594374?text=Hola,%20estoy%20interesado%20en%20el%20producto%20{{product.name}}"
-                target="_blank"
-                class="bg-green-500 text-white p-3 rounded-full hover:bg-green-600 transition-transform duration-200 hover:scale-110"
-              >
-                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-                </svg>
-              </a>
-            </div>
-            <p class="text-lg text-gray-700 mb-6 leading-relaxed whitespace-pre-line">
-              {{ product.description }}
-            </p>
+        <!-- Info -->
+        <div>
+          <!-- Badge de categoría -->
+          @if (product.categories && product.categories.length > 0) {
+            <span class="inline-flex items-center gap-2 px-3 py-1.5 bg-sky-100 text-[#0c447c] text-xs font-semibold rounded-full mb-5 uppercase tracking-wider">
+              <span class="w-1.5 h-1.5 rounded-full bg-[#1f7ec2]"></span>
+              {{ product.categories[0].category.name }}
+            </span>
+          }
+
+          <h1 class="text-4xl sm:text-5xl font-bold text-[#0c447c] mb-5 leading-tight">
+            {{ product.name }}
+          </h1>
+
+          <p class="text-base sm:text-lg text-gray-600 mb-8 leading-relaxed whitespace-pre-line">
+            {{ product.description }}
+          </p>
+
+          <!-- CTAs -->
+          <div class="flex flex-col sm:flex-row gap-3">
+            <a
+              href="https://wa.me/+573114594374?text=Hola,%20estoy%20interesado%20en%20el%20producto%20{{product.name}}"
+              target="_blank"
+              rel="noopener"
+              class="inline-flex items-center justify-center gap-2 bg-[#25D366] text-white font-semibold py-3 px-6 rounded-xl hover:bg-[#1DA851] hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200"
+            >
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+              </svg>
+              Consultar por WhatsApp
+            </a>
+            <a
+              routerLink="/products"
+              class="inline-flex items-center justify-center gap-2 bg-white border border-gray-200 text-gray-700 font-semibold py-3 px-6 rounded-xl hover:border-[#1f7ec2] hover:text-[#1f7ec2] transition-all duration-200"
+            >
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+              </svg>
+              Ver más productos
+            </a>
           </div>
         </div>
       </div>
+    </div>
+  </section>
 
-      <!-- Segunda sección (información nutricional + beneficios/ingredientes) -->
-      <div class="flex flex-col lg:flex-row gap-8 mb-12">
-        <!-- Columna izquierda - Información nutricional -->
-        <div class="lg:w-1/2">
-          @if (product.nutritionalUrl) {
-            <div class="p-4 h-full">
-              <h3 class="text-2xl font-semibold text-center text-[#1f7ec2] mb-4">Información Nutricional</h3>
-              <img
-                [src]="product.nutritionalUrl"
-                alt="Tabla nutricional"
-                class="w-full h-auto max-h-[700px] object-contain mx-auto"
-                (error)="handleImageError($event)"
-              >
+  <!-- ================================================================== -->
+    <!-- BENEFICIOS                                                          -->
+    <!-- ================================================================== -->
+  @if (hasContent(product.beneficts)) {
+    <section class="bg-white py-14 lg:py-20 px-4 sm:px-6 lg:px-8">
+      <div class="max-w-6xl mx-auto">
+        <div class="text-center max-w-2xl mx-auto mb-10">
+          <span class="inline-block text-xs font-semibold tracking-widest text-[#1f7ec2] uppercase mb-3">
+            Beneficios
+          </span>
+          <h2 class="text-3xl sm:text-4xl font-bold text-[#0c447c] leading-tight">
+            ¿Por qué este producto?
+          </h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+          @for (benefit of product.beneficts; track benefit) {
+            <div class="bg-gradient-to-br from-sky-50 to-white border border-gray-100 rounded-2xl p-6 hover:border-[#1f7ec2]/30 hover:shadow-lg transition-all duration-300">
+              <div class="flex items-start gap-4">
+                <div class="flex-shrink-0 w-10 h-10 rounded-xl bg-[#1f7ec2] flex items-center justify-center">
+                  <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/>
+                  </svg>
+                </div>
+                <p class="text-gray-700 leading-relaxed pt-1">{{ benefit }}</p>
+              </div>
             </div>
           }
         </div>
-
-        <!-- Línea vertical solo en pantallas grandes -->
-        <div class="hidden lg:block w-px bg-[#1f7ec2] opacity-40"></div>
-
-        <!-- Columna derecha - Beneficios e ingredientes -->
-      <div class="lg:w-2/3 space-y-4 "> <!-- antes: space-y-8 -->
-        <!-- Beneficios -->
-        @if (hasContent(product.beneficts)) {
-          <div class="p-4">
-            <h3 class="text-2xl font-semibold text-[#1f7ec2] mb-4">Beneficios</h3>
-            <ul class="space-y-2">
-              @for (benefit of product.beneficts; track benefit) {
-                <li class="flex items-start">
-                  <svg class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
-                  </svg>
-                  <span class="text-gray-600">{{ benefit }}</span>
-                </li>
-              }
-            </ul>
-            <div class="h-px bg-[#1f7ec2] opacity-40 mt-8"></div>
-          </div>
-        }
-
-        <!-- Ingredientes -->
-        @if (hasContent(product.ingredients)) {
-          <div class="p-4">
-            <h3 class="text-2xl font-semibold text-[#1f7ec2] mb-4">Ingredientes</h3>
-            <ul class="space-y-1">
-              @for (ingredient of product.ingredients; track ingredient) {
-                <li class="text-gray-600">{{ ingredient }}</li>
-              }
-            </ul>
-            <div class="h-px bg-[#1f7ec2] opacity-40 mt-8"></div>
-          </div>
-        }
-
-        <!-- Modo de uso -->
-        @if (hasContent(product.usageSugerences)) {
-          <div class="p-4">
-            <h3 class="text-2xl font-semibold text-[#1f7ec2] mb-2">Modo de uso</h3>
-            <ul class="list-disc pl-5 space-y-1 text-gray-600">
-              @for (usage of product.usageSugerences; track usage) {
-                <li>{{ usage }}</li>
-              }
-            </ul>
-            <div class="h-px bg-[#1f7ec2] opacity-40 mt-8"></div>
-          </div>
-        }
       </div>
+    </section>
+  }
 
-    </div>
+  <!-- ================================================================== -->
+    <!-- INFORMACIÓN NUTRICIONAL + INGREDIENTES + MODO DE USO                -->
+    <!-- ================================================================== -->
+  @if (product.nutritionalUrl || hasContent(product.ingredients) || hasContent(product.usageSugerences)) {
+    <section class="bg-gradient-to-b from-sky-50/40 to-white py-14 lg:py-20 px-4 sm:px-6 lg:px-8">
+      <div class="max-w-6xl mx-auto">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
 
-      <!-- Cuarta sección - Consumos -->
-      @if (hasContent(product.consumes)) {
-        <div class="mb-4">
-          <h3 class="text-2xl font-semibold text-center text-[#1f7ec2] mb-6">Recomendaciones de consumo</h3>
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            @for (consume of product.consumes; track consume.step) {
-              <div class="p-6">
-                <div class="flex flex-col items-center">
-                  @if (consume.url) {
-                    <div class="w-full h-48 mb-4 flex items-center justify-center rounded-lg overflow-hidden">
-                      <img
-                        [src]="getConsumeImageUrl(consume)"
-                        alt="Paso {{consume.step}}"
-                        class="max-h-full max-w-full object-contain"
-                        (error)="handleImageError($event)"
-                      >
-                    </div>
-                  }
-                  <div class="bg-blue-500 text-white rounded-full w-8 h-8 flex items-center justify-center mb-2">
-                    {{ consume.step }}
-                  </div>
-                  <h4 class="font-medium text-gray-900 text-center mb-2">Paso {{ consume.step }}</h4>
-                  <p class="text-gray-600 text-center">{{ consume.description }}</p>
+          <!-- Columna izquierda: Información nutricional -->
+          @if (product.nutritionalUrl) {
+            <div class="bg-white rounded-2xl border border-gray-100 p-6 lg:p-8">
+              <div class="flex items-center gap-3 mb-6">
+                <div class="w-10 h-10 rounded-xl bg-sky-100 flex items-center justify-center">
+                  <svg class="w-5 h-5 text-[#1f7ec2]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2a4 4 0 014-4h6m0 0l-3-3m3 3l-3 3M3 7h6a4 4 0 014 4v0M3 7l3-3m-3 3l3 3"/>
+                  </svg>
                 </div>
+                <h3 class="text-xl lg:text-2xl font-bold text-[#0c447c]">Información nutricional</h3>
+              </div>
+              <div class="bg-gray-50 rounded-xl p-4">
+                <img
+                  [src]="product.nutritionalUrl"
+                  alt="Tabla nutricional"
+                  class="w-full h-auto max-h-[600px] object-contain mx-auto"
+                  (error)="handleImageError($event)"
+                >
+              </div>
+            </div>
+          }
+
+          <!-- Columna derecha: ingredientes + modo de uso -->
+          <div class="space-y-6 lg:space-y-8">
+
+            <!-- Ingredientes (en chips) -->
+            @if (hasContent(product.ingredients)) {
+              <div class="bg-white rounded-2xl border border-gray-100 p-6 lg:p-8">
+                <div class="flex items-center gap-3 mb-5">
+                  <div class="w-10 h-10 rounded-xl bg-sky-100 flex items-center justify-center">
+                    <svg class="w-5 h-5 text-[#1f7ec2]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/>
+                    </svg>
+                  </div>
+                  <h3 class="text-xl lg:text-2xl font-bold text-[#0c447c]">Ingredientes</h3>
+                </div>
+                <div class="flex flex-wrap gap-2">
+                  @for (ingredient of product.ingredients; track ingredient) {
+                    <span class="inline-block px-3 py-1.5 bg-sky-50 border border-sky-100 text-[#0c447c] text-sm rounded-lg">
+                      {{ ingredient }}
+                    </span>
+                  }
+                </div>
+              </div>
+            }
+
+            <!-- Modo de uso -->
+            @if (hasContent(product.usageSugerences)) {
+              <div class="bg-white rounded-2xl border border-gray-100 p-6 lg:p-8">
+                <div class="flex items-center gap-3 mb-5">
+                  <div class="w-10 h-10 rounded-xl bg-sky-100 flex items-center justify-center">
+                    <svg class="w-5 h-5 text-[#1f7ec2]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                    </svg>
+                  </div>
+                  <h3 class="text-xl lg:text-2xl font-bold text-[#0c447c]">Modo de uso</h3>
+                </div>
+                <ul class="space-y-3">
+                  @for (usage of product.usageSugerences; track usage) {
+                    <li class="flex items-start gap-3">
+                      <span class="flex-shrink-0 w-1.5 h-1.5 rounded-full bg-[#1f7ec2] mt-2.5"></span>
+                      <span class="text-gray-700 leading-relaxed">{{ usage }}</span>
+                    </li>
+                  }
+                </ul>
               </div>
             }
           </div>
         </div>
-      }
+      </div>
+    </section>
+  }
 
-      <!-- Productos relacionados -->
-      @if (relatedProducts.length > 0) {
-        <div class="bg-white mt-8">
-          <div class="container mx-auto lg:px-12 py-8">
-            <h2 class="text-2xl font-bold text-[#1f7ec2] mb-8 text-center">Productos relacionados</h2>
-            <div class="flex flex-wrap justify-center -mx-3">
-              @for (related of relatedProducts; track related.name) {
-                <div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 px-3 mb-12 relative pb-8 sm:pb-0 flex justify-center">
+  <!-- ================================================================== -->
+    <!-- RECOMENDACIONES DE CONSUMO                                          -->
+    <!-- ================================================================== -->
+  @if (hasContent(product.consumes)) {
+    <section class="bg-white py-14 lg:py-20 px-4 sm:px-6 lg:px-8">
+      <div class="max-w-6xl mx-auto">
+        <div class="text-center max-w-2xl mx-auto mb-12">
+          <span class="inline-block text-xs font-semibold tracking-widest text-[#1f7ec2] uppercase mb-3">
+            Cómo consumirlo
+          </span>
+          <h2 class="text-3xl sm:text-4xl font-bold text-[#0c447c] leading-tight">
+            Recomendaciones de consumo
+          </h2>
+        </div>
 
-                  <!-- Contenedor principal centrado -->
-                  <div class="max-w-xs w-full">
-                    <!-- Línea sutil solo para móvil -->
-                    <div class="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-3/4 h-px bg-blue-300 sm:hidden"></div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+          @for (consume of product.consumes; track consume.step; let last = $last) {
+            <div class="relative bg-gradient-to-br from-sky-50/50 to-white border border-gray-100 rounded-2xl p-6 hover:shadow-xl hover:border-[#1f7ec2]/30 transition-all duration-300">
 
-                    <div class="h-full flex flex-col items-center">
-                      <!-- Contenedor de imagen -->
-                      <div class="bg-white p-2 flex justify-center w-full" style="min-height: 180px;">
-                        <a [routerLink]="['/product', related.name]" class="block group w-full flex justify-center">
-                          <img
-                            [src]="related.imageUrl"
-                            [alt]="related.name"
-                            class="h-full w-auto object-contain hover:scale-105 transition-transform duration-300 max-h-[230px] sm:max-h-none"
-                            (error)="handleImageError($event)">
-                        </a>
-                      </div>
-
-                      <!-- Texto -->
-                      <div class="text-center w-full px-2 mt-3 lg:mt-1">
-                        <h3 class="text-lg font-semibold text-[#1f7ec2] mb-1 lg:mb-0.5 group-hover:text-blue-600 transition-colors">
-                          {{ related.name }}
-                        </h3>
-                        <p class="text-sm text-gray-600 mt-1 lg:mt-0.5">
-                          {{ related.shortDesc }}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
+              <!-- Imagen del paso -->
+              @if (consume.url) {
+                <div class="w-full h-44 mb-5 flex items-center justify-center bg-white rounded-xl overflow-hidden">
+                  <img
+                    [src]="getConsumeImageUrl(consume)"
+                    alt="Paso {{consume.step}}"
+                    class="max-h-full max-w-full object-contain"
+                    (error)="handleImageError($event)"
+                  >
                 </div>
               }
+
+              <!-- Número del paso -->
+              <div class="flex items-center gap-3 mb-3">
+                <div class="w-10 h-10 rounded-full bg-[#1f7ec2] text-white flex items-center justify-center font-bold text-lg shadow-lg shadow-[#1f7ec2]/30">
+                  {{ consume.step }}
+                </div>
+                <h4 class="text-lg font-bold text-[#0c447c]">Paso {{ consume.step }}</h4>
+              </div>
+
+              <p class="text-gray-600 leading-relaxed">{{ consume.description }}</p>
             </div>
-          </div>
+          }
         </div>
-      }
-    }
-  </div>
-</div>
+      </div>
+    </section>
+  }
+
+  <!-- ================================================================== -->
+    <!-- PRODUCTOS RELACIONADOS                                              -->
+    <!-- ================================================================== -->
+  @if (relatedProducts.length > 0) {
+    <section class="bg-gradient-to-b from-sky-50/40 to-white py-14 lg:py-20 px-4 sm:px-6 lg:px-8">
+      <div class="max-w-6xl mx-auto">
+        <div class="flex items-end justify-between mb-10">
+          <div>
+            <span class="inline-block text-xs font-semibold tracking-widest text-[#1f7ec2] uppercase mb-3">
+              También te puede interesar
+            </span>
+            <h2 class="text-3xl sm:text-4xl font-bold text-[#0c447c] leading-tight">
+              Productos relacionados
+            </h2>
+          </div>
+          <a routerLink="/products"
+             class="hidden sm:inline-flex items-center gap-2 text-sm font-semibold text-[#1f7ec2] hover:text-[#0c447c] transition-colors">
+            Ver todos
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+            </svg>
+          </a>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          @for (related of relatedProducts; track related.name) {
+            <a [routerLink]="['/product', related.name]"
+               class="group bg-white rounded-2xl border border-gray-100 overflow-hidden hover:border-[#1f7ec2]/40 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col">
+
+              <!-- Imagen -->
+              <div class="relative bg-gradient-to-br from-sky-50 to-white p-6 flex items-center justify-center" style="min-height: 200px;">
+                <img
+                  [src]="related.imageUrl"
+                  [alt]="related.name"
+                  class="max-h-40 w-auto object-contain group-hover:scale-110 transition-transform duration-500"
+                  (error)="handleImageError($event)"
+                >
+
+                <!-- Badge categoría -->
+                @if (related.categories && related.categories.length > 0) {
+                  <span class="absolute top-3 left-3 px-2.5 py-1 bg-white/90 backdrop-blur-sm border border-[#1f7ec2]/20 text-[#0c447c] text-xs font-semibold rounded-full">
+                    {{ related.categories[0].category.name }}
+                  </span>
+                }
+              </div>
+
+              <!-- Texto -->
+              <div class="p-5 flex-1 flex flex-col">
+                <h3 class="text-lg font-bold text-[#0c447c] mb-2 group-hover:text-[#1f7ec2] transition-colors">
+                  {{ related.name }}
+                </h3>
+                <p class="text-sm text-gray-600 leading-relaxed line-clamp-2 flex-1">
+                  {{ related.shortDesc }}
+                </p>
+
+                <div class="mt-4 pt-4 border-t border-gray-100 flex items-center justify-between">
+                  <span class="text-xs font-medium text-gray-400 uppercase tracking-wider">
+                    Ver detalle
+                  </span>
+                  <svg class="w-4 h-4 text-[#1f7ec2] transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                  </svg>
+                </div>
+              </div>
+            </a>
+          }
+        </div>
+      </div>
+    </section>
+  }
+
+  <!-- RECETAS -->
+  <app-recetas-producto [productoNombre]="product.name"></app-recetas-producto>
+
+}
 
 <!-- Componentes adicionales -->
 <app-categories></app-categories>

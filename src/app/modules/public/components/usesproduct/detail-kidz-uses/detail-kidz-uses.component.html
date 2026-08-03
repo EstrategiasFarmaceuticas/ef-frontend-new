@@ -1,0 +1,93 @@
+<section class="product-uses" [style.--primary]="colors.primary" [style.--secondary]="colors.secondary" [style.--accent]="colors.accent" [style.--text-dark]="colors.textDark" [style.--bg-soft]="colors.backgroundSoft">
+
+  <!-- Fondo dinámico animado -->
+  <div class="dynamic-background">
+    <div class="shape shape-1"></div>
+    <div class="shape shape-2"></div>
+    <div class="shape shape-3"></div>
+    <div class="shape shape-4"></div>
+    <div class="geometric-shape geometric-1"></div>
+    <div class="geometric-shape geometric-2"></div>
+    <div class="geometric-shape geometric-3"></div>
+    <div class="floating-line line-1"></div>
+    <div class="floating-line line-2"></div>
+    <div class="floating-line line-3"></div>
+  </div>
+
+  <div class="container">
+    <!-- Botón volver -->
+    <button class="btn-back" (click)="goBack()">
+      <i class="fas fa-arrow-left"></i> Todos los productos
+    </button>
+
+    <!-- Header -->
+    <div class="uses-header">
+      <h1 class="product-title">Qomplett Kidz<sup>®</sup></h1>
+      <p class="product-subtitle">Soporte nutricional especializado para niños de 4 a 13 años en estrés metabólico</p>
+    </div>
+
+    <!-- Secciones alternadas -->
+    <div class="sections-wrapper">
+      <div *ngFor="let section of sections; let i = index"
+           class="section-block"
+           [class.reverse]="i % 2 !== 0">
+
+        <!-- Lado de la imagen -->
+        <div class="section-image"
+             [style.backgroundImage]="'url(' + section.image + ')'"
+             role="img"
+             [attr.aria-label]="section.title">
+          <div class="image-fallback" *ngIf="!section.image">
+            <i class="fas fa-shield-alt"></i>
+          </div>
+        </div>
+
+        <!-- Lado del texto -->
+        <div class="section-content">
+          <h2>{{ section.title }}</h2>
+          <p class="section-description">{{ section.description }}</p>
+          <ul class="bullet-list">
+            <li *ngFor="let bullet of section.bullets">
+              <i class="fas fa-check-circle"></i> {{ bullet }}
+            </li>
+          </ul>
+          <div class="callout">
+            <i class="fas fa-quote-right"></i>
+            <span>{{ section.callout }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sección Instagram (solo imágenes) -->
+    <div class="instagram-grid-section">
+      <h2 class="section-title">Síguenos en <i class="fab fa-instagram"></i> Instagram</h2>
+      <p class="section-subtitle">Compartimos contenido educativo y novedades sobre nuestros productos</p>
+
+      <div class="instagram-grid">
+        <div class="grid-item" *ngFor="let post of posts">
+          <div class="grid-image" [style.backgroundImage]="'url(' + post.image + ')'"></div>
+        </div>
+      </div>
+
+      <a href="https://instagram.com/estrategias_farmaceuticas" target="_blank" class="instagram-button">
+        <i class="fab fa-instagram"></i> Seguir en Instagram
+      </a>
+    </div>
+
+    <!-- Cierre -->
+    <div class="closing-statement">
+      <div class="statement-card">
+        <p>Más que un suplemento. <span>Nutrición avanzada que protege desde adentro.</span></p>
+        <div class="contact-info">
+          <span><i class="fas fa-phone-alt"></i> +504 9421-1585</span>
+          <span><i class="fas fa-phone-alt"></i> +504 9910-1971</span>
+          <span><i class="fab fa-instagram"></i> &#64;estrategias_farmaceuticas</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Recetas FUERA del section: position:fixed del modal no hereda transforms del fondo animado -->
+<app-recetas-producto productoNombre="Qomplett Kidz"></app-recetas-producto>

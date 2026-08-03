@@ -1,17 +1,36 @@
-FROM node:22.14.0 as build
+from node:22-alpine as build
 
-WORKDIR /app
+workdir /app
 
-COPY package.json ./
+env NODE_OPTIONS="--max-old-space-size=4096"
 
-RUN npm install
+# Instalar bun
+run npm install -g bun
 
-RUN npm install -g @angular/cli
+copy package.json bun.lock ./
 
-COPY . .
+run bun install
 
-RUN npm run build
+copy . .
 
-EXPOSE 4200
+run bun run build
 
-CMD [ "npm", "run", "serve:ssr:ef-frontend-new" ]
+from node:22-alpine
+
+workdir /app
+
+env NODE_ENV=production
+env NODE_OPTIONS="--max-old-space-size=2048"
+
+# Instalar bun en la imagen de runtime
+run npm install -g bun
+
+copy package.json bun.lock ./
+
+run bun install --production
+
+copy --from=build /app/dist ./dist
+
+expose 4200
+
+cmd [ "bun", "run", "serve:ssr:ef-frontend-new" ]

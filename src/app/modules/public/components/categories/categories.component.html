@@ -1,64 +1,105 @@
-<div class="bg-white py-8 px-4 sm:px-6 lg:px-8">
-  <div class="max-w-6xl mx-auto">
-    <!-- Título -->
-    <h2 class="text-3xl font-bold text-[#1f7ec2] mb-8 text-center">
-      Categorías
-    </h2>
 
-    <!-- Descripción -->
-    <p class="text-lg text-gray-600 mb-12 text-center">
-      All of our products are clinically supported and provide cost-effective solutions to address over 20 common conditions. Most importantly, the products deliver the outcomes you desire for your patients and improve both staff and patient dignity without the use of unnecessary medications.
-    </p>
+<section class="bg-white py-14 lg:py-20 px-4 sm:px-6 lg:px-8">
+  <div class="max-w-6xl mx-auto">
+
+    <!-- Header de la sección -->
+    <div class="text-center max-w-2xl mx-auto mb-12">
+      <span class="inline-block text-xs font-semibold tracking-widest text-[#1f7ec2] uppercase mb-3">
+        Soluciones por necesidad
+      </span>
+      <h2 class="text-3xl sm:text-4xl font-bold text-[#0c447c] mb-4 leading-tight">
+        Categorías clínicas
+      </h2>
+      <p class="text-base sm:text-lg text-gray-600 leading-relaxed">
+        Cada categoría agrupa productos diseñados para abordar necesidades clínicas
+        específicas, con respaldo científico y soluciones costo-efectivas para
+        profesionales y pacientes.
+      </p>
+    </div>
 
     <!-- Loading State -->
     @if (isLoading) {
-      <div class="text-center py-10">
-        <div class="inline-block animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-blue-500 mb-2"></div>
-        <p class="text-gray-600">Cargando categorías...</p>
+      <div class="py-16 flex flex-col items-center justify-center">
+        <div class="animate-spin rounded-full h-10 w-10 border-2 border-gray-200 border-t-[#1f7ec2] mb-4"></div>
+        <p class="text-gray-500 text-sm">Cargando categorías...</p>
       </div>
     }
 
     <!-- Empty State -->
     @if (!isLoading && categories.length === 0) {
-      <div class="text-center py-10">
-        <p class="text-gray-600">No se encontraron categorías</p>
+      <div class="py-16 text-center">
+        <div class="w-14 h-14 mx-auto mb-4 rounded-full bg-sky-50 flex items-center justify-center">
+          <svg class="w-7 h-7 text-[#1f7ec2]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>
+          </svg>
+        </div>
+        <p class="text-gray-700 font-semibold mb-1">No hay categorías disponibles</p>
+        <p class="text-gray-500 text-sm">Por ahora no hay categorías que mostrar.</p>
       </div>
     }
 
-    <!-- Categories Grid -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-      @for (category of categories; track category.name) {
-        <button
-          (click)="selectCategory(category)"
-          class="relative h-48 rounded-lg overflow-hidden shadow-md hover:shadow-lg transition duration-200 transform hover:scale-105 group focus:outline-none"
-          [attr.aria-label]="'Ver productos de ' + category.name"
-        >
-          <!-- Category Image -->
-          @if (category.imageUrl) {
-            <img
-              [src]="category.imageUrl"
-              [alt]="category.name"
-              class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-              (error)="handleImageError($event)"
-            />
-          } @else {
-            <div class="absolute inset-0 bg-gradient-to-br from-gray-200 to-gray-300 flex items-center justify-center">
-              <span class="text-gray-500 text-sm font-medium">Imagen no disponible</span>
+    <!-- Grid de categorías -->
+    @if (!isLoading && categories.length > 0) {
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        @for (category of categories; track category.name; let i = $index) {
+          <button
+            (click)="selectCategory(category)"
+            class="group relative aspect-[4/5] rounded-2xl overflow-hidden focus:outline-none focus-visible:ring-2 focus-visible:ring-[#1f7ec2] focus-visible:ring-offset-2 hover:-translate-y-1 transition-transform duration-300"
+            [attr.aria-label]="'Ver productos de ' + category.name"
+            [style.animation-delay]="(i * 60) + 'ms'"
+          >
+            <!-- Imagen de la categoría -->
+            @if (category.imageUrl) {
+              <img
+                [src]="category.imageUrl"
+                [alt]="category.name"
+                class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                (error)="handleImageError($event)"
+              />
+            } @else {
+              <div class="absolute inset-0 bg-gradient-to-br from-sky-100 to-sky-200"></div>
+            }
+
+            <!-- Overlay azul corporativo (más sutil en hover) -->
+            <div class="absolute inset-0 bg-gradient-to-t from-[#0c447c] via-[#0c447c]/70 to-[#0c447c]/20 group-hover:from-[#0c447c]/95 group-hover:via-[#1f7ec2]/60 group-hover:to-[#1f7ec2]/20 transition-all duration-500"></div>
+
+            <!-- Borde interno sutil al hacer hover -->
+            <div class="absolute inset-0 ring-1 ring-inset ring-white/0 group-hover:ring-white/20 transition-all duration-300 rounded-2xl"></div>
+
+            <!-- Información de la categoría (abajo) -->
+            <div class="absolute inset-x-0 bottom-0 p-5 lg:p-6 text-left">
+              <!-- Nombre -->
+              <h3 class="text-xl lg:text-2xl font-bold text-white mb-1.5 leading-tight drop-shadow-sm">
+                {{ category.name }}
+              </h3>
+
+              <!-- Descripción de la categoría (si existe) -->
+              @if (category.description) {
+                <p class="text-sm text-white/85 leading-snug line-clamp-2 mb-3 max-h-0 group-hover:max-h-20 opacity-0 group-hover:opacity-100 overflow-hidden transition-all duration-500">
+                  {{ category.description }}
+                </p>
+              }
+
+              <!-- CTA -->
+              <div class="flex items-center gap-2 text-sm font-semibold text-white">
+                <span>Ver productos</span>
+                <svg class="w-4 h-4 transform group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+                </svg>
+              </div>
             </div>
-          }
 
-          <!-- Overlay -->
-          <div class="absolute inset-0 bg-black/40 group-hover:bg-black/30 transition-all duration-300"></div>
+            <!-- Pequeño indicador en esquina superior derecha -->
+            <div class="absolute top-4 right-4 w-9 h-9 rounded-full bg-white/15 backdrop-blur-sm border border-white/30 flex items-center justify-center opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all duration-300">
+              <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+              </svg>
+            </div>
+          </button>
+        }
+      </div>
+    }
 
-          <!-- Category Info -->
-          <div class="absolute inset-0 flex flex-col items-center justify-center p-4 text-center">
-            <h3 class="text-xl font-semibold text-white mb-1 drop-shadow-md">{{ category.name }}</h3>
-            <span class="text-white/90 text-sm drop-shadow-md group-hover:text-white transition-colors">
-          Ver productos
-        </span>
-          </div>
-        </button>
-      }
-    </div>
   </div>
-</div>
+</section>

@@ -1,0 +1,67 @@
+<article class="group bg-white rounded-2xl border border-gray-100 overflow-hidden hover:border-[#1f7ec2]/40 hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 flex flex-col">
+
+  <!-- Header: imagen real si existe, gradiente si no -->
+  @if (receta().imageUrl && !imgError()) {
+    <div class="relative aspect-[16/7] overflow-hidden">
+      <img
+        [src]="receta().imageUrl"
+        [alt]="receta().titulo"
+        class="w-full h-full object-cover"
+        (error)="onImgError()"
+      />
+      <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end pb-4 px-4">
+        <span class="text-white font-bold text-lg leading-snug drop-shadow">{{ receta().titulo }}</span>
+      </div>
+    </div>
+  } @else {
+    <div [class]="'relative aspect-[16/7] bg-gradient-to-br ' + receta().gradiente + ' flex flex-col items-center justify-center gap-3 overflow-hidden'">
+      <div class="absolute -top-8 -right-8 w-32 h-32 rounded-full bg-white/10 pointer-events-none"></div>
+      <div class="absolute -bottom-6 -left-6 w-24 h-24 rounded-full bg-white/10 pointer-events-none"></div>
+      <svg [class]="'relative w-10 h-10 ' + receta().iconColor" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M12 8.25v-1.5m0 1.5c-1.355 0-2.697.056-4.024.166C6.845 8.51 6 9.473 6 10.608v2.513m6-4.871c1.355 0 2.697.056 4.024.166C17.155 8.51 18 9.473 18 10.608v2.513M15 8.25v-1.5M6 13.121V18a2.25 2.25 0 002.25 2.25h7.5A2.25 2.25 0 0018 18v-4.879M6 13.121c.316.02.633.038.952.054M18 13.121a44.1 44.1 0 00-.952.054M6.952 13.175a44.066 44.066 0 004.048.176 44.066 44.066 0 004.048-.176"/>
+      </svg>
+      <span class="relative text-white font-bold text-lg text-center px-4 leading-snug">{{ receta().titulo }}</span>
+    </div>
+  }
+
+  <!-- Cuerpo -->
+  <div class="p-5 flex-1 flex flex-col">
+
+    <!-- Meta -->
+    <div class="flex items-center gap-2 flex-wrap mb-3">
+      <span class="flex items-center gap-1.5 text-xs text-gray-500">
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+        </svg>
+        {{ receta().tiempo }}
+      </span>
+      <span class="text-gray-200">·</span>
+      <span [class]="'px-2 py-0.5 rounded-full text-xs font-semibold ' + dificultadColor()">
+        {{ receta().dificultad }}
+      </span>
+      <span class="text-gray-200">·</span>
+      <span class="flex items-center gap-1.5 text-xs text-gray-500">
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/>
+        </svg>
+        {{ receta().porciones }} {{ receta().porciones === 1 ? 'porción' : 'porciones' }}
+      </span>
+    </div>
+
+    <p class="text-sm text-gray-600 leading-relaxed flex-1 mb-5">{{ receta().descripcionCorta }}</p>
+
+    <button
+      (click)="verReceta.emit(receta())"
+      class="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-xl border border-[#1f7ec2] text-[#1f7ec2] text-sm font-semibold hover:bg-[#1f7ec2] hover:text-white transition-all duration-200 overflow-hidden relative"
+    >
+      <svg class="w-4 h-4 transition-transform duration-200 group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+      </svg>
+      Ver receta completa
+      <svg class="w-3.5 h-3.5 translate-x-0 group-hover:translate-x-1 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/>
+      </svg>
+    </button>
+  </div>
+</article>
