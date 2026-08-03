@@ -1,12 +1,10 @@
 import { Component } from '@angular/core';
-import {Location, NgForOf, NgIf} from "@angular/common";
+import { Location, NgForOf, NgIf } from '@angular/common';
+import { RecetasProductoComponent } from '@module/public/components/recetas/recetas-producto/recetas-producto.component';
 
 @Component({
   selector: 'app-detail-protein-uses',
-  imports: [
-    NgForOf,
-    NgIf
-  ],
+  imports: [NgForOf, NgIf, RecetasProductoComponent],
   templateUrl: './detail-protein-uses.component.html',
   styleUrl: './detail-protein-uses.component.css'
 })

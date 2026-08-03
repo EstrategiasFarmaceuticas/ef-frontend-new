@@ -1,0 +1,74 @@
+@if (actividades.length > 0) {
+<section class="bg-gradient-to-b from-sky-50/60 to-white py-16 sm:py-20 px-4 sm:px-6 lg:px-8" appScrollReveal>
+  <div class="max-w-6xl mx-auto">
+
+    <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-12">
+      <div>
+        <span class="inline-block text-xs font-semibold tracking-widest text-[#1f7ec2] uppercase mb-3">
+          Actividades recientes
+        </span>
+        <h2 class="text-3xl sm:text-4xl font-bold text-[#0c447c] leading-tight">
+          Lo que hacemos<br class="hidden sm:block" /> en el campo.
+        </h2>
+        <p class="text-base text-gray-600 leading-relaxed mt-3 max-w-lg">
+          Capacitaciones, ferias y jornadas que refuerzan nuestra presencia clínica en toda la región.
+        </p>
+      </div>
+      <a routerLink="/actividades"
+         class="inline-flex items-center gap-2 text-sm font-semibold text-[#1f7ec2] hover:text-[#0c447c] transition-colors flex-shrink-0">
+        Ver todas
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+        </svg>
+      </a>
+    </div>
+
+    <!-- Desktop: grid -->
+    <div class="hidden lg:grid grid-cols-3 gap-6">
+      @for (actividad of actividades; track actividad.slug) {
+        <app-actividad-card [actividad]="actividad"></app-actividad-card>
+      }
+    </div>
+
+    <!-- Mobile/Tablet: carousel -->
+    <div class="lg:hidden">
+      <div class="overflow-hidden">
+        <div
+          class="flex transition-transform duration-500 ease-in-out"
+          [style.transform]="'translateX(-' + currentIndex() * 100 + '%)'">
+          @for (actividad of actividades; track actividad.slug) {
+            <div class="w-full flex-shrink-0 px-1">
+              <app-actividad-card [actividad]="actividad"></app-actividad-card>
+            </div>
+          }
+        </div>
+      </div>
+
+      @if (actividades.length > 1) {
+        <div class="flex items-center justify-center gap-4 mt-6">
+          <button (click)="prev()" class="w-9 h-9 rounded-full border border-gray-200 flex items-center justify-center text-gray-500 hover:border-[#1f7ec2] hover:text-[#1f7ec2] transition-colors" aria-label="Anterior">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+            </svg>
+          </button>
+          <div class="flex gap-2">
+            @for (actividad of actividades; track actividad.slug; let i = $index) {
+              <button
+                (click)="goTo(i)"
+                [class]="'w-2 h-2 rounded-full transition-all duration-300 ' + (currentIndex() === i ? 'bg-[#1f7ec2] w-5' : 'bg-gray-300')"
+                [attr.aria-label]="'Ir a actividad ' + (i + 1)">
+              </button>
+            }
+          </div>
+          <button (click)="next()" class="w-9 h-9 rounded-full border border-gray-200 flex items-center justify-center text-gray-500 hover:border-[#1f7ec2] hover:text-[#1f7ec2] transition-colors" aria-label="Siguiente">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+            </svg>
+          </button>
+        </div>
+      }
+    </div>
+
+  </div>
+</section>
+}

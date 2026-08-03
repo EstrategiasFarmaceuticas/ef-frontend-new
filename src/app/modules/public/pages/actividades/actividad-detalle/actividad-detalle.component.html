@@ -1,0 +1,206 @@
+@if (actividad) {
+
+<!-- HERO IMAGE -->
+<div class="relative w-full h-[300px] lg:h-[400px] overflow-hidden bg-[#0c447c]">
+  <img
+    [src]="actividad.imagenPrincipal"
+    [alt]="actividad.titulo"
+    class="w-full h-full object-cover"
+  />
+  <div class="absolute inset-0 bg-gradient-to-t from-[#0c447c]/85 via-[#0c447c]/30 to-transparent"></div>
+
+  <div class="absolute bottom-0 left-0 right-0 p-6 lg:p-12 max-w-6xl mx-auto">
+    <a routerLink="/actividades"
+       class="inline-flex items-center gap-2 text-white/80 hover:text-white text-sm font-medium mb-5 transition-colors">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+      </svg>
+      Volver a Actividades
+    </a>
+
+    <div class="flex flex-wrap gap-2 mb-4">
+      @for (tag of actividad.tags; track tag.label) {
+        <span [class]="'px-3 py-1 rounded-full text-xs font-semibold ' + tagColorClass(tag.color)">
+          {{ tag.label }}
+        </span>
+      }
+    </div>
+
+    <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4 leading-tight max-w-3xl">
+      {{ actividad.titulo }}
+    </h1>
+
+    <div class="flex items-center gap-4 text-white/80 text-sm flex-wrap">
+      <span class="flex items-center gap-1.5">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+        </svg>
+        <time [attr.datetime]="actividad.fecha">{{ actividad.fecha | date: 'd MMMM, y' }}</time>
+      </span>
+      <span class="flex items-center gap-1.5">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+        </svg>
+        {{ actividad.lugar }}
+      </span>
+    </div>
+  </div>
+</div>
+
+<!-- TEXTO COMPLETO -->
+<section class="bg-white py-14 lg:py-20 px-4 sm:px-6 lg:px-8">
+  <div class="max-w-3xl mx-auto">
+    @for (parrafo of descriptionParagraphs(); track $index) {
+      <p class="text-gray-600 text-lg leading-relaxed mb-6 text-justify">{{ parrafo }}</p>
+    }
+  </div>
+</section>
+
+<!-- GALERÍA -->
+@if (actividad.galeria.length > 0) {
+<section class="bg-gradient-to-b from-sky-50 to-white py-14 lg:py-20 px-4 sm:px-6 lg:px-8" appScrollReveal>
+  <div class="max-w-6xl mx-auto">
+    <h2 class="text-2xl font-bold text-[#0c447c] mb-2">Galería de fotos</h2>
+    <div class="w-12 h-1 bg-[#1f7ec2] rounded-full mb-8"></div>
+
+    <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
+      @for (foto of actividad.galeria; track foto; let i = $index) {
+        <button
+          (click)="openLightbox(i)"
+          class="group relative aspect-[4/3] overflow-hidden rounded-xl bg-sky-50 cursor-zoom-in focus:outline-none focus:ring-2 focus:ring-[#1f7ec2]">
+          <img
+            [src]="foto"
+            [alt]="actividad.titulo + ' - foto ' + (i + 1)"
+            class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+          />
+          <div class="absolute inset-0 bg-[#0c447c]/0 group-hover:bg-[#0c447c]/25 transition-colors duration-300 flex items-center justify-center">
+            <svg class="w-8 h-8 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"/>
+            </svg>
+          </div>
+        </button>
+      }
+    </div>
+  </div>
+</section>
+}
+
+<!-- LIGHTBOX -->
+@if (lightboxOpen && actividad.galeria.length > 0) {
+  <div
+    class="fixed inset-0 z-[100] bg-black/92 flex items-center justify-center"
+    (click)="closeLightbox()">
+
+    <button
+      (click)="$event.stopPropagation(); closeLightbox()"
+      class="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-colors"
+      aria-label="Cerrar">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+      </svg>
+    </button>
+
+    @if (actividad.galeria.length > 1) {
+      <button
+        (click)="$event.stopPropagation(); prevPhoto()"
+        class="absolute left-4 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-colors"
+        aria-label="Anterior">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+        </svg>
+      </button>
+      <button
+        (click)="$event.stopPropagation(); nextPhoto()"
+        class="absolute right-4 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-colors"
+        aria-label="Siguiente">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+        </svg>
+      </button>
+    }
+
+    <img
+      (click)="$event.stopPropagation()"
+      [src]="actividad.galeria[lightboxIndex]"
+      [alt]="actividad.titulo"
+      class="max-w-[90vw] max-h-[88vh] object-contain rounded-lg shadow-2xl"
+    />
+
+    @if (actividad.galeria.length > 1) {
+      <div class="absolute bottom-4 left-0 right-0 flex justify-center gap-2">
+        @for (foto of actividad.galeria; track foto; let i = $index) {
+          <button
+            (click)="$event.stopPropagation(); lightboxIndex = i"
+            [class]="'h-1.5 rounded-full transition-all duration-300 ' + (lightboxIndex === i ? 'w-6 bg-white' : 'w-1.5 bg-white/40')"
+            [attr.aria-label]="'Foto ' + (i + 1)">
+          </button>
+        }
+      </div>
+    }
+  </div>
+}
+
+<!-- NAVEGACIÓN PREV / NEXT -->
+@if (prevActividad || nextActividad) {
+<section class="bg-white border-t border-gray-100 py-10 px-4 sm:px-6 lg:px-8">
+  <div class="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 gap-4">
+    @if (prevActividad) {
+      <a [routerLink]="['/actividades', prevActividad.slug]"
+         class="group flex items-center gap-4 p-4 rounded-xl border border-gray-100 hover:border-[#1f7ec2]/40 hover:shadow-md transition-all duration-200">
+        <div class="flex-shrink-0 w-9 h-9 rounded-full border border-gray-200 group-hover:border-[#1f7ec2] flex items-center justify-center text-gray-400 group-hover:text-[#1f7ec2] transition-colors">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+          </svg>
+        </div>
+        <div>
+          <p class="text-xs text-gray-400 mb-0.5">Anterior</p>
+          <p class="text-sm font-semibold text-[#0c447c] group-hover:text-[#1f7ec2] transition-colors line-clamp-1">{{ prevActividad.titulo }}</p>
+        </div>
+      </a>
+    } @else {
+      <div></div>
+    }
+
+    @if (nextActividad) {
+      <a [routerLink]="['/actividades', nextActividad.slug]"
+         class="group flex items-center gap-4 p-4 rounded-xl border border-gray-100 hover:border-[#1f7ec2]/40 hover:shadow-md transition-all duration-200 sm:flex-row-reverse sm:text-right">
+        <div class="flex-shrink-0 w-9 h-9 rounded-full border border-gray-200 group-hover:border-[#1f7ec2] flex items-center justify-center text-gray-400 group-hover:text-[#1f7ec2] transition-colors">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+          </svg>
+        </div>
+        <div>
+          <p class="text-xs text-gray-400 mb-0.5">Siguiente</p>
+          <p class="text-sm font-semibold text-[#0c447c] group-hover:text-[#1f7ec2] transition-colors line-clamp-1">{{ nextActividad.titulo }}</p>
+        </div>
+      </a>
+    }
+  </div>
+</section>
+}
+
+<!-- CTA FINAL -->
+<section class="bg-gradient-to-br from-[#1f7ec2] to-[#0c447c] py-16 px-4 sm:px-6 lg:px-8 text-center">
+  <div class="max-w-2xl mx-auto">
+    <h2 class="text-2xl sm:text-3xl font-bold text-white mb-4">¿Quieres conocer nuestros productos?</h2>
+    <p class="text-white/85 mb-8 leading-relaxed">
+      Descubre Glutaprot-Bio y toda nuestra línea de farmaconutrición clínica.
+    </p>
+    <div class="flex flex-col sm:flex-row gap-3 justify-center">
+      <a routerLink="/products"
+         class="inline-flex items-center justify-center gap-2 bg-white text-[#0c447c] font-semibold py-3 px-7 rounded-lg hover:bg-sky-50 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200">
+        Ver productos
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+        </svg>
+      </a>
+      <a routerLink="/about"
+         class="inline-flex items-center justify-center gap-2 bg-transparent text-white font-semibold py-3 px-7 rounded-lg border border-white/40 hover:bg-white/10 transition-all duration-200">
+        Conoce más
+      </a>
+    </div>
+  </div>
+</section>
+
+}

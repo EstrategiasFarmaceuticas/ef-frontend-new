@@ -12,6 +12,8 @@ import {BlogArticleComponent} from './modules/public/pages/blog/blog-article/blo
 import {CallProductsComponent} from '@module/public/pages/products/call-products/call-products.component';
 import {UsesproductComponent} from '@module/public/components/usesproduct/usesproduct.component';
 import {PortfolioComponent} from './modules/public/pages/portfolio/portfolio.component';
+import {ActividadesComponent} from './modules/public/pages/actividades/actividades.component';
+import {ActividadDetalleComponent} from './modules/public/pages/actividades/actividad-detalle/actividad-detalle.component';
 import {
   DetailGlutaprotUsesComponent
 } from '@module/public/components/usesproduct/detail-glutaprot-uses/detail-glutaprot-uses.component';
@@ -43,6 +45,8 @@ export const routes: Routes = [
       {path: 'uses/protein', component: DetailProteinUsesComponent},
       {path: 'category/:name', component: CallToCategoriesComponent },
       {path: 'portafolio', component: PortfolioComponent},
+      {path: 'actividades', component: ActividadesComponent},
+      {path: 'actividades/:slug', component: ActividadDetalleComponent},
       {path: 'blog', component: BlogComponent, children: [
           {path: '', component: BlogListComponent},
           {path:':url', component: BlogArticleComponent}

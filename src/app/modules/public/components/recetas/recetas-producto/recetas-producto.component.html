@@ -1,0 +1,193 @@
+@if (recetas().length > 0) {
+
+  <section class="bg-gradient-to-b from-sky-50/50 to-white py-14 lg:py-20 px-4 sm:px-6 lg:px-8" appScrollReveal>
+    <div class="max-w-5xl mx-auto">
+
+      <div class="text-center max-w-2xl mx-auto mb-12">
+        <span class="inline-block text-xs font-semibold tracking-widest text-[#1f7ec2] uppercase mb-3">
+          Recetas
+        </span>
+        <h2 class="text-3xl sm:text-4xl font-bold text-[#0c447c] mb-4 leading-tight">
+          Recetas con {{ productoNombre() }}
+        </h2>
+        <p class="text-base text-gray-600 leading-relaxed">
+          Formas deliciosas y fáciles de incorporar {{ productoNombre() }} en tu rutina diaria
+          para aprovechar al máximo sus beneficios.
+        </p>
+      </div>
+
+      <!-- Cards escalonadas: cada wrapper tiene su propio delay de entrada -->
+      <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 justify-items-center">
+        @for (receta of recetas(); track receta.slug; let i = $index) {
+          <div
+            class="w-full max-w-sm animate-card-in"
+            [style.animation-delay]="(i * 150) + 'ms'"
+          >
+            <app-receta-card
+              [receta]="receta"
+              (verReceta)="abrirModal($event)"
+            ></app-receta-card>
+          </div>
+        }
+      </div>
+
+    </div>
+  </section>
+
+  @if (recetaSeleccionada()) {
+    <!-- Overlay con fadeIn propio, panel con bounce -->
+    <div
+      class="fixed inset-0 z-[60] flex items-center justify-center p-4 sm:p-6 animate-fadeIn"
+      (click)="cerrarModal()"
+      role="dialog"
+      aria-modal="true"
+    >
+      <div class="absolute inset-0 bg-black/60 backdrop-blur-sm"></div>
+
+      <div
+        class="relative bg-white rounded-3xl shadow-2xl w-full max-w-3xl max-h-[90vh] flex flex-col overflow-hidden animate-modal-in"
+        (click)="$event.stopPropagation()"
+      >
+        <!-- Cabecera: imagen real o gradiente -->
+        @if (recetaSeleccionada()!.imageUrl && !modalImgError()) {
+          <div class="relative overflow-hidden flex-shrink-0" style="min-height: 200px;">
+            <img
+              [src]="recetaSeleccionada()!.imageUrl"
+              [alt]="recetaSeleccionada()!.titulo"
+              class="w-full h-52 object-cover"
+              (error)="onModalImgError()"
+            />
+            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent"></div>
+
+            <button
+              (click)="cerrarModal()"
+              class="absolute top-4 right-4 z-10 w-9 h-9 flex items-center justify-center rounded-full bg-black/30 hover:bg-black/50 text-white transition-all duration-200 hover:scale-110"
+              aria-label="Cerrar"
+            >
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+              </svg>
+            </button>
+
+            <div class="absolute bottom-0 left-0 right-0 px-6 pb-5">
+              <h3 class="text-white font-bold text-xl sm:text-2xl leading-tight drop-shadow">{{ recetaSeleccionada()!.titulo }}</h3>
+              <p class="text-white/80 text-sm mt-1 leading-relaxed line-clamp-2">{{ recetaSeleccionada()!.descripcionCorta }}</p>
+              <div class="flex flex-wrap gap-2 mt-3">
+                <span class="flex items-center gap-1.5 px-3 py-1.5 bg-white/20 backdrop-blur-sm text-white text-xs font-medium rounded-full">
+                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                  </svg>
+                  {{ recetaSeleccionada()!.tiempo }}
+                </span>
+                <span class="px-3 py-1.5 text-xs font-medium rounded-full bg-white/20 backdrop-blur-sm text-white">
+                  {{ recetaSeleccionada()!.dificultad }}
+                </span>
+                <span class="flex items-center gap-1.5 px-3 py-1.5 bg-white/20 backdrop-blur-sm text-white text-xs font-medium rounded-full">
+                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/>
+                  </svg>
+                  {{ recetaSeleccionada()!.porciones }} {{ recetaSeleccionada()!.porciones === 1 ? 'porción' : 'porciones' }}
+                </span>
+              </div>
+            </div>
+          </div>
+        } @else {
+          <div [class]="'relative bg-gradient-to-br ' + recetaSeleccionada()!.gradiente + ' px-6 pt-6 pb-8 flex-shrink-0'">
+            <div class="absolute -top-6 -right-6 w-40 h-40 rounded-full bg-white/10 pointer-events-none"></div>
+            <div class="absolute -bottom-4 -left-4 w-28 h-28 rounded-full bg-white/10 pointer-events-none"></div>
+
+            <button
+              (click)="cerrarModal()"
+              class="absolute top-4 right-4 z-10 w-9 h-9 flex items-center justify-center rounded-full bg-white/20 hover:bg-white/40 text-white transition-all duration-200 hover:scale-110"
+              aria-label="Cerrar"
+            >
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+              </svg>
+            </button>
+
+            <div class="relative flex items-start gap-4 pr-10">
+              <div class="w-12 h-12 rounded-2xl bg-white/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <svg [class]="'w-6 h-6 ' + recetaSeleccionada()!.iconColor" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 8.25v-1.5m0 1.5c-1.355 0-2.697.056-4.024.166C6.845 8.51 6 9.473 6 10.608v2.513m6-4.871c1.355 0 2.697.056 4.024.166C17.155 8.51 18 9.473 18 10.608v2.513M15 8.25v-1.5M6 13.121V18a2.25 2.25 0 002.25 2.25h7.5A2.25 2.25 0 0018 18v-4.879M6 13.121c.316.02.633.038.952.054M18 13.121a44.1 44.1 0 00-.952.054M6.952 13.175a44.066 44.066 0 004.048.176 44.066 44.066 0 004.048-.176"/>
+                </svg>
+              </div>
+              <div>
+                <h3 class="text-white font-bold text-xl sm:text-2xl leading-tight">{{ recetaSeleccionada()!.titulo }}</h3>
+                <p class="text-white/80 text-sm mt-1 leading-relaxed">{{ recetaSeleccionada()!.descripcionCorta }}</p>
+              </div>
+            </div>
+
+            <div class="relative flex flex-wrap gap-2 mt-5">
+              <span class="flex items-center gap-1.5 px-3 py-1.5 bg-white/20 text-white text-xs font-medium rounded-full">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+                {{ recetaSeleccionada()!.tiempo }}
+              </span>
+              <span class="px-3 py-1.5 text-xs font-medium rounded-full bg-white/20 text-white">
+                {{ recetaSeleccionada()!.dificultad }}
+              </span>
+              <span class="flex items-center gap-1.5 px-3 py-1.5 bg-white/20 text-white text-xs font-medium rounded-full">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/>
+                </svg>
+                {{ recetaSeleccionada()!.porciones }} {{ recetaSeleccionada()!.porciones === 1 ? 'porción' : 'porciones' }}
+              </span>
+            </div>
+          </div>
+        }
+
+        <!-- Contenido scrollable -->
+        <div class="overflow-y-auto flex-1 p-6 sm:p-8">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
+
+            <div>
+              <h4 class="flex items-center gap-2 text-sm font-bold text-[#0c447c] uppercase tracking-wider mb-4">
+                <span class="w-7 h-7 rounded-lg bg-sky-100 flex items-center justify-center flex-shrink-0">
+                  <svg class="w-4 h-4 text-[#1f7ec2]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/>
+                  </svg>
+                </span>
+                Ingredientes
+              </h4>
+              <ul class="space-y-3">
+                @for (ingrediente of recetaSeleccionada()!.ingredientes; track ingrediente) {
+                  <li class="flex items-start gap-3 text-sm text-gray-700 leading-relaxed">
+                    <span class="flex-shrink-0 w-5 h-5 rounded-full bg-sky-100 flex items-center justify-center mt-0.5">
+                      <span class="w-1.5 h-1.5 rounded-full bg-[#1f7ec2]"></span>
+                    </span>
+                    {{ ingrediente }}
+                  </li>
+                }
+              </ul>
+            </div>
+
+            <div>
+              <h4 class="flex items-center gap-2 text-sm font-bold text-[#0c447c] uppercase tracking-wider mb-4">
+                <span class="w-7 h-7 rounded-lg bg-sky-100 flex items-center justify-center flex-shrink-0">
+                  <svg class="w-4 h-4 text-[#1f7ec2]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/>
+                  </svg>
+                </span>
+                Preparación
+              </h4>
+              <ol class="space-y-3">
+                @for (paso of recetaSeleccionada()!.pasos; track paso; let i = $index) {
+                  <li class="flex items-start gap-3 text-sm text-gray-700 leading-relaxed">
+                    <span class="flex-shrink-0 w-6 h-6 rounded-full bg-[#1f7ec2] text-white text-xs font-bold flex items-center justify-center mt-0.5">
+                      {{ i + 1 }}
+                    </span>
+                    {{ paso }}
+                  </li>
+                }
+              </ol>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  }
+
+}

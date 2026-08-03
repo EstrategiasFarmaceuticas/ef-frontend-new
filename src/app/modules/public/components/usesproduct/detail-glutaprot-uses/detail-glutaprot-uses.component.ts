@@ -1,13 +1,11 @@
 import { Component } from '@angular/core';
-import {Location, NgForOf, NgIf} from '@angular/common';
+import { Location, NgForOf, NgIf } from '@angular/common';
+import { RecetasProductoComponent } from '@module/public/components/recetas/recetas-producto/recetas-producto.component';
 
 @Component({
   selector: 'app-glutaprot-uses',
   templateUrl: './detail-glutaprot-uses.component.html',
-  imports: [
-    NgForOf,
-    NgIf
-  ],
+  imports: [NgForOf, NgIf, RecetasProductoComponent],
   styleUrls: ['./detail-glutaprot-uses.component.css']
 })
 export class DetailGlutaprotUsesComponent {

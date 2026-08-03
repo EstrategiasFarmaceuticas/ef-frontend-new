@@ -18,6 +18,7 @@ export class NavbarComponent {
     { path: '/about', label: 'Nosotros', exact: false },
     { path: '/uses', label: 'Usos', exact: false },
     { path: '/blog', label: 'Blog', exact: false },
+    { path: '/actividades', label: 'Actividades', exact: false },
     { path: '/portafolio', label: 'Portafolio', exact: false },
   ];
 

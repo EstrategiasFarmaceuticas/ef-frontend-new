@@ -1,12 +1,10 @@
 import { Component } from '@angular/core';
-import {Location, NgForOf, NgIf} from "@angular/common";
+import { Location, NgForOf, NgIf } from '@angular/common';
+import { RecetasProductoComponent } from '@module/public/components/recetas/recetas-producto/recetas-producto.component';
 
 @Component({
   selector: 'app-detail-oncare-uses',
-    imports: [
-        NgForOf,
-        NgIf
-    ],
+    imports: [NgForOf, NgIf, RecetasProductoComponent],
   templateUrl: './detail-oncare-uses.component.html',
   styleUrl: './detail-oncare-uses.component.css'
 })
